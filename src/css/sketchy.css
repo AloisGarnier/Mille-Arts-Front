@@ -7701,10 +7701,6 @@ textarea.form-control-lg {
   margin-right: 3rem !important;
 }
 
-.me-auto {
-  margin-right: auto !important;
-}
-
 .mb-0 {
   margin-bottom: 0 !important;
 }
@@ -7755,10 +7751,6 @@ textarea.form-control-lg {
 
 .ms-5 {
   margin-left: 3rem !important;
-}
-
-.ms-auto {
-  margin-left: auto !important;
 }
 
 .p-0 {
@@ -8215,7 +8207,7 @@ textarea.form-control-lg {
 
 .bg-light {
   --bs-bg-opacity: 1;
-  background-color: rgba(var(--bs-light-rgb), var(--bs-bg-opacity)) !important;
+  background-color: rgba(var(--bs-light-rgb), var(--bs-bg-opacity));
 }
 
 .bg-dark {

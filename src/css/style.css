@@ -2,3 +2,31 @@
 .text-line-through { text-decoration: line-through; }
 .cursor-pointer { cursor: pointer; }
 .h-200 { height: 200%; }
+
+body {
+    background-color: #a5dee8 !important;
+}
+
+.navbar-brand {
+    font-family:"Montez" !important;
+    font-size: 40px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.navbar-right {
+    justify-content: right !important;
+}
+
+.btn-link {
+    font-size: 20px !important;
+}
+
+.bg-light {
+    background-color:#ed7179 !important;
+}
+
+@font-face {
+    font-family: "Montez";
+    src: url(../webfonts/Montez-Regular.ttf);
+  }
