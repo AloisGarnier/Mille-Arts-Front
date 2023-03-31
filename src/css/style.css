@@ -31,13 +31,21 @@ body {
 }
 
 .single-card {
-    max-width: 20rem;
+    width: 300px;
+    height: 300px !important;
     margin: 5rem;
+    transition: all .4s ease;
+}
+
+.single-card:hover {
+    width: 320px;
+    height: 320px !important;
 }
 
 .little-image {
     justify-self: center !important;
     max-width: 150px;
+    max-height: 150px;
 }
 
 @font-face {
