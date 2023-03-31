@@ -9,7 +9,7 @@ export default function Catalog() {
                 <div class="d-flex justify-content-center">
                     <img class="little-image" src="./pictures/maison1.jpg"/>
                 </div>
-                <p class="card-text">Petite maison d'hiver</p>
+                <p class="card-text">Petite maison d'hiver test</p>
             </div>
         </div>
     );
