@@ -14,6 +14,10 @@ body {
     margin: 0 !important;
 }
 
+.navbar-left {
+    max-width: 680px !important;
+}
+
 .navbar-right {
     justify-content: right !important;
 }
@@ -22,8 +26,18 @@ body {
     font-size: 20px !important;
 }
 
-.bg-light {
+.bg-light-red {
     background-color:#ed7179 !important;
+}
+
+.single-card {
+    max-width: 20rem;
+    margin: 5rem;
+}
+
+.little-image {
+    justify-self: center !important;
+    max-width: 150px;
 }
 
 @font-face {
