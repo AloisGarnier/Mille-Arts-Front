@@ -12,7 +12,7 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light-red">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light-red sticky-top">
         <div class="container-fluid">
           <div class="collapse navbar-collapse navbar-left" id="navbarColor01">
             <form class="d-flex">
