@@ -28,6 +28,7 @@ export default function Signup() {
                     <div class="m-2 d-flex justify-content-end">
                         <button type="button" class="btn btn-success">Valider</button>
                     </div>
+                    <img src="./background-flowers.jpg" />
                 </div>
             </div>
         </div>
