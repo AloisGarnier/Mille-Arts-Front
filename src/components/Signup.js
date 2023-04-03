@@ -29,6 +29,7 @@ export default function Signup() {
                         <button type="button" class="btn btn-success">Valider</button>
                     </div>
                     <img src="./background-flowers.jpg" />
+                    <img src="./background-flowers.png" />
                 </div>
             </div>
         </div>
