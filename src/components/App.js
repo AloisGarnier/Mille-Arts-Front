@@ -1,11 +1,15 @@
-import React from "react";
+import React, {useState} from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 
 import Catalog from "./Catalog";
 import Login from "./Login";
 
-import bgImg from "../img/background-flowers.jpg";
+import lightBg from "../img/light-background.jpg";
+import darkBg from "../img/dark-background.jpg";
+
+import lightBtn from "../img/go-to-dark-mode.png"
+import darkBtn from "../img/go-to-light-mode.png"
 
 import "../css/style.css";
 import "../css/sketchy.css";
@@ -13,7 +17,16 @@ import "../css/fontawesome.all.min.css";
 
 export default function App() {
 
+  const [themeBackground, setThemeBackground] = useState(lightBg);
+  const [buttonTheme, setButtonTheme] = useState(lightBtn);
+
+  function changeTheme() {
+    themeBackground == lightBg ? setThemeBackground(darkBg) : setThemeBackground(lightBg);
+    themeBackground == lightBg ? setButtonTheme(darkBtn) : setButtonTheme(lightBtn);
+  }
+
   return (
+    <div class="theme" style={{ backgroundImage: `url(${themeBackground})` }}>
     <BrowserRouter>
       <nav class="navbar navbar-expand-lg navbar-light bg-light-red sticky-top">
         <div class="container-fluid">
@@ -41,5 +54,11 @@ export default function App() {
         </Routes>
 
     </BrowserRouter>
+
+      <footer class="sticky-bottom my-footer">
+        <button class="theme-button" onClick={() => changeTheme()} type="submit"><img class="theme-image" src={buttonTheme}/></button>
+      </footer>
+    </div>
+
   );
 }

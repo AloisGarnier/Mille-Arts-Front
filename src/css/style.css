@@ -1,7 +1,44 @@
-body {
-    background-image: url("../img/background-flowers.jpg") !important;
+.theme {
 	background-repeat: no-repeat;
 	background-size:cover;
+}
+
+.my-header {
+    font-family: Neucha;
+}
+
+.my-card {
+    margin: 50px 200px 250px 200px;
+    min-width: 200px;
+}
+
+.my-icon {
+    max-width: 25px;
+}
+
+.my-footer {
+    margin: 0px 10px;
+}
+
+.dark-input {
+    color: white !important;
+}
+
+.theme-button {
+    border: transparent !important;
+    background-color: transparent !important;
+    max-width: 70px;
+}
+
+.theme-image {
+    border: transparent !important;
+    background-color: transparent !important;
+    max-width: 70px;
+}
+
+.login-form {
+    margin: 50px 100px;
+    min-width: 150px;
 }
 
 .badge {
