@@ -1,21 +1,7 @@
-.margin-1 { margin: 1rem; }
-.text-line-through { text-decoration: line-through; }
-.cursor-pointer { cursor: pointer; }
-.h-200 { height: 200%; }
-
 body {
-    background-image: url("https://img.freepik.com/vecteurs-libre/motif-floral-dessine-main-dans-tons-peche_52683-63665.jpg?w=2000") !important;
-    background-color: #a5dee8;
-}
-
-body::before {
-    content: "" !important;
-    position: fixed;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    left: 0px;
-    background-color: rgba(0,0,0,0.25) !important;
+    background-image: url("../img/background-flowers.jpg") !important;
+	background-repeat: no-repeat;
+	background-size:cover;
 }
 
 .badge {
