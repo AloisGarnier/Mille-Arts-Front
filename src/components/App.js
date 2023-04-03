@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 
 import Catalog from "./Catalog";
 import Login from "./Login";
+import Signup from "./Signup";
 
 import lightBg from "../img/light-background.jpg";
 import darkBg from "../img/dark-background.jpg";
@@ -50,7 +51,8 @@ export default function App() {
         <Routes>
           <Route exact path="/" element={<Catalog/>}></Route>
           <Route exact path="/catalog" element={<Catalog/>}></Route>
-          <Route exact path="/login" element={<Login/>}></Route>
+          <Route exact path="/login" element={<Login linkSignUp="/signup"/>}></Route>
+          <Route exact path="/signup" element={<Signup/>}></Route>
         </Routes>
 
     </BrowserRouter>

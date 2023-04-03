@@ -1,6 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-export default function Login() {
+export default function Login(props) {
 
     return(
         <div class="card my-card">
@@ -16,7 +17,7 @@ export default function Login() {
                         <label for="floatingPassword">Mot de passe</label>
                     </div>
                     <div class="m-2 d-flex justify-content-end">
-                        <button type="button" class="btn btn-warning">Je n'ai pas de compte</button>
+                        <Link to={props.linkSignUp} type="button" class="btn btn-warning">Je n'ai pas de compte</Link>
                         <button type="button" class="btn btn-success">Valider</button>
                     </div>
                 </div>
