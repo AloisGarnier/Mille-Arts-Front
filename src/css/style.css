@@ -59,11 +59,12 @@
 }
 
 .navbar-left {
-    max-width: 680px !important;
+    max-width: 1000px;
 }
 
 .navbar-right {
     justify-content: right !important;
+    max-width: 660px !important;
 }
 
 .btn-link {

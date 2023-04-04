@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 
 import Catalog from "./Catalog";
-import Login from "./Login";
+import LoginController from "./LoginController";
 import Signup from "./Signup";
 
 import lightBg from "../img/light-background.jpg";
@@ -20,6 +20,11 @@ export default function App() {
 
   const [themeBackground, setThemeBackground] = useState(lightBg);
   const [buttonTheme, setButtonTheme] = useState(lightBtn);
+  const [owner, setOwner] = useState(null);
+
+  function ownerName() {
+    return owner != null ? owner.firstName + " " + owner.lastName : "Connexion";
+  }
 
   function changeTheme() {
     themeBackground == lightBg ? setThemeBackground(darkBg) : setThemeBackground(lightBg);
@@ -39,7 +44,7 @@ export default function App() {
           </div>
           <Link class="navbar-brand" to="/catalog">Mille Arts</Link>
           <div class="collapse navbar-collapse navbar-right" id="navbarColor02">
-            <Link to="/login" class="btn btn-link"><i class="fa-solid fa-user"></i>&thinsp; Connexion</Link>
+            <Link to="/login" class="btn btn-link"><i class="fa-solid fa-user"></i>&thinsp; {ownerName()}</Link>
             <button type="submit" class="btn btn-link"><i class="fa-solid fa-basket-shopping"></i>&thinsp; 0</button>
           </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01 #navbarColor02" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,7 +56,12 @@ export default function App() {
         <Routes>
           <Route exact path="/" element={<Catalog/>}></Route>
           <Route exact path="/catalog" element={<Catalog/>}></Route>
-          <Route exact path="/login" element={<Login linkSignUp="/signup"/>}></Route>
+          <Route exact path="/login" element={
+            <LoginController 
+              linkSignUp="/signup"
+              owner={owner}
+              setOwner={setOwner}
+          />}></Route>
           <Route exact path="/signup" element={<Signup/>}></Route>
         </Routes>
 
