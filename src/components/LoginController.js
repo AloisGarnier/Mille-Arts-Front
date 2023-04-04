@@ -4,7 +4,7 @@ import Login from "./Login";
 
 export default function LoginController(props) {
 
-    const backUrl = "http://localhost:8081/security";
+    const backUrl = "http://milleartsback-env.eba-5jds4gst.eu-west-3.elasticbeanstalk.com/security";
 
     function fetchOwner(login, password) {
         const requestOptions = {
