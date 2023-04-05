@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 
 import Catalog from "./Catalog";
 import LoginController from "./LoginController";
-import Signup from "./Signup";
+import SignupController from "./SignupController";
 
 import lightBg from "../img/light-background.jpg";
 import darkBg from "../img/dark-background.jpg";
@@ -62,7 +62,12 @@ export default function App() {
               owner={owner}
               setOwner={setOwner}
           />}></Route>
-          <Route exact path="/signup" element={<Signup/>}></Route>
+          <Route exact path="/signup" element={
+            <SignupController
+              linkCatalog="/catalog"
+              owner={owner}
+              setOwner={setOwner}
+          />}></Route>
         </Routes>
 
     </BrowserRouter>

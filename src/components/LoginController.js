@@ -4,9 +4,9 @@ import Login from "./Login";
 
 export default function LoginController(props) {
 
-    const backUrl = "http://milleartsback-env.eba-5jds4gst.eu-west-3.elasticbeanstalk.com/security";
+    const backUrl = "http://localhost:8081/security";
 
-    function fetchOwner(login, password) {
+    function fetchCustomer(login, password) {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -23,6 +23,6 @@ export default function LoginController(props) {
     }
 
     return (
-        <Login linkSignUp={props.linkSignUp} fetchOwner={(login, password) => fetchOwner(login, password)} />
+        <Login linkSignUp={props.linkSignUp} fetchCustomer={(login, password) => fetchCustomer(login, password)} />
     ); 
 }

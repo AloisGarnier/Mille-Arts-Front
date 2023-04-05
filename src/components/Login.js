@@ -38,7 +38,7 @@ export default function Login(props) {
                             type="button" 
                             class="btn btn-success"
                             to="/catalog" 
-                            onClick={() => props.fetchOwner(fields.email, fields.password)}>
+                            onClick={() => props.fetchCustomer(fields.email, fields.password)}>
                                 Valider
                             </Link>
                     </div>
