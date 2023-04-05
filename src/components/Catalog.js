@@ -7,6 +7,10 @@ import img4 from '../img/sac.jpg';
 
 export default function Catalog() {
 
+    function addAllDecorations() {
+        
+    }
+
     return (
         <div class="d-flex flex-wrap justify-content-center">
             <div class="card bg-light mb-3 single-card">
