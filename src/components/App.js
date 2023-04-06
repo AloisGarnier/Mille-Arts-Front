@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 
-import Catalog from "./Catalog";
+import CatalogController from "./CatalogController";
 import LoginController from "./LoginController";
 import SignupController from "./SignupController";
 
@@ -54,8 +54,8 @@ export default function App() {
       </nav>
 
         <Routes>
-          <Route exact path="/" element={<Catalog/>}></Route>
-          <Route exact path="/catalog" element={<Catalog/>}></Route>
+          <Route exact path="/" element={<CatalogController/>}></Route>
+          <Route exact path="/catalog" element={<CatalogController/>}></Route>
           <Route exact path="/login" element={
             <LoginController 
               linkSignUp="/signup"

@@ -7,6 +7,11 @@
     font-family: Neucha;
 }
 
+.my-catalog {
+    margin: 100px 0px;
+    min-width: 150px;
+}
+
 .my-card {
     margin: 50px 200px 250px 200px;
     min-width: 200px;
@@ -41,8 +46,14 @@
     min-width: 150px;
 }
 
-.badge {
+.badge-price {
     margin-top: 10px !important;
+    margin: 5px;
+    max-height: 25px !important;
+}
+
+.my-badge {
+    margin-top: 5px !important;
     margin: 5px;
     max-height: 25px !important;
 }
