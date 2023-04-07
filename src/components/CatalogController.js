@@ -17,7 +17,7 @@ export default function CatalogController(props) {
     }
 
     return(
-        <Catalog decorations={decorations}></Catalog>
+        <Catalog decorations={decorations} basket={props.basket} setBasket={props.setBasket}></Catalog>
     );
 
 

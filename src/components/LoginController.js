@@ -6,6 +6,22 @@ export default function LoginController(props) {
 
     const backUrl = "http://localhost:8081/security";
 
+    function ownerRegistration(json) {
+        props.setOwner({ 
+            token: json.token,
+            id: json.owner.id,
+            firstName: json.owner.firstName,
+            lastName: json.owner.lastName
+        })
+
+        window.localStorage.setItem("owner", JSON.stringify({ 
+            token: json.token,
+            id: json.owner.id,
+            firstName: json.owner.firstName,
+            lastName: json.owner.lastName
+        }))
+    }
+
     function fetchCustomer(login, password) {
         const requestOptions = {
             method: 'POST',
@@ -14,12 +30,7 @@ export default function LoginController(props) {
         };
         fetch(backUrl + "/authorize", requestOptions)
             .then(response => response.json())
-            .then(json => props.setOwner({ 
-                token: json.token,
-                id: json.owner.id,
-                firstName: json.owner.firstName,
-                lastName: json.owner.lastName
-            }));
+            .then(json => ownerRegistration(json));
     }
 
     return (

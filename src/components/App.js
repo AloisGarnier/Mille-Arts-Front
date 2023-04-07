@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 
@@ -24,8 +24,16 @@ export default function App() {
   const [owner, setOwner] = useState(null);
   const [basket, setBasket] = useState([]);
 
+  useEffect(() => fetchConnectedOwner(), []);
+
+  function fetchConnectedOwner() {
+    if(JSON.parse(window.localStorage.getItem("owner"))) {
+      setOwner(JSON.parse(window.localStorage.getItem("owner")));
+    }
+  }
+
   function ownerName() {
-    return owner != null ? owner.firstName + " " + owner.lastName : "Connexion";
+    return owner != undefined ? owner.firstName + " " + owner.lastName : "Connexion";
   }
 
   function changeTheme() {
@@ -56,8 +64,16 @@ export default function App() {
       </nav>
 
         <Routes>
-          <Route exact path="/" element={<CatalogController/>}></Route>
-          <Route exact path="/catalog" element={<CatalogController/>}></Route>
+          <Route exact path="/" element={
+            <CatalogController
+            basket={basket}
+            setBasket={setBasket}
+          />}></Route>
+          <Route exact path="/catalog" element={
+            <CatalogController
+            basket={basket}
+            setBasket={setBasket}
+          />}></Route>
           <Route exact path="/login" element={
             <LoginController 
               linkSignUp="/signup"

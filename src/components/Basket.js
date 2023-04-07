@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 export default function Basket(props) {
 
@@ -10,7 +9,16 @@ export default function Basket(props) {
             basketElements.push(
                 <div class="empty-basket">Votre panier est vide</div>
             );
+        } else {
+            for(let i=0; i < props.basket.length; i++) {
+                basketElements.push(
+                    <div>
+                        {props.basket[i].name}
+                    </div>
+                );
+            }
         }
+        
         return basketElements;
     }
 

@@ -2,6 +2,12 @@ import React from "react";
 
 export default function Catalog(props) {
 
+    function addOne(decoration) {
+        let newBasket = [...props.basket];
+        newBasket.push(decoration);
+        props.setBasket(newBasket);
+    }
+
     function addAllDecorations() {
         let allDecorations = [];
 
@@ -39,7 +45,7 @@ export default function Catalog(props) {
                         {tags}
                     </div>
                     <div class="d-flex flex-wrap justify-content-center">
-                        <button type="button" class="btn btn-success">Ajouter 1 au panier</button>
+                        <button onClick={() => addOne(deco)} type="button" class="btn btn-success">Ajouter 1 au panier</button>
                         <button type="button" class="btn btn-info">Plus d'infos</button>
                     </div>
                 </div>
