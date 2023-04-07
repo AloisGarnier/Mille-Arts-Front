@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import CatalogController from "./CatalogController";
 import LoginController from "./LoginController";
 import SignupController from "./SignupController";
+import Basket from "./Basket";
 
 import lightBg from "../img/light-background.jpg";
 import darkBg from "../img/dark-background.jpg";
@@ -21,6 +22,7 @@ export default function App() {
   const [themeBackground, setThemeBackground] = useState(lightBg);
   const [buttonTheme, setButtonTheme] = useState(lightBtn);
   const [owner, setOwner] = useState(null);
+  const [basket, setBasket] = useState([]);
 
   function ownerName() {
     return owner != null ? owner.firstName + " " + owner.lastName : "Connexion";
@@ -45,7 +47,7 @@ export default function App() {
           <Link class="navbar-brand" to="/catalog">Mille Arts</Link>
           <div class="collapse navbar-collapse navbar-right" id="navbarColor02">
             <Link to="/login" class="btn btn-link"><i class="fa-solid fa-user"></i>&thinsp; {ownerName()}</Link>
-            <button type="submit" class="btn btn-link"><i class="fa-solid fa-basket-shopping"></i>&thinsp; 0</button>
+            <Link to="/basket" class="btn btn-link"><i class="fa-solid fa-basket-shopping"></i>&thinsp; {basket.length}</Link>
           </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01 #navbarColor02" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -68,8 +70,13 @@ export default function App() {
               owner={owner}
               setOwner={setOwner}
           />}></Route>
+          <Route exact path="/basket" element={
+            <Basket 
+            basket={basket}
+            setBasket={setBasket}
+            />
+          }></Route>
         </Routes>
-
     </BrowserRouter>
 
       <footer class="sticky-bottom my-footer">

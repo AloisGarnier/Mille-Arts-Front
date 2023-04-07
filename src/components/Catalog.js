@@ -14,20 +14,29 @@ export default function Catalog(props) {
                 }
             }
 
+            let tags = [];
+            for(let i = 0; i < deco.decorationTags.length; i++) {
+                tags.push(
+                    <span class="badge my-badge rounded-pill bg-secondary">{deco.decorationTags[i].tag.name}</span>
+                );
+            }
+
             allDecorations.push(
             <div class="card bg-light mb-3 single-card">
-                <div class="card-header">{deco.name}</div>
+                <div class="card-header">
+                    <div class="my-card-header">
+                        <span class="deco-name">{deco.name}</span>
+                    </div>
+                    <div class="my-card-header">
+                        <span class="badge badge-price bg-danger">{currentPrice} €</span>
+                    </div>
+                </div>
                 <div class="card-body">
                     <div class="d-flex justify-content-center">
                         <img class="little-image" src={deco.picture}/>
                     </div>
-                    <div class="d-flex flex-wrap justify-content-center">
-                        <span class="badge badge-price rounded-pill bg-warning">{currentPrice} €</span>
-                    </div>
-                    <div class="d-flex flex-wrap justify-content-center">
-                        <span class="badge my-badge rounded-pill bg-secondary">Hiver</span>
-                        <span class="badge my-badge rounded-pill bg-secondary">Noël</span>
-                        <span class="badge my-badge rounded-pill bg-secondary">Maison</span>
+                    <div class="d-flex flex-wrap justify-content-center mt-2">
+                        {tags}
                     </div>
                     <div class="d-flex flex-wrap justify-content-center">
                         <button type="button" class="btn btn-success">Ajouter 1 au panier</button>

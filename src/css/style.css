@@ -17,6 +17,16 @@
     min-width: 200px;
 }
 
+.basket-card {
+    min-height: 300px;
+}
+
+.empty-basket {
+
+    margin-top:70px;
+    text-align: center;
+}
+
 .my-icon {
     max-width: 25px;
 }
@@ -46,7 +56,17 @@
     min-width: 150px;
 }
 
+.my-card-header {
+    width: 50%;
+    display: inline-grid !important;
+}
+
+.deco-name {
+    justify-self: left;
+}
+
 .badge-price {
+    justify-self: right;
     margin-top: 10px !important;
     margin: 5px;
     max-height: 25px !important;

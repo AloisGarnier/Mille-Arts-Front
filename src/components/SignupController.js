@@ -13,7 +13,7 @@ export default function SignupController(props) {
             body: JSON.stringify({ firstName: firstName, lastName: lastName, username: login, password: password})
         };
         fetch(backUrl + "/register", requestOptions)
-        .then(response => response.json())
+            .then(response => response.json())
             .then(json => props.setOwner({ 
                 token: json.token,
                 id: json.owner.id,
