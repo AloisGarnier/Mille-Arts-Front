@@ -1,15 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import Catalog from "./Catalog";
 
-export default function CatalogController(props) {
+export default function ResearchController(props) {
 
-    useEffect(() => fetchAllDecorations(), []);
+    useEffect(() => {
+        fetchDecorations();
+    }, []);
 
     const backUrl = "http://localhost:8081/catalog";
 
-    function fetchAllDecorations() {
-        fetch(backUrl + "/all")
+    function fetchDecorations() {
+        fetch(backUrl + "/" + location.search.substring(3))
             .then(response => response.json())
             .then(json => props.setDecorations(json))
     }
@@ -17,6 +19,5 @@ export default function CatalogController(props) {
     return(
         <Catalog decorations={props.decorations} basket={props.basket} setBasket={props.setBasket}></Catalog>
     );
-
 
 }

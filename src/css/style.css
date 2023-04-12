@@ -77,11 +77,27 @@
     max-height: 25px !important;
 }
 
+.my-row {
+    display: flex;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    width: 100% !important;
+}
+
+.my-bottom-row {
+    display: flex;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    width: 100% !important;
+}
+
 .btn {
     margin: 5px !important;
 }
 
 .navbar-brand {
+    justify-content: center !important;
     font-family:"Montez" !important;
     font-size: 40px !important;
     padding: 0 !important;
@@ -89,12 +105,17 @@
 }
 
 .navbar-left {
-    max-width: 1000px;
+    justify-content: left !important;
+    width: 33% !important;
 }
 
 .navbar-right {
     justify-content: right !important;
-    max-width: 660px !important;
+    width: 33% !important;
+}
+
+.navbar-toggler {
+    margin-left: 50% !important;
 }
 
 .btn-link {

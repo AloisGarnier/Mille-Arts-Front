@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 export default function Catalog(props) {
 
@@ -38,13 +38,13 @@ export default function Catalog(props) {
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="d-flex justify-content-center">
+                    <div class="d-flex justify-content-center h-50">
                         <img class="little-image" src={deco.picture}/>
                     </div>
-                    <div class="d-flex flex-wrap justify-content-center mt-2">
+                    <div class="d-flex flex-wrap justify-content-center align-content-end h-25">
                         {tags}
                     </div>
-                    <div class="d-flex flex-wrap justify-content-center">
+                    <div class="d-flex flex-wrap justify-content-center align-content-end h-25">
                         <button onClick={() => addOne(deco)} type="button" class="btn btn-success">Ajouter 1 au panier</button>
                         <button type="button" class="btn btn-info">Plus d'infos</button>
                     </div>
