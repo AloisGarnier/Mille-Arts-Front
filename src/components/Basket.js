@@ -7,7 +7,7 @@ export default function Basket(props) {
 
         if(props.basket.length == 0) {
             basketElements.push(
-                <div class="empty-basket">Votre panier est vide</div>
+                <div class="empty-basket">Le panier est vide ! Allez vite le remplir...</div>
             );
         } else {
             for(let i=0; i < props.basket.length; i++) {
@@ -24,7 +24,7 @@ export default function Basket(props) {
 
     return(
         <div class="card my-card basket-card">
-            <h3 class="card-header my-header">Votre panier</h3>
+            <h3 class="card-header my-header">Mon panier</h3>
             <div class="card-body">
                 {basketElements()}
             </div>

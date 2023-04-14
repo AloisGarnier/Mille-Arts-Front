@@ -18,6 +18,7 @@ import darkBtn from "../img/go-to-light-mode.png"
 import "../css/style.css";
 import "../css/sketchy.css";
 import "../css/fontawesome.all.min.css";
+import Decoration from "./Decoration";
 
 export default function App() {
 
@@ -43,7 +44,7 @@ export default function App() {
   }
 
   function account() {
-    return owner != undefined ? "/myaccount" : "/login";
+    return owner != undefined ? "/mon-compte" : "/connexion";
   }
 
   function changeTheme() {
@@ -52,12 +53,12 @@ export default function App() {
   }
 
   function getParamInURL() {
-    return "/research?q=" + research.search;
+    return "/recherche?q=" + research.search;
   }
 
   function goToResearchPage(event) {
       event.preventDefault();
-      navigate("/research?q=" + research.search);
+      navigate("/recherche?q=" + research.search);
       navigate(0);
   }
 
@@ -79,10 +80,10 @@ export default function App() {
                   <Link reloadDocument type="submit" to={getParamInURL()} class="btn btn-link my-2 my-sm-0"><i class="fas fa-search"></i></Link>
                 </form>
               </div>
-              <Link class="d-flex navbar-brand" to="/catalog">Mille Arts</Link>
+              <Link class="d-flex navbar-brand" to="/">Mille Arts</Link>
               <div class="collapse navbar-collapse navbar-right" id="navbarColor02">
                 <Link to={account()} class="btn btn-link"><i class="fa-solid fa-user"></i>&thinsp; {ownerName()}</Link>
-                <Link to="/basket" class="btn btn-link"><i class="fa-solid fa-basket-shopping"></i>&thinsp; {basket.length}</Link>
+                <Link to="/panier" class="btn btn-link"><i class="fa-solid fa-basket-shopping"></i>&thinsp; {basket.length}</Link>
               </div>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01 #navbarColor02" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -90,11 +91,11 @@ export default function App() {
             </div>
             <div class="my-bottom-row collapse navbar-collapse">
               <div id="navbarColor02">
-                <Link to="/catalog" class="btn btn-link">Tous les articles</Link>
-                <Link to="/novelties" class="btn btn-link">Nouveautés</Link>
-                <Link to="/best" class="btn btn-link">Les mieux notés</Link>
-                <Link to="/christmas" class="btn btn-link">C'est déjà Noël !</Link>
-                <Link to="/about" class="btn btn-link">Qui suis-je ?</Link>
+                <Link to="/catalogue" class="btn btn-link">Tous les articles</Link>
+                <Link to="/nouveautes" class="btn btn-link">Nouveautés</Link>
+                <Link to="/mieux-notes" class="btn btn-link">Les mieux notés</Link>
+                <Link to="/noel" class="btn btn-link">C'est déjà Noël !</Link>
+                <Link to="/a-propos" class="btn btn-link">Qui suis-je ?</Link>
               </div>
             </div>
           </div>
@@ -109,32 +110,30 @@ export default function App() {
             decorations={decorations}
             setDecorations={setDecorations}
           />}></Route>
-          <Route exact path="/catalog" element={
+          <Route exact path="/catalogue" element={
             <CatalogController
             basket={basket}
             setBasket={setBasket}
             decorations={decorations}
             setDecorations={setDecorations}
           />}></Route>
-          <Route exact path="/login" element={
+          <Route exact path="/connexion" element={
             <LoginController 
-              linkSignUp="/signup"
               owner={owner}
               setOwner={setOwner}
           />}></Route>
-          <Route exact path="/signup" element={
+          <Route exact path="/inscription" element={
             <SignupController
-              linkCatalog="/catalog"
               owner={owner}
               setOwner={setOwner}
           />}></Route>
-          <Route exact path="/basket" element={
+          <Route exact path="/panier" element={
             <Basket 
             basket={basket}
             setBasket={setBasket}
             />
           }></Route>
-          <Route exact path="/research" element={
+          <Route exact path="/recherche" element={
             <ResearchController
             research={research}
             basket={basket}
@@ -142,11 +141,13 @@ export default function App() {
             decorations={decorations}
             setDecorations={setDecorations}
           />}></Route>
-          <Route exact path="/myaccount" element={
+          <Route exact path="/mon-compte" element={
             <MyAccount
-            linkLogOut="/"
             owner={owner}
             setOwner={setOwner}
+          />}></Route>
+          <Route exact path="/decoration" element={
+            <Decoration
           />}></Route>
         </Routes>
     

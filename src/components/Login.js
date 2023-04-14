@@ -33,11 +33,11 @@ export default function Login(props) {
                         <label for="floatingPassword">Mot de passe</label>
                     </div>
                     <div class="m-2 d-flex justify-content-end">
-                        <Link to={props.linkSignUp} type="button" class="btn btn-warning">Je n'ai pas de compte</Link>
+                        <Link to="/inscription" type="button" class="btn btn-warning">Je n'ai pas de compte</Link>
                         <Link 
                             type="button" 
                             class="btn btn-success"
-                            to="/catalog" 
+                            to="/catalogue" 
                             onClick={() => props.fetchCustomer(fields.email, fields.password)}>
                                 Valider
                             </Link>
