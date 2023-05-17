@@ -1,6 +1,11 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export default function Catalog(props) {
+
+    function moreDetails(decoration) {
+        return "/decoration?id=" + decoration.id;
+    }
 
     function addOne(decoration) {
         let newBasket = [...props.basket];
@@ -20,10 +25,15 @@ export default function Catalog(props) {
                 }
             }
 
+            let tagNames = [];
             let tags = [];
             for(let i = 0; i < deco.decorationTags.length; i++) {
+                tagNames.push(deco.decorationTags[i].tag.name);
+            }
+            tagNames.sort();
+            for(let i = 0; i < deco.decorationTags.length; i++) {
                 tags.push(
-                    <span class="badge my-badge rounded-pill bg-secondary">{deco.decorationTags[i].tag.name}</span>
+                    <span class="badge my-badge rounded-pill bg-secondary">{tagNames[i]}</span>
                 );
             }
 
@@ -46,7 +56,7 @@ export default function Catalog(props) {
                     </div>
                     <div class="d-flex flex-wrap justify-content-center align-content-end h-25">
                         <button onClick={() => addOne(deco)} type="button" class="btn btn-success">Ajouter 1 au panier</button>
-                        <button type="button" class="btn btn-info">Plus d'infos</button>
+                        <Link to={moreDetails(deco)} type="button" class="btn btn-info">Plus d'infos</Link>
                     </div>
                 </div>
             </div> 

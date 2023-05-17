@@ -10,7 +10,11 @@ export default function SignupController(props) {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ firstName: firstName, lastName: lastName, username: login, password: password})
+            body: JSON.stringify({ 
+                firstName: firstName, 
+                lastName: lastName, 
+                username: login, 
+                password: password})
         };
         fetch(backUrl + "/register", requestOptions)
             .then(response => response.json())
@@ -20,6 +24,8 @@ export default function SignupController(props) {
                 firstName: json.owner.firstName,
                 lastName: json.owner.lastName
             }));
+
+        return props.owner ? true : false;
     }
 
     return (

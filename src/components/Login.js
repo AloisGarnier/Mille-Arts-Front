@@ -1,47 +1,69 @@
 import React, {useState} from "react";
 import { Link } from "react-router-dom";
+import { Formik, Form, Field } from "formik";
+import * as Yup from 'yup';
 
 export default function Login(props) {
 
-    const [fields, setFields] = useState({ email: "", password: "" });
+    const loginSchema = Yup.object().shape({
+
+        email: Yup.string().email('Adresse e-mail invalide').required('Champ obligatoire'),
+        password: Yup.string().required('Champ obligatoire'),
+     
+      });
+
+    const loginForm = () => {
+
+        return(
+            <Formik
+                initialValues={{
+                    email: '',
+                    password: ''
+                }}
+                validationSchema={loginSchema}
+                onSubmit={values => {
+                    // same shape as initial values
+                    console.log(values);
+                }}
+            >
+                {({ errors, touched, values }) => (
+                    <Form>
+                        <div class="form-floating mb-3">
+                            <Field name="email" type="email" class="form-control" />
+                            <label for="floatingInput">Adresse e-mail</label>
+                            {errors.email && touched.email ? (<div class="error">{errors.email}</div>) : null}
+                        </div>
+                        
+                        <div class="form-floating">
+                            <Field name="password" type="password" class="form-control" />
+                            <label for="floatingInput">Mot de passe</label>
+                            {errors.password && touched.password ? (<div class="error">{errors.password}</div>) : null}
+                        </div>
+                        
+                        <div class="m-2 d-flex justify-content-end">
+                            <Link to="/inscription" type="button" class="btn btn-warning">Je n'ai pas de compte</Link>
+                            <Link 
+                                type="button" 
+                                class="btn btn-success"
+                                to={props.fetchCustomer(values.email, values.password) ? 
+                                    "/catalogue" : 
+                                    null}
+                            >
+                                    Valider
+                            </Link>
+                        </div>
+                    </Form>
+                )}  
+            </Formik>
+        );
+    }
 
     return(
         <div class="card my-card">
             <h3 class="card-header my-header">Connexion</h3>
             <div class="card-body">
                 <div class="form-group login-form">
-                    <div class="form-floating mb-3">
-                        <input 
-                            type="email" 
-                            class="form-control" 
-                            id="floatingInput" 
-                            placeholder="name@example.com"
-                            value={fields.email}
-                            onChange={form => setFields({...fields, email: form.target.value})}>
-                        </input>
-                        <label for="floatingInput">Adresse e-mail</label>
-                    </div>
-                    <div class="form-floating">
-                        <input 
-                            type="password" 
-                            class="form-control" 
-                            id="floatingPassword" 
-                            placeholder="Password"
-                            value={fields.password}
-                            onChange={form => setFields({...fields, password: form.target.value})}>
-                        </input>
-                        <label for="floatingPassword">Mot de passe</label>
-                    </div>
-                    <div class="m-2 d-flex justify-content-end">
-                        <Link to="/inscription" type="button" class="btn btn-warning">Je n'ai pas de compte</Link>
-                        <Link 
-                            type="button" 
-                            class="btn btn-success"
-                            to="/catalogue" 
-                            onClick={() => props.fetchCustomer(fields.email, fields.password)}>
-                                Valider
-                            </Link>
-                    </div>
+                    {loginForm()}
                 </div>
             </div>
         </div>

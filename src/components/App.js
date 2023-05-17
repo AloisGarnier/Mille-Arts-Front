@@ -8,6 +8,7 @@ import SignupController from "./SignupController";
 import ResearchController from "./ResearchController";
 import Basket from "./Basket";
 import MyAccount from "./MyAccount";
+import DecorationController from "./DecorationController";
 
 import lightBg from "../img/light-background.jpg";
 import darkBg from "../img/dark-background.jpg";
@@ -18,7 +19,6 @@ import darkBtn from "../img/go-to-light-mode.png"
 import "../css/style.css";
 import "../css/sketchy.css";
 import "../css/fontawesome.all.min.css";
-import Decoration from "./Decoration";
 
 export default function App() {
 
@@ -33,6 +33,9 @@ export default function App() {
 
   const navigate = useNavigate();
 
+  /**
+   * Fetches a connectedOwner in localStorage if there is one
+   */
   function fetchConnectedOwner() {
     if(JSON.parse(window.localStorage.getItem("owner"))) {
       setOwner(JSON.parse(window.localStorage.getItem("owner")));
@@ -56,6 +59,10 @@ export default function App() {
     return "/recherche?q=" + research.search;
   }
 
+  /**
+   * Goes to the corresponding research page
+   * @param {when the research form is validated by click or enter} event 
+   */
   function goToResearchPage(event) {
       event.preventDefault();
       navigate("/recherche?q=" + research.search);
@@ -147,7 +154,7 @@ export default function App() {
             setOwner={setOwner}
           />}></Route>
           <Route exact path="/decoration" element={
-            <Decoration
+            <DecorationController
           />}></Route>
         </Routes>
     

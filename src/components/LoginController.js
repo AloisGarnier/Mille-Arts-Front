@@ -31,6 +31,8 @@ export default function LoginController(props) {
         fetch(backUrl + "/authorize", requestOptions)
             .then(response => response.json())
             .then(json => ownerRegistration(json));
+
+        return props.owner ? true : false;
     }
 
     return (
