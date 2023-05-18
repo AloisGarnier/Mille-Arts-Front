@@ -8,17 +8,27 @@ export default function LoginController(props) {
 
     function ownerRegistration(json) {
         props.setOwner({ 
-            token: json.token,
-            id: json.owner.id,
-            firstName: json.owner.firstName,
-            lastName: json.owner.lastName
+            firstName: json.owner.firstName, 
+            lastName: json.owner.lastName, 
+            username: json.owner.username, 
+            password: json.owner.password,
+            date: json.owner.date,
+            month: json.owner.month,
+            year: json.owner.year,
+            phoneNumber: json.owner.phoneNumber
         })
 
         window.localStorage.setItem("owner", JSON.stringify({ 
             token: json.token,
             id: json.owner.id,
             firstName: json.owner.firstName,
-            lastName: json.owner.lastName
+            lastName: json.owner.lastName,
+            email: json.owner.username,
+            password: json.owner.password,
+            date: json.owner.date,
+            month: json.owner.month,
+            year: json.owner.year,
+            phoneNumber: json.owner.phoneNumber
         }))
     }
 

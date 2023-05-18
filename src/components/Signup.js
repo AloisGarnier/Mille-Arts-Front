@@ -85,15 +85,21 @@ export default function Signup(props) {
                         </div>
 
                         <div class="form-floating mb-3">
-                                <Field name="email" type="email" class="form-control" />
-                                <label for="floatingInput">Adresse e-mail</label>
-                                {errors.email && touched.email ? (<div class="error">{errors.email}</div>) : null}
+                            <Field name="phoneNumber" type="label" class="form-control" />
+                            <label for="floatingInput">Numéro de téléphone</label>
+                            {errors.phoneNumber && touched.phoneNumber ? (<div class="error">{errors.phoneNumber}</div>) : null}
                         </div>
 
                         <div class="form-floating mb-3">
-                                <Field name="phoneNumber" type="label" class="form-control" />
-                                <label for="floatingInput">Numéro de téléphone</label>
-                                {errors.phoneNumber && touched.phoneNumber ? (<div class="error">{errors.phoneNumber}</div>) : null}
+                            <Field name="email" type="email" class="form-control" />
+                            <label for="floatingInput">Adresse e-mail</label>
+                            {errors.email && touched.email ? (<div class="error">{errors.email}</div>) : null}
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <Field name="password" type="password" class="form-control" />
+                            <label for="floatingInput">Mot de passe</label>
+                            {errors.password && touched.password ? (<div class="error">{errors.password}</div>) : null}
                         </div>
 
                         <label>Date de naissance (facultatif)</label>
@@ -123,7 +129,7 @@ export default function Signup(props) {
                                 <label for="floatingInput">Mois</label>
                             </div>
                             <div class="form-floating mb-3 w-25">
-                                <Field name="date" as="select" class="form-select">
+                                <Field name="year" as="select" class="form-select">
                                     {getYear()}
                                 </Field>
                                 <label for="floatingInput">Année</label>
@@ -161,7 +167,14 @@ export default function Signup(props) {
                             <Link 
                                 type="button" 
                                 class="btn btn-success"
-                                to={props.addCustomer(values.firstName, values.lastName, values.email, values.password) ?
+                                to={props.addCustomer(values.firstName, 
+                                                    values.lastName, 
+                                                    values.email, 
+                                                    values.password,
+                                                    values.date,
+                                                    values.month,
+                                                    values.year,
+                                                    values.phoneNumber) ?
                                     "/catalogue" :
                                     null}
                             >

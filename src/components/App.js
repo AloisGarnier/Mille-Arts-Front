@@ -7,7 +7,7 @@ import LoginController from "./LoginController";
 import SignupController from "./SignupController";
 import ResearchController from "./ResearchController";
 import Basket from "./Basket";
-import MyAccount from "./MyAccount";
+import MyAccountController from "./MyAccountController";
 import DecorationController from "./DecorationController";
 
 import lightBg from "../img/light-background.jpg";
@@ -149,7 +149,7 @@ export default function App() {
             setDecorations={setDecorations}
           />}></Route>
           <Route exact path="/mon-compte" element={
-            <MyAccount
+            <MyAccountController
             owner={owner}
             setOwner={setOwner}
           />}></Route>

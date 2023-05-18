@@ -45,9 +45,8 @@ export default function Login(props) {
                             <Link 
                                 type="button" 
                                 class="btn btn-success"
-                                to={props.fetchCustomer(values.email, values.password) ? 
-                                    "/catalogue" : 
-                                    null}
+                                to="/catalogue"
+                                onClick={() => props.fetchCustomer(values.email, values.password)}
                             >
                                     Valider
                             </Link>
