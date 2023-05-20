@@ -10,11 +10,8 @@ export default function LoginController(props) {
         props.setOwner({ 
             firstName: json.owner.firstName, 
             lastName: json.owner.lastName, 
-            username: json.owner.username, 
+            email: json.owner.username, 
             password: json.owner.password,
-            date: json.owner.date,
-            month: json.owner.month,
-            year: json.owner.year,
             phoneNumber: json.owner.phoneNumber
         })
 
@@ -25,9 +22,6 @@ export default function LoginController(props) {
             lastName: json.owner.lastName,
             email: json.owner.username,
             password: json.owner.password,
-            date: json.owner.date,
-            month: json.owner.month,
-            year: json.owner.year,
             phoneNumber: json.owner.phoneNumber
         }))
     }

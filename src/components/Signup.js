@@ -167,16 +167,15 @@ export default function Signup(props) {
                             <Link 
                                 type="button" 
                                 class="btn btn-success"
-                                to={props.addCustomer(values.firstName, 
+                                to="/catalogue"
+                                onClick={() => props.addCustomer(values.firstName, 
                                                     values.lastName, 
                                                     values.email, 
                                                     values.password,
                                                     values.date,
                                                     values.month,
                                                     values.year,
-                                                    values.phoneNumber) ?
-                                    "/catalogue" :
-                                    null}
+                                                    values.phoneNumber)}
                             >
                                 Valider
                             </Link>

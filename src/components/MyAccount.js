@@ -13,7 +13,11 @@ export default function MyAccount(props) {
     function clickFirstTab() {
         setActiveTab(["nav-link active", "nav-link", "nav-link"]);
         setBody(
-            <AccountInfo owner={props.owner} setOwner={props.setOwner} changeCustomer={props.changeCustomer} />
+            <AccountInfo 
+                owner={props.owner} 
+                setOwner={props.setOwner} 
+                changeCustomer={props.changeCustomer} 
+            />
         );
     }
 

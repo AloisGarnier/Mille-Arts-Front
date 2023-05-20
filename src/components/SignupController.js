@@ -6,6 +6,26 @@ export default function SignupController(props) {
 
     const backUrl = "http://localhost:8081/security";
 
+    function ownerRegistration(json) {
+        props.setOwner({ 
+            firstName: json.owner.firstName, 
+            lastName: json.owner.lastName, 
+            email: json.owner.username, 
+            password: json.owner.password,
+            phoneNumber: json.owner.phoneNumber
+        })
+
+        window.localStorage.setItem("owner", JSON.stringify({ 
+            token: json.token,
+            id: json.owner.id,
+            firstName: json.owner.firstName,
+            lastName: json.owner.lastName,
+            email: json.owner.username,
+            password: json.owner.password,
+            phoneNumber: json.owner.phoneNumber
+        }))
+    }
+
     function addCustomer(firstName, lastName, email, password, date, month, year, phoneNumber) {
         const requestOptions = {
             method: 'POST',
@@ -22,18 +42,7 @@ export default function SignupController(props) {
         };
         fetch(backUrl + "/register", requestOptions)
             .then(response => response.json())
-            .then(json => props.setOwner({ 
-                token: json.token,
-                id: json.owner.id,
-                firstName: json.owner.firstName,
-                lastName: json.owner.lastName,
-                email: json.owner.username,
-                password: json.owner.password,
-                date: json.owner.date,
-                month: json.owner.month,
-                year: json.owner.year,
-                phoneNumber: json.owner.phoneNumber
-            }));
+            .then(json => ownerRegistration(json));
 
         return props.owner ? true : false;
     }
