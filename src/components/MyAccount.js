@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import AccountInfo from "./AccountInfo";
+import AddressesInfo from "./AddressesInfo";
 
 export default function MyAccount(props) {
 
@@ -23,6 +24,11 @@ export default function MyAccount(props) {
 
     function clickSecondTab() {
         setActiveTab(["nav-link", "nav-link active", "nav-link"]);
+        setBody(
+            <AddressesInfo 
+                owner={props.owner}
+            />
+        );
     }
 
     function clickThirdTab() {
@@ -31,7 +37,7 @@ export default function MyAccount(props) {
 
     return(
         <div class="card my-card">
-            <h3 class="card-header my-header">Mon compte</h3>
+            <h3 class="card-header my-header">Votre compte</h3>
             <div class="card-body">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
@@ -52,7 +58,7 @@ export default function MyAccount(props) {
                         onClick={() => clickSecondTab()} 
                         aria-selected="true" 
                         role="tab">
-                            Mes adresses
+                            Vos adresses
                         </button>
                     </li>
                     <li class="nav-item">

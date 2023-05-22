@@ -47,7 +47,7 @@ export default function App() {
   }
 
   function account() {
-    return owner != undefined ? "/mon-compte" : "/connexion";
+    return owner != undefined ? "/compte" : "/connexion";
   }
 
   function changeTheme() {
@@ -148,7 +148,7 @@ export default function App() {
             decorations={decorations}
             setDecorations={setDecorations}
           />}></Route>
-          <Route exact path="/mon-compte" element={
+          <Route exact path="/compte" element={
             <MyAccountController
             owner={owner}
             setOwner={setOwner}

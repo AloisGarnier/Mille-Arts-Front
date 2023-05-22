@@ -24,7 +24,7 @@ export default function Basket(props) {
 
     return(
         <div class="card my-card basket-card">
-            <h3 class="card-header my-header">Mon panier</h3>
+            <h3 class="card-header my-header">Votre panier</h3>
             <div class="card-body">
                 {basketElements()}
             </div>
