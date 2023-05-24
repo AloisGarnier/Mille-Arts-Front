@@ -6,10 +6,12 @@ import AddressesInfo from "./AddressesInfo";
 
 export default function MyAccount(props) {
 
-    const [activeTab, setActiveTab] = useState(["nav-link", "nav-link", "nav-link"]);
-    const [body, setBody] = useState([]);
-
-    useEffect(() => clickFirstTab(), []);
+    const [activeTab, setActiveTab] = useState(["nav-link active", "nav-link", "nav-link"]);
+    const [body, setBody] = useState(<AccountInfo 
+        owner={props.owner} 
+        setOwner={props.setOwner} 
+        changeCustomer={props.changeCustomer} 
+    />);
 
     function clickFirstTab() {
         setActiveTab(["nav-link active", "nav-link", "nav-link"]);

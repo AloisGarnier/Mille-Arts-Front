@@ -8,6 +8,7 @@ export default function LoginController(props) {
 
     function ownerRegistration(json) {
         props.setOwner({ 
+            id: json.owner.id,
             firstName: json.owner.firstName, 
             lastName: json.owner.lastName, 
             email: json.owner.username, 
