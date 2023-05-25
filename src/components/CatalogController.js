@@ -17,6 +17,4 @@ export default function CatalogController(props) {
     return(
         <Catalog decorations={props.decorations} basket={props.basket} setBasket={props.setBasket}></Catalog>
     );
-
-
 }

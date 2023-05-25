@@ -155,6 +155,8 @@ export default function App() {
           />}></Route>
           <Route exact path="/decoration" element={
             <DecorationController
+            basket={basket}
+            setBasket={setBasket}
           />}></Route>
         </Routes>
     

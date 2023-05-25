@@ -146,6 +146,13 @@
     box-shadow:8px 8px 10px 0 rgba(0,0,0,0.5);
 }
 
+.image {
+    justify-self: center !important;
+    max-width: 300px;
+    max-height: 300px;
+    box-shadow:8px 8px 10px 0 rgba(0,0,0,0.5);
+}
+
 .error {
     color: #ed7179;
 }

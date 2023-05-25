@@ -13,7 +13,7 @@ export default function Basket(props) {
             for(let i=0; i < props.basket.length; i++) {
                 basketElements.push(
                     <div>
-                        {props.basket[i].name}
+                        x{props.basket[i][1]} {props.basket[i][0].name}
                     </div>
                 );
             }

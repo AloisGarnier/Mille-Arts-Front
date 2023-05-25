@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import AccountInfo from "./AccountInfo";
 import AddressesInfo from "./AddressesInfo";
+import CommandsInfo from "./CommandsInfo";
 
 export default function MyAccount(props) {
 
@@ -35,6 +36,11 @@ export default function MyAccount(props) {
 
     function clickThirdTab() {
         setActiveTab(["nav-link", "nav-link", "nav-link active"]);
+        setBody(
+            <CommandsInfo
+                owner={props.owner}
+            />
+        )
     }
 
     return(

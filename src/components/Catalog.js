@@ -9,7 +9,7 @@ export default function Catalog(props) {
 
     function addOne(decoration) {
         let newBasket = [...props.basket];
-        newBasket.push(decoration);
+        newBasket.push([decoration, 1]);
         props.setBasket(newBasket);
     }
 
