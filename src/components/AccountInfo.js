@@ -5,7 +5,21 @@ import * as Yup from 'yup';
 
 export default function AccountInfo(props) {
 
+    const backUrl = "http://localhost:8081/security";
+
     function logOut() {
+        props.setOwner(undefined);
+        window.localStorage.removeItem("owner");
+    }
+
+    function cancel() {
+        const requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' }
+        };
+        fetch(backUrl + "/unsubscribe/" + props.owner.id, requestOptions)
+            .then(response => response.json());
+        
         props.setOwner(undefined);
         window.localStorage.removeItem("owner");
     }
