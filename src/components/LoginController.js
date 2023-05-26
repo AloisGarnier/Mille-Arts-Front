@@ -4,7 +4,7 @@ import Login from "./Login";
 
 export default function LoginController(props) {
 
-    const backUrl = "http://localhost:8081/security";
+    const backUrl = "http://" + props.domain + ":8081/security";
 
     function ownerRegistration(json) {
         if(!json.owner.withdrawalDate) {

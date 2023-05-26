@@ -4,7 +4,7 @@ import MyAccount from "./MyAccount";
 
 export default function MyAccountController(props) {
 
-    const backUrl = "http://localhost:8081/security";
+    const backUrl = "http://" + props.domain + ":8081/security";
 
     function ownerRegistration(json) {
         let ownerId = props.owner.id;
@@ -43,6 +43,7 @@ export default function MyAccountController(props) {
 
     return (
         <MyAccount 
+            domain={props.domain}
             owner={props.owner} 
             setOwner={props.setOwner}
             changeCustomer={(firstName, lastName, email, password, phoneNumber) => changeCustomer(firstName, lastName, email, password, phoneNumber)} 

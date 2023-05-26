@@ -22,6 +22,8 @@ import "../css/fontawesome.all.min.css";
 
 export default function App() {
 
+  const domain = "34.163.13.68";
+
   const [themeBackground, setThemeBackground] = useState(lightBg);
   const [buttonTheme, setButtonTheme] = useState(lightBtn);
   const [owner, setOwner] = useState(null);
@@ -116,6 +118,7 @@ export default function App() {
             setBasket={setBasket}
             decorations={decorations}
             setDecorations={setDecorations}
+            domain = {domain}
           />}></Route>
           <Route exact path="/catalogue" element={
             <CatalogController
@@ -123,21 +126,25 @@ export default function App() {
             setBasket={setBasket}
             decorations={decorations}
             setDecorations={setDecorations}
+            domain = {domain}
           />}></Route>
           <Route exact path="/connexion" element={
             <LoginController 
               owner={owner}
               setOwner={setOwner}
+              domain = {domain}
           />}></Route>
           <Route exact path="/inscription" element={
             <SignupController
               owner={owner}
               setOwner={setOwner}
+              domain = {domain}
           />}></Route>
           <Route exact path="/panier" element={
             <Basket 
             basket={basket}
             setBasket={setBasket}
+            domain = {domain}
             />
           }></Route>
           <Route exact path="/recherche" element={
@@ -147,16 +154,19 @@ export default function App() {
             setBasket={setBasket}
             decorations={decorations}
             setDecorations={setDecorations}
+            domain = {domain}
           />}></Route>
           <Route exact path="/compte" element={
             <MyAccountController
             owner={owner}
             setOwner={setOwner}
+            domain = {domain}
           />}></Route>
           <Route exact path="/decoration" element={
             <DecorationController
             basket={basket}
             setBasket={setBasket}
+            domain = {domain}
           />}></Route>
         </Routes>
     

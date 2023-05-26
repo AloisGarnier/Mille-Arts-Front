@@ -6,7 +6,7 @@ export default function CatalogController(props) {
 
     useEffect(() => fetchAllDecorations(), []);
 
-    const backUrl = "http://localhost:8081/catalog";
+    const backUrl = "http://" + props.domain + ":8081/catalog";
 
     function fetchAllDecorations() {
         fetch(backUrl + "/all")
@@ -15,6 +15,6 @@ export default function CatalogController(props) {
     }
 
     return(
-        <Catalog decorations={props.decorations} basket={props.basket} setBasket={props.setBasket}></Catalog>
+        <Catalog domain={props.domain} decorations={props.decorations} basket={props.basket} setBasket={props.setBasket}></Catalog>
     );
 }

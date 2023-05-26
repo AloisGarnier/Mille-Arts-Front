@@ -12,6 +12,7 @@ export default function MyAccount(props) {
         owner={props.owner} 
         setOwner={props.setOwner} 
         changeCustomer={props.changeCustomer} 
+        domain={props.domain}
     />);
 
     function clickFirstTab() {
@@ -21,6 +22,7 @@ export default function MyAccount(props) {
                 owner={props.owner} 
                 setOwner={props.setOwner} 
                 changeCustomer={props.changeCustomer} 
+                domain={props.domain}
             />
         );
     }
@@ -30,6 +32,7 @@ export default function MyAccount(props) {
         setBody(
             <AddressesInfo 
                 owner={props.owner}
+                domain={props.domain}
             />
         );
     }
@@ -39,6 +42,7 @@ export default function MyAccount(props) {
         setBody(
             <CommandsInfo
                 owner={props.owner}
+                domain={props.domain}
             />
         )
     }

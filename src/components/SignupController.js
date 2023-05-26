@@ -4,7 +4,7 @@ import Signup from "./Signup";
 
 export default function SignupController(props) {
 
-    const backUrl = "http://localhost:8081/security";
+    const backUrl = "http://" + props.domain + ":8081/security";
 
     function ownerRegistration(json) {
         props.setOwner({ 
