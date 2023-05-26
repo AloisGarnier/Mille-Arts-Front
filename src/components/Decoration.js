@@ -12,6 +12,14 @@ export default function Decoration(props) {
         return options;
     }
 
+    function getFormattedPrice(price) {
+        if(price - Math.trunc(price) >= 0.01) {
+            return Math.floor(price) + "," + ((price - Math.trunc(price))*100) + " €";
+        } else {
+            return price + " €";
+        }
+    }
+
     function addInBasket(quantity) {
         let newBasket = [...props.basket];
         newBasket.push([props.decoration, quantity]);
@@ -25,8 +33,8 @@ export default function Decoration(props) {
                 <span class="d-flex justify-content-center">
                     <img class="image" src={props.decoration.picture}/>
                 </span>
-                <span class="d-flex flex-column justify-content-start align-content-start">
-                    <div class="mb-3"> {props.currentPrice} € </div>
+                <span class="d-flex flex-column justify-content-start align-content-start w-25">
+                    <div class="mb-3"> {getFormattedPrice(props.currentPrice)}</div>
                     <div> {props.decoration.description} </div>
                 </span>
                 <span class="d-flex flex-column justify-content-start align-self-center">

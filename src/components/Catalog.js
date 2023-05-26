@@ -7,6 +7,14 @@ export default function Catalog(props) {
         return "/decoration?id=" + decoration.id;
     }
 
+    function getFormattedPrice(price) {
+        if(price - Math.trunc(price) >= 0.01) {
+            return Math.floor(price) + "," + ((price - Math.trunc(price))*100) + " €";
+        } else {
+            return price + " €";
+        }
+    }
+
     function addOne(decoration) {
         let newBasket = [...props.basket];
         newBasket.push([decoration, 1]);
@@ -33,7 +41,7 @@ export default function Catalog(props) {
             tagNames.sort();
             for(let i = 0; i < deco.decorationTags.length; i++) {
                 tags.push(
-                    <span class="badge my-badge rounded-pill bg-secondary">{tagNames[i]}</span>
+                    <span class="badge my-badge rounded-pill bg-secondary mx-1">{tagNames[i]}</span>
                 );
             }
 
@@ -44,17 +52,17 @@ export default function Catalog(props) {
                         <span class="deco-name">{deco.name}</span>
                     </div>
                     <div class="my-card-header">
-                        <span class="badge badge-price bg-danger">{currentPrice} €</span>
+                        <span class="badge badge-price bg-danger">{getFormattedPrice(currentPrice)}</span>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="d-flex justify-content-center h-50">
                         <img class="little-image" src={deco.picture}/>
                     </div>
-                    <div class="d-flex flex-wrap justify-content-center align-content-end h-25">
+                    <div class="d-flex flex-wrap justify-content-center align-content-center h-25">
                         {tags}
                     </div>
-                    <div class="d-flex flex-wrap justify-content-center align-content-end h-25">
+                    <div class="d-flex flex-wrap justify-content-center align-content-center h-25">
                         <button onClick={() => addOne(deco)} type="button" class="btn btn-success">Ajouter 1 au panier</button>
                         <Link to={moreDetails(deco)} type="button" class="btn btn-info">Plus d'infos</Link>
                     </div>
