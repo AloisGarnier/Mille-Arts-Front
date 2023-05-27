@@ -10,8 +10,10 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    compress: true,
-    disableHostCheck: true
+    allowedHosts: [
+      'mille-arts.fr'
+       ]
+      }
   },
   plugins: [
     new HtmlWebpackPlugin({
