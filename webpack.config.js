@@ -9,8 +9,7 @@ module.exports = {
     publicPath: "/"
   },
   devServer: {
-    compress: true,
-    disableHostCheck: true,
+    allowedHosts: "all",
     historyApiFallback: true,
   },
   plugins: [
