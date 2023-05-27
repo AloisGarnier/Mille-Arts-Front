@@ -11,9 +11,9 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     allowedHosts: [
+      '34.155.149.97',
       'mille-arts.fr'
        ]
-      }
   },
   plugins: [
     new HtmlWebpackPlugin({
