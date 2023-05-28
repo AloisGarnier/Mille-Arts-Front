@@ -22,7 +22,7 @@ import "../css/fontawesome.all.min.css";
 
 export default function App() {
 
-  const domain = "34.163.13.68";
+  const domain = "34.155.129.238";
 
   const [themeBackground, setThemeBackground] = useState(lightBg);
   const [buttonTheme, setButtonTheme] = useState(lightBtn);
