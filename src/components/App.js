@@ -76,6 +76,8 @@ export default function App() {
     if(isCollapsedDisplayed){
       return (
         <div class="d-flex flex-column">
+          <Link to={account()} class="btn btn-link"><i class="fa-solid fa-user"></i>&thinsp; {ownerName()}</Link>
+          <Link to="/panier" class="btn btn-link"><i class="fa-solid fa-basket-shopping"></i>&thinsp; {basket.length}</Link>
           <Link to="/catalogue" class="btn btn-link">Tous les articles</Link>
           <Link to="/nouveautes" class="btn btn-link">Nouveautés</Link>
           <Link to="/mieux-notes" class="btn btn-link">Les mieux notés</Link>

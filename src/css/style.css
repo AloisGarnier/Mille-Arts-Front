@@ -13,8 +13,7 @@
 }
 
 .my-card {
-    margin: 50px 200px 250px 200px;
-    min-width: 200px;
+    margin: 5% !important;
 }
 
 .basket-card {
@@ -63,9 +62,17 @@
     max-width: 70px;
 }
 
-.login-form {
-    margin: 50px 100px;
-    min-width: 150px;
+@media (max-width:960px) {
+    .login-form {
+        margin: 10%;
+    }
+}
+
+@media (min-width:960px) {
+    .login-form {
+        margin: 50px 100px;
+        min-width: 150px;
+    }
 }
 
 .my-card-header {
