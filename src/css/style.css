@@ -34,6 +34,19 @@
     margin: 0px 10px;
 }
 
+.my-toggler {
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex !important;
+    justify-self: center !important;
+    border: transparent !important;
+    line-height: 1 !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    width: 100% !important;
+    flex-direction: column !important;
+}
+
 .dark-input {
     color: white !important;
 }
