@@ -9,9 +9,11 @@ import ResearchController from "./ResearchController";
 import Basket from "./Basket";
 import MyAccountController from "./MyAccountController";
 import DecorationController from "./DecorationController";
+import ChristmasController from "./ChristmasController";
 
 import lightBg from "../img/light-background.jpg";
 import darkBg from "../img/dark-background.jpg";
+import christmasBg from "../img/christmas-background.png";
 
 import lightBtn from "../img/go-to-dark-mode.png"
 import darkBtn from "../img/go-to-light-mode.png"
@@ -22,7 +24,7 @@ import "../css/fontawesome.all.min.css";
 
 export default function App() {
 
-  const domain = "34.155.129.238";
+  const domain = "localhost";
 
   const [themeBackground, setThemeBackground] = useState(lightBg);
   const [buttonTheme, setButtonTheme] = useState(lightBtn);
@@ -54,8 +56,8 @@ export default function App() {
   }
 
   function changeTheme() {
-    themeBackground == lightBg ? setThemeBackground(darkBg) : setThemeBackground(lightBg);
-    themeBackground == lightBg ? setButtonTheme(darkBtn) : setButtonTheme(lightBtn);
+    buttonTheme == lightBtn ? setThemeBackground(darkBg) : setThemeBackground(lightBg);
+    buttonTheme == lightBtn ? setButtonTheme(darkBtn) : setButtonTheme(lightBtn);
   }
 
   function getParamInURL() {
@@ -184,6 +186,16 @@ export default function App() {
             <DecorationController
             basket={basket}
             setBasket={setBasket}
+            domain = {domain}
+          />}></Route>
+          <Route exact path="/noel" element={
+            <ChristmasController
+            basket={basket}
+            setBasket={setBasket}
+            decorations={decorations}
+            setDecorations={setDecorations}
+            themeBackground={themeBackground}
+            setThemeBackground={setThemeBackground}
             domain = {domain}
           />}></Route>
         </Routes>
