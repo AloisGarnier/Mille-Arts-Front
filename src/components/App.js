@@ -10,6 +10,7 @@ import Basket from "./Basket";
 import MyAccountController from "./MyAccountController";
 import DecorationController from "./DecorationController";
 import ChristmasController from "./ChristmasController";
+import AboutController from "./AboutController";
 
 import lightBg from "../img/light-background.jpg";
 import darkBg from "../img/dark-background.jpg";
@@ -33,6 +34,7 @@ export default function App() {
   const [research, setResearch] = useState({search: ''});
   const [decorations, setDecorations] = useState([]);
   const [isCollapsedDisplayed, setCollapsedDisplayed] = useState(false);
+  const [about, setAbout] = useState("");
 
   useEffect(() => fetchConnectedOwner(), []);
 
@@ -197,6 +199,13 @@ export default function App() {
             themeBackground={themeBackground}
             setThemeBackground={setThemeBackground}
             domain = {domain}
+          />}></Route>
+          <Route exact path="/a-propos" element={
+            <AboutController
+            domain = {domain}
+            owner = {owner}
+            about = {about}
+            setAbout = {setAbout}
           />}></Route>
         </Routes>
     

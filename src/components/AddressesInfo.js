@@ -57,7 +57,7 @@ export default function AddressesInfo(props) {
                 class="btn btn-success"
                 onClick={() => addDisplay()}
                 >
-                Ajouter une nouvelle adresse
+                    Ajouter une nouvelle adresse
                 </Link>
             </div>
         );
