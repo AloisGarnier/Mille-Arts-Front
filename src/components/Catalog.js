@@ -96,11 +96,11 @@ export default function Catalog(props) {
 
     return (
         <>
+             <div class="d-flex flex-wrap justify-content-center my-christmas">
+                {christmas()}
+            </div>
             <div class="d-flex flex-wrap justify-content-center my-catalog">
                 {addAllDecorations()}
-            </div>
-            <div class="d-flex flex-wrap justify-content-center my-christmas">
-                {christmas()}
             </div>
         </>
     );
