@@ -115,6 +115,10 @@
     width: 100% !important;
 }
 
+.my-textarea {
+    min-height: 100px !important;
+}
+
 .btn {
     margin: 5px !important;
 }

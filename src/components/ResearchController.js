@@ -17,7 +17,7 @@ export default function ResearchController(props) {
     }
 
     return(
-        <Catalog decorations={props.decorations} basket={props.basket} setBasket={props.setBasket}></Catalog>
+        <Catalog owner={props.owner} decorations={props.decorations} basket={props.basket} setBasket={props.setBasket}></Catalog>
     );
 
 }

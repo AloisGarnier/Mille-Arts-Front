@@ -15,6 +15,6 @@ export default function CatalogController(props) {
     }
 
     return(
-        <Catalog domain={props.domain} decorations={props.decorations} basket={props.basket} setBasket={props.setBasket}></Catalog>
+        <Catalog owner={props.owner} domain={props.domain} decorations={props.decorations} basket={props.basket} setBasket={props.setBasket}></Catalog>
     );
 }

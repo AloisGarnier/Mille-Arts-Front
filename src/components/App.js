@@ -57,6 +57,14 @@ export default function App() {
     return owner != undefined ? "/compte" : "/connexion";
   }
 
+  function displayBasket() {
+    if(!owner || owner.id != 1) {
+      return(
+        <Link to="/panier" class="btn btn-link"><i class="fa-solid fa-basket-shopping"></i>&thinsp; {basket.length}</Link>
+      );
+    }
+  }
+
   function changeTheme() {
     buttonTheme == lightBtn ? setThemeBackground(darkBg) : setThemeBackground(lightBg);
     buttonTheme == lightBtn ? setButtonTheme(darkBtn) : setButtonTheme(lightBtn);
@@ -81,7 +89,7 @@ export default function App() {
       return (
         <div class="d-flex flex-column">
           <Link to={account()} class="btn btn-link"><i class="fa-solid fa-user"></i>&thinsp; {ownerName()}</Link>
-          <Link to="/panier" class="btn btn-link"><i class="fa-solid fa-basket-shopping"></i>&thinsp; {basket.length}</Link>
+          {displayBasket()}
           <Link to="/catalogue" class="btn btn-link">Tous les articles</Link>
           <Link to="/nouveautes" class="btn btn-link">Nouveautés</Link>
           <Link to="/mieux-notes" class="btn btn-link">Les mieux notés</Link>
@@ -113,7 +121,7 @@ export default function App() {
               <Link class="d-flex navbar-brand" to="/">Mille Arts</Link>
               <div class="collapse navbar-collapse navbar-right">
                 <Link to={account()} class="btn btn-link"><i class="fa-solid fa-user"></i>&thinsp; {ownerName()}</Link>
-                <Link to="/panier" class="btn btn-link"><i class="fa-solid fa-basket-shopping"></i>&thinsp; {basket.length}</Link>
+                {displayBasket()}
               </div>
               <button class="navbar-toggler collapsed" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}>
                 <span class="navbar-toggler-icon"></span>
@@ -136,6 +144,7 @@ export default function App() {
         <Routes>
           <Route exact path="/" element={
             <CatalogController
+            owner={owner}
             basket={basket}
             setBasket={setBasket}
             decorations={decorations}
@@ -144,6 +153,7 @@ export default function App() {
           />}></Route>
           <Route exact path="/catalogue" element={
             <CatalogController
+            owner={owner}
             basket={basket}
             setBasket={setBasket}
             decorations={decorations}
@@ -171,6 +181,7 @@ export default function App() {
           }></Route>
           <Route exact path="/recherche" element={
             <ResearchController
+            owner={owner}
             research={research}
             basket={basket}
             setBasket={setBasket}
@@ -186,12 +197,14 @@ export default function App() {
           />}></Route>
           <Route exact path="/decoration" element={
             <DecorationController
+            owner={owner}
             basket={basket}
             setBasket={setBasket}
             domain = {domain}
           />}></Route>
           <Route exact path="/noel" element={
             <ChristmasController
+            owner={owner}
             basket={basket}
             setBasket={setBasket}
             decorations={decorations}

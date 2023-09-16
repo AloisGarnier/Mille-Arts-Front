@@ -32,7 +32,7 @@ export default function Login(props) {
                             <Field name="email" type="email" class="form-control" />
                             <label for="floatingInput">Adresse e-mail</label>
                             {errors.email && touched.email ? (<div class="error">{errors.email}</div>) : null}
-                        </div>
+                        </div> 
                         
                         <div class="form-floating">
                             <Field name="password" type="password" class="form-control" />
