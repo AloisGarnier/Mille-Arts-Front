@@ -45,7 +45,8 @@ export default function Catalog(props) {
         if(props.owner && props.owner.id == 1) {
             return(
                 <div class="d-flex flex-wrap justify-content-center align-content-center h-25">
-                    <Link to={moreDetails(deco)} type="button" class="btn btn-info">Modifier la décoration</Link>
+                    <Link to={moreDetails(deco)} type="button" class="btn btn-info">Modifier</Link>
+                    <button onClick={() => props.deleteDecoration(deco)} type="button" class="btn btn-danger">Supprimer</button>
                 </div>
             );
         } else {
