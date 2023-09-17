@@ -38,7 +38,6 @@ export default function DecorationController(props) {
                 tempTags2.push(tempTags[i]);
             }
         }
-        console.log(tempTags2)
         const requestOptions = {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },

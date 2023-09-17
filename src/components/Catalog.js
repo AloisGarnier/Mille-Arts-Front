@@ -106,6 +106,21 @@ export default function Catalog(props) {
                 )
             });
         }
+
+        if(props.owner && props.owner.id == 1) {
+            allDecorations.push(
+                <div class="card bg-light mb-3 single-card">
+                    <div class="card-header">
+                        <div class="my-card-header">
+                            <span class="deco-name">Nouvelle décoration</span>
+                        </div>
+                    </div>
+                    <div class="card-body d-flex justify-content-center">
+                        <Link to="/nouvelle-decoration" type="button" class="btn btn-success align-self-center">Créer</Link>
+                    </div>
+                </div> 
+            );
+        }
         
         return allDecorations;
     }

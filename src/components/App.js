@@ -11,6 +11,7 @@ import MyAccountController from "./MyAccountController";
 import DecorationController from "./DecorationController";
 import ChristmasController from "./ChristmasController";
 import AboutController from "./AboutController";
+import NewDecorationController from "./NewDecorationController";
 
 import lightBg from "../img/light-background.jpg";
 import darkBg from "../img/dark-background.jpg";
@@ -219,6 +220,11 @@ export default function App() {
             owner = {owner}
             about = {about}
             setAbout = {setAbout}
+          />}></Route>
+          <Route exact path="/nouvelle-decoration" element={
+            <NewDecorationController
+            domain = {domain}
+            owner = {owner}
           />}></Route>
         </Routes>
     
