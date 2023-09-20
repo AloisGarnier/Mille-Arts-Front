@@ -17,7 +17,16 @@ export default function Catalog(props) {
 
     function addOne(decoration) {
         let newBasket = [...props.basket];
-        newBasket.push([decoration, 1]);
+        let alreadyInBasket = false;
+        for(let i = 0; i<newBasket.length; i++) {
+            if(newBasket[i][0].id == decoration.id) {
+                newBasket[i][1] += 1;
+                alreadyInBasket = true;
+            } 
+        }
+        if (!alreadyInBasket) {
+            newBasket.push([decoration, 1]);
+        }
         props.setBasket(newBasket);
     }
 

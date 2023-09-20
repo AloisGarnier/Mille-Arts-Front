@@ -22,7 +22,16 @@ export default function Decoration(props) {
 
     function addInBasket(quantity) {
         let newBasket = [...props.basket];
-        newBasket.push([props.decoration, quantity]);
+        let alreadyInBasket = false;
+        for(let i = 0; i<newBasket.length; i++) {
+            if(newBasket[i][0].id == props.decoration.id) {
+                newBasket[i][1] += parseInt(quantity);
+                alreadyInBasket = true;
+            } 
+        }
+        if (!alreadyInBasket) {
+            newBasket.push([props.decoration, parseInt(quantity)]);
+        }
         props.setBasket(newBasket);
     }
 

@@ -63,7 +63,6 @@ export default function Basket(props) {
                         currentPrice = deco.decorationPrices[i].price.amount;
                     }
                 }
-                currentPrice = currentPrice*quantity;
 
                 basketElements.push(
                     <tr class="table-light">
