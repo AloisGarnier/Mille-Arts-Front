@@ -4,7 +4,7 @@
 }
 
 .my-header {
-    font-family: Neucha;
+    font-family: Neucha !important;
 }
 
 .my-catalog {
@@ -152,6 +152,10 @@
 
 .bg-light-red {
     background-color:#ed7179 !important;
+}
+
+.bg-light-purple {
+    background-color:#966FD6 !important;
 }
 
 .single-card {

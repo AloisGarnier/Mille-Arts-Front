@@ -42,8 +42,52 @@ export default function Basket(props) {
         }
     }
 
+    function resetBasket() {
+        props.setBasket([]);
+    }
+
     function bottomButtons() {
-        
+        if(props.basket.length > 0) {
+            if(props.owner) {
+                return(
+                <div class="m-2 d-flex justify-content-end">
+                    <Link 
+                        type="button" 
+                        class="btn btn-danger"
+                        to="/catalogue"
+                        onClick={() => resetBasket()}
+                    >
+                        Réinitialiser votre panier
+                    </Link>
+                    <Link 
+                        type="button" 
+                        class="btn btn-success"
+                        to="/livraison"
+                    >
+                        Valider votre panier
+                    </Link>
+                </div>)
+            } else {
+                return(
+                <div class="m-2 d-flex justify-content-end">
+                    <Link 
+                        type="button" 
+                        class="btn btn-danger"
+                        to="/catalogue"
+                        onClick={() => resetBasket()}
+                    >
+                        Réinitialiser votre panier
+                    </Link>
+                    <Link 
+                        type="button" 
+                        class="btn btn-warning"
+                        to="/connexion"
+                    >
+                        Merci de vous connecter afin de passer commande
+                    </Link>
+                </div>)
+            }
+        }
     }
 
     function basketElements() {

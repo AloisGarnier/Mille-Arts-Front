@@ -12,6 +12,7 @@ import DecorationController from "./DecorationController";
 import ChristmasController from "./ChristmasController";
 import AboutController from "./AboutController";
 import NewDecorationController from "./NewDecorationController";
+import Delivery from "./Delivery";
 
 import lightBg from "../img/light-background.jpg";
 import darkBg from "../img/dark-background.jpg";
@@ -100,10 +101,18 @@ export default function App() {
       )
     }
   }
+  
+  function navBarClass() {
+    if(themeBackground == darkBg) {
+      return("navbar navbar-expand-lg navbar-light bg-light-purple sticky-top")
+    } else {
+      return("navbar navbar-expand-lg navbar-light bg-light-red sticky-top")
+    }
+  }
 
   return (
     <div class="theme" style={{ backgroundImage: `url(${themeBackground})` }}>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light-red sticky-top">
+      <nav class={navBarClass()}>
         <div class="container-fluid">
           <div class="col">
             <div class="my-row">
@@ -174,7 +183,8 @@ export default function App() {
               domain = {domain}
           />}></Route>
           <Route exact path="/panier" element={
-            <Basket 
+            <Basket
+            owner={owner} 
             basket={basket}
             setBasket={setBasket}
             domain = {domain}
@@ -223,6 +233,11 @@ export default function App() {
           />}></Route>
           <Route exact path="/nouvelle-decoration" element={
             <NewDecorationController
+            domain = {domain}
+            owner = {owner}
+          />}></Route>
+          <Route exact path="/livraison" element={
+            <Delivery
             domain = {domain}
             owner = {owner}
           />}></Route>
