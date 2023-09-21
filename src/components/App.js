@@ -21,9 +21,14 @@ import christmasBg from "../img/christmas-background.png";
 import lightBtn from "../img/go-to-dark-mode.png"
 import darkBtn from "../img/go-to-light-mode.png"
 
+import favicon from '../img/favicon.png'
+import faviconXmas from "../img/favicon-xmas.png";
+
+
 import "../css/style.css";
 import "../css/sketchy.css";
 import "../css/fontawesome.all.min.css";
+import { Helmet } from "react-helmet";
 
 export default function App() {
 
@@ -37,9 +42,11 @@ export default function App() {
   const [decorations, setDecorations] = useState([]);
   const [isCollapsedDisplayed, setCollapsedDisplayed] = useState(false);
   const [about, setAbout] = useState("");
+  const [cookies, setCookies] = useState(false);
 
   useEffect(() => fetchConnectedOwner(), []);
   useEffect(() => fetchPreviousBasket(), []);
+  useEffect(() => fetchCookies(), []);
 
   const navigate = useNavigate();
 
@@ -55,6 +62,12 @@ export default function App() {
   function fetchPreviousBasket() {
     if(JSON.parse(window.localStorage.getItem("basket"))) {
       setBasket(JSON.parse(window.localStorage.getItem("basket")));
+    }
+  }
+
+  function fetchCookies() {
+    if(JSON.parse(window.localStorage.getItem("cookies"))) {
+      setCookies(JSON.parse(window.localStorage.getItem("cookies")));
     }
   }
 
@@ -117,8 +130,53 @@ export default function App() {
     }
   }
 
+  function acceptCookies() {
+    setCookies(true);
+    window.localStorage.setItem("cookies", true);
+  }
+
+  function checkCookiesAcceptance() {
+    if(!cookies) {
+      return(
+        <div class="alert popup alert-danger d-flex flex-row justify-content-between">
+          <div class="m-2">
+            Nous utilisons des cookies et outils similaires afin de faciliter votre navigation sur ce site et améliorer votre expérience d'achat. <br/>
+            Merci d'accepter tous les cookies ou de refuser les cookies non-essentiels.
+          </div>
+          <div class="m-2 d-flex justify-content-end">
+            <Link 
+                type="button" 
+                class="btn btn-info"
+                to="/catalogue"
+                onClick={() => acceptCookies()}
+            >
+                J'accepte seulement les cookies essentiels
+            </Link>
+            <Link 
+                type="button" 
+                class="btn btn-success"
+                to="/catalogue"
+                onClick={() => acceptCookies()}
+            >
+                J'accepte tous les cookies
+            </Link>
+          </div>
+        </div>
+      );
+    }
+  }
+
   return (
     <div class="theme" style={{ backgroundImage: `url(${themeBackground})` }}>
+      <Helmet>
+      <title>Mille Arts</title>
+        <meta name="description" content="Décorations et petits objets pour égayer le quotidien" />
+        <meta property="og:title" content="Mille Arts" />
+        <meta property="og:description" content="Venez dans ma boutique en-ligne pour acheter plein d'objets décoratifs" />
+        <meta property="og:url" content="https://mille-arts.fr/" />
+        <meta property="og:type" content="website" />
+        <link rel="icon" href={favicon} />
+      </Helmet>
       <nav class={navBarClass()}>
         <div class="container-fluid">
           <div class="col">
@@ -157,7 +215,7 @@ export default function App() {
           </div>
         </div>
       </nav>
-      
+    
         <Routes>
           <Route exact path="/" element={
             <CatalogController
@@ -251,8 +309,9 @@ export default function App() {
         </Routes>
     
 
-      <footer class="sticky-bottom my-footer">
+      <footer class="sticky-bottom my-footer d-flex flex-row">
         <button class="theme-button" onClick={() => changeTheme()} type="submit"><img class="theme-image" src={buttonTheme}/></button>
+        {checkCookiesAcceptance()}
       </footer>
     </div>
   );

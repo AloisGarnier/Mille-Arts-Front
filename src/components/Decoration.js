@@ -152,7 +152,7 @@ export default function Decoration(props) {
                         <img class="image" src={props.decoration.picture}/>
                     </span>
                     <span class="d-flex flex-column justify-content-start align-content-start w-25">
-                        <div class="mb-3"> {getFormattedPrice(props.currentPrice)}</div>
+                        <h3 class="mb-3 my-header">Prix : {getFormattedPrice(props.currentPrice)}</h3>
                         <div> {props.decoration.description} </div>
                     </span>
                     <span class="d-flex flex-column justify-content-start align-self-center">
