@@ -33,6 +33,7 @@ export default function Decoration(props) {
             newBasket.push([props.decoration, parseInt(quantity)]);
         }
         props.setBasket(newBasket);
+        window.localStorage.setItem("basket", JSON.stringify(newBasket));
     }
 
     function getTags(tags) {

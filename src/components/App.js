@@ -39,6 +39,7 @@ export default function App() {
   const [about, setAbout] = useState("");
 
   useEffect(() => fetchConnectedOwner(), []);
+  useEffect(() => fetchPreviousBasket(), []);
 
   const navigate = useNavigate();
 
@@ -48,6 +49,12 @@ export default function App() {
   function fetchConnectedOwner() {
     if(JSON.parse(window.localStorage.getItem("owner"))) {
       setOwner(JSON.parse(window.localStorage.getItem("owner")));
+    }
+  }
+
+  function fetchPreviousBasket() {
+    if(JSON.parse(window.localStorage.getItem("basket"))) {
+      setBasket(JSON.parse(window.localStorage.getItem("basket")));
     }
   }
 

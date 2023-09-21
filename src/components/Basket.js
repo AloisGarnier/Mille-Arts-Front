@@ -44,6 +44,7 @@ export default function Basket(props) {
 
     function resetBasket() {
         props.setBasket([]);
+        window.localStorage.removeItem("basket");
     }
 
     function bottomButtons() {

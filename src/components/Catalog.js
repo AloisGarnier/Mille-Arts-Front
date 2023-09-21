@@ -28,6 +28,7 @@ export default function Catalog(props) {
             newBasket.push([decoration, 1]);
         }
         props.setBasket(newBasket);
+        window.localStorage.setItem("basket", JSON.stringify(newBasket));
     }
 
     function christmas() {
