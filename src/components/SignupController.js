@@ -1,6 +1,9 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 
 import Signup from "./Signup";
+
+import favicon from '../img/favicon.png'
 
 export default function SignupController(props) {
 
@@ -48,7 +51,18 @@ export default function SignupController(props) {
     }
 
     return (
-        <Signup linkCatalog={props.linkCatalog} addCustomer={(firstName, lastName, email, password, date, month, year, phoneNumber)  => addCustomer(firstName, lastName, email, password, date, month, year, phoneNumber)} />
+        <>
+            <Helmet>
+                <title>Inscription - Mille Arts</title>
+                <meta name="description" content="Décorations et petits objets pour égayer le quotidien" />
+                <meta property="og:title" content="Mille Arts" />
+                <meta property="og:description" content="Page de création de compte" />
+                <meta property="og:url" content="https://mille-arts.fr/" />
+                <meta property="og:type" content="website" />
+                <link rel="icon" href={favicon} />
+            </Helmet>
+            <Signup linkCatalog={props.linkCatalog} addCustomer={(firstName, lastName, email, password, date, month, year, phoneNumber)  => addCustomer(firstName, lastName, email, password, date, month, year, phoneNumber)} />
+        </>
     ); 
 
 

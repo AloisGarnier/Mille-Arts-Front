@@ -1,6 +1,9 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 
 import Login from "./Login";
+
+import favicon from '../img/favicon.png'
 
 export default function LoginController(props) {
 
@@ -43,6 +46,18 @@ export default function LoginController(props) {
     }
 
     return (
-        <Login linkSignUp={props.linkSignUp} fetchCustomer={(login, password) => fetchCustomer(login, password)} />
+        <>
+            <Helmet>
+                <title>Connexion - Mille Arts</title>
+                <meta name="description" content="Décorations et petits objets pour égayer le quotidien" />
+                <meta property="og:title" content="Mille Arts" />
+                <meta property="og:description" content="Page de connexion" />
+                <meta property="og:url" content="https://mille-arts.fr/" />
+                <meta property="og:type" content="website" />
+                <link rel="icon" href={favicon} />
+            </Helmet>
+            <Login linkSignUp={props.linkSignUp} fetchCustomer={(login, password) => fetchCustomer(login, password)} />
+        </>
+
     ); 
 }

@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
+import favicon from '../img/favicon.png'
 
 export default function Basket(props) {
 
@@ -138,6 +140,15 @@ export default function Basket(props) {
 
     return(
         <div class="card my-card basket-card">
+            <Helmet>
+                <title>Votre panier - Mille Arts</title>
+                <meta name="description" content="Décorations et petits objets pour égayer le quotidien" />
+                <meta property="og:title" content="Mille Arts" />
+                <meta property="og:description" content="Votre panier à valider" />
+                <meta property="og:url" content="https://mille-arts.fr/" />
+                <meta property="og:type" content="website" />
+                <link rel="icon" href={favicon} />
+            </Helmet>
             <h3 class="card-header my-header">Votre panier</h3>
             <div class="card-body d-flex flex-column justify-content-center">
                 {basketElements()}

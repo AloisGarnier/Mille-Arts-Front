@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 
 import Decoration from "./Decoration";
+
+import favicon from '../img/favicon.png'
 
 export default function DecorationController(props) {
 
@@ -69,15 +72,26 @@ export default function DecorationController(props) {
     }
 
     return(
-        <Decoration
-            owner = {props.owner}
-            decoration={thisDecoration} 
-            currentPrice={currentPrice}
-            tags={tags}
-            tagDisplay={tagDisplay}
-            basket={props.basket}
-            setBasket={props.setBasket}
-            modifyDecoration={modifyDecoration}
-        />
+        <>
+            <Helmet>
+                <title>{thisDecoration.name} - Mille Arts</title>
+                <meta name="description" content="Décorations et petits objets pour égayer le quotidien" />
+                <meta property="og:title" content="Mille Arts" />
+                <meta property="og:description" content="Page de décoration" />
+                <meta property="og:url" content="https://mille-arts.fr/" />
+                <meta property="og:type" content="website" />
+                <link rel="icon" href={favicon} />
+            </Helmet>
+            <Decoration
+                owner = {props.owner}
+                decoration={thisDecoration} 
+                currentPrice={currentPrice}
+                tags={tags}
+                tagDisplay={tagDisplay}
+                basket={props.basket}
+                setBasket={props.setBasket}
+                modifyDecoration={modifyDecoration}
+            />
+        </>
     );
 }

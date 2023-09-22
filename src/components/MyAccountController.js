@@ -1,6 +1,9 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 
 import MyAccount from "./MyAccount";
+
+import favicon from '../img/favicon.png'
 
 export default function MyAccountController(props) {
 
@@ -42,11 +45,22 @@ export default function MyAccountController(props) {
     }
 
     return (
-        <MyAccount 
+        <>
+            <Helmet>
+                <title>Votre compte - Mille Arts</title>
+                <meta name="description" content="Décorations et petits objets pour égayer le quotidien" />
+                <meta property="og:title" content="Mille Arts" />
+                <meta property="og:description" content="Gérer votre compte" />
+                <meta property="og:url" content="https://mille-arts.fr/" />
+                <meta property="og:type" content="website" />
+                <link rel="icon" href={favicon} />
+            </Helmet>
+            <MyAccount 
             domain={props.domain}
             owner={props.owner} 
             setOwner={props.setOwner}
             changeCustomer={(firstName, lastName, email, password, phoneNumber) => changeCustomer(firstName, lastName, email, password, phoneNumber)} 
-        />
+            />
+        </>
     );
 }
