@@ -42,6 +42,7 @@
     "react-helmet": "^6.1.0",
     "react-paypal-button-v2": "^2.6.3",
     "react-paypal-js": "^0.0.1-security",
+    "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.9.0",
     "react-scripts": "^5.0.1",
     "url": "^0.11.3",

@@ -11,6 +11,7 @@ export default function DecorationController(props) {
     const [currentPrice, setCurrentPrice] = useState(0);
     const [tags, setTags] = useState([]);
     const [tagDisplay, setTagDisplay] = useState([]);
+    const [pictures, setPictures] = useState([]);
 
     useEffect(() => {
         fetchDecoration();
@@ -23,6 +24,10 @@ export default function DecorationController(props) {
         fetch(backUrl + location.search.substring(4) + "/all")
             .then(response => response.json())
             .then(json => setThisDecoration(json));
+        
+        fetch(backUrl + location.search.substring(4) + "/pictures")
+            .then(response => response.json())
+            .then(json => setPictures(json));
 
         fetch(backUrl + location.search.substring(4) + "/price")
             .then(response => response.json())
@@ -33,7 +38,7 @@ export default function DecorationController(props) {
             .then(json => displayTags(json));
     }
 
-    function modifyDecoration(id, name, picture, description, price, preparationDelay, tag1, tag2, tag3) {
+    function modifyDecoration(id, name, picture1, picture2, picture3, description, price, preparationDelay, weight, dimensions, tag1, tag2, tag3) {
         let tempTags = [tag1, tag2, tag3];
         let tempTags2 = [];
         for(let i=0;i<3;i++) {
@@ -41,15 +46,26 @@ export default function DecorationController(props) {
                 tempTags2.push(tempTags[i]);
             }
         }
+
+        let tempPics = [picture1, picture2, picture3];
+        let tempPics2 = [];
+        for(let i=0;i<3;i++) {
+            if(tempPics[i]) {
+                tempPics2.push(tempPics[i]);
+            }
+        }
+
         const requestOptions = {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 id: id,
                 name: name,
-                picture: picture, 
+                pictures: tempPics2, 
                 description: description, 
                 preparationDelay: preparationDelay,
+                weight: weight,
+                dimensions: dimensions,
                 price: price,
                 tags: tempTags2
             })
@@ -74,7 +90,7 @@ export default function DecorationController(props) {
     return(
         <>
             <Helmet>
-                <title>{thisDecoration.name} - Mille Arts</title>
+                <title>{thisDecoration.name + " - Mille-Arts"}</title>
                 <meta name="description" content="Décorations et petits objets pour égayer le quotidien" />
                 <meta property="og:title" content="Mille Arts" />
                 <meta property="og:description" content="Page de décoration" />
@@ -91,6 +107,7 @@ export default function DecorationController(props) {
                 basket={props.basket}
                 setBasket={props.setBasket}
                 modifyDecoration={modifyDecoration}
+                pictures={pictures}
             />
         </>
     );

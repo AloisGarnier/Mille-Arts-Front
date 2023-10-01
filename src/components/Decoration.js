@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 export default function Decoration(props) {
 
@@ -58,6 +60,28 @@ export default function Decoration(props) {
 
     }
 
+    function carousel(pictures) {
+
+        if(pictures && pictures.length>1) {
+            let pictureRenders = [];
+            for(let i=0; i<pictures.length; i++) {
+                pictureRenders.push(
+                    <img class="image" src={pictures[i].path} />
+                );
+            }
+
+            return(
+                <Carousel showStatus={false}>
+                    {pictureRenders}
+                </Carousel>
+            );
+        } else if (pictures && pictures.length==1) {
+            return(
+                <img class="large-image" src={pictures[0].path} />
+            );
+        }
+    }
+
     function displayCard() { 
         if(props.owner && props.owner.id == 1) {
             return(
@@ -66,10 +90,14 @@ export default function Decoration(props) {
                     enableReinitialize
                     initialValues={{
                         name: props.decoration.name,
-                        picture: props.decoration.picture,
+                        picture1: props.pictures[0],
+                        picture2: props.pictures[1],
+                        picture3: props.pictures[2],
                         description: props.decoration.description,
                         price: props.currentPrice,
                         preparationDelay: props.decoration.preparationDelay,
+                        weight: props.decoration.weight,
+                        dimensions: props.decoration.dimensions,
                         tag1: props.tags[0],
                         tag2: props.tags[1],
                         tag3: props.tags[2]
@@ -87,12 +115,34 @@ export default function Decoration(props) {
                     </h3>
                     <div class="card-body d-flex flex-column">
                         <div class="form-floating mb-3">
-                                <Field name="picture" type="label" class="form-control" />
-                                <label for="floatingInput">URL de l'image</label>
+                                <Field name="picture1" type="label" class="form-control" />
+                                <label for="floatingInput">URL de l'image n°1</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                                <Field name="picture2" type="label" class="form-control" />
+                                <label for="floatingInput">URL de l'image n°2</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                                <Field name="picture3" type="label" class="form-control" />
+                                <label for="floatingInput">URL de l'image n°3</label>
                         </div>
                         <div class="form-floating mb-3">
                                 <Field name="description" type="label" class="form-control my-textarea" component="textarea"/>
                                 <label for="floatingInput">Description</label>
+                        </div>
+                        <div class="form-floating mb-3 d-flex flex-row justify-content-around">
+                            <div class="d-flex flex-column w-25">
+                                <label for="floatingInput">Poids</label>
+                                <div class="input-group">
+                                    <Field name="weight" type="label" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column w-25">
+                                <label for="floatingInput">Dimensions</label>
+                                <div class="input-group">
+                                    <Field name="dimensions" type="label" class="form-control"/>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-floating mb-3 d-flex flex-row justify-content-around">
                             <div class="d-flex flex-column w-25">
@@ -126,10 +176,14 @@ export default function Decoration(props) {
                                 to="/catalogue"
                                 onClick={() => props.modifyDecoration(props.decoration.id, 
                                     values.name, 
-                                    values.picture, 
+                                    values.picture1, 
+                                    values.picture2,
+                                    values.picture3,
                                     values.description, 
                                     values.price, 
                                     values.preparationDelay,
+                                    values.weight,
+                                    values.dimensions,
                                     values.tag1,
                                     values.tag2,
                                     values.tag3
@@ -147,13 +201,16 @@ export default function Decoration(props) {
             return(
             <div class="card my-card">
                 <h3 class="card-header my-header">{props.decoration.name}</h3>
-                <div class="card-body d-flex flex-row justify-content-around my-5">
-                    <span class="d-flex justify-content-center">
-                        <img class="image" src={props.decoration.picture}/>
+                <div class="card-body d-flex flex-wrap justify-content-around my-5">
+                    <span class="my-carousel">
+                        {carousel(props.decoration.pictures)}
                     </span>
-                    <span class="d-flex flex-column justify-content-start align-content-start w-25">
+                    <span class="d-flex flex-column justify-content-start align-content-start w-25 my-carousel">
                         <h3 class="mb-3 my-header">Prix : {getFormattedPrice(props.currentPrice)}</h3>
                         <div> {props.decoration.description} </div>
+                        <div> <br /> Poids : {props.decoration.weight} </div>
+                        <div> <br /> Dimensions : {props.decoration.dimensions} </div>
+                        <div> <br /> Temps de préparation estimé : {props.decoration.preparationDelay} jours </div>
                     </span>
                     <span class="d-flex flex-column justify-content-start align-self-center">
                         <Formik
