@@ -13,10 +13,11 @@ import ChristmasController from "./ChristmasController";
 import AboutController from "./AboutController";
 import NewDecorationController from "./NewDecorationController";
 import Delivery from "./Delivery";
+import NewController from "./NewController";
 
-import lightBg from "../img/light-background.jpg";
-import darkBg from "../img/dark-background.jpg";
-import christmasBg from "../img/christmas-background.png";
+import lightBg from "../img/light-bg.png";
+import darkBg from "../img/dark-bg.png";
+import christmasBg from "../img/christmas-bg.png";
 
 import lightBtn from "../img/go-to-dark-mode.png"
 import darkBtn from "../img/go-to-light-mode.png"
@@ -32,7 +33,7 @@ import { Helmet } from "react-helmet";
 
 export default function App() {
 
-  const domain = "localhost";
+  const domain = "34.163.199.16";
 
   const [themeBackground, setThemeBackground] = useState(lightBg);
   const [buttonTheme, setButtonTheme] = useState(lightBtn);
@@ -114,7 +115,6 @@ export default function App() {
           {displayBasket()}
           <Link to="/catalogue" class="btn btn-link">Tous les articles</Link>
           <Link to="/nouveautes" class="btn btn-link">Nouveautés</Link>
-          <Link to="/mieux-notes" class="btn btn-link">Les mieux notés</Link>
           <Link to="/noel" class="btn btn-link">C'est déjà Noël !</Link>
           <Link to="/a-propos" class="btn btn-link">Qui suis-je ?</Link>
         </div>
@@ -166,8 +166,24 @@ export default function App() {
     }
   }
 
+  function isSnow() {
+    if(themeBackground == christmasBg) {
+      let snowflakes = [];
+      for(let i=0;i<200;i++) {
+        snowflakes.push(
+          <div class="snow"></div>  
+        );
+      }
+      return(
+      <>
+        {snowflakes}
+      </>);
+    }
+  }
+
   return (
     <div class="theme" style={{ backgroundImage: `url(${themeBackground})` }}>
+      {isSnow()}
       <Helmet>
       <title>Mille Arts</title>
         <meta name="description" content="Décorations et petits objets pour égayer le quotidien" />
@@ -205,7 +221,6 @@ export default function App() {
             <div class="my-bottom-row collapse navbar-collapse nav-item navbar-nav me-auto">
                 <Link to="/catalogue" class="btn btn-link">Tous les articles</Link>
                 <Link to="/nouveautes" class="btn btn-link">Nouveautés</Link>
-                <Link to="/mieux-notes" class="btn btn-link">Les mieux notés</Link>
                 <Link to="/noel" class="btn btn-link">C'est déjà Noël !</Link>
                 <Link to="/a-propos" class="btn btn-link">Qui suis-je ?</Link>
             </div>
@@ -280,6 +295,17 @@ export default function App() {
           />}></Route>
           <Route exact path="/noel" element={
             <ChristmasController
+            owner={owner}
+            basket={basket}
+            setBasket={setBasket}
+            decorations={decorations}
+            setDecorations={setDecorations}
+            themeBackground={themeBackground}
+            setThemeBackground={setThemeBackground}
+            domain = {domain}
+          />}></Route>
+          <Route exact path="/nouveautes" element={
+            <NewController
             owner={owner}
             basket={basket}
             setBasket={setBasket}

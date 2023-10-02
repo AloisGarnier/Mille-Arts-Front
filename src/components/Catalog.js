@@ -31,25 +31,6 @@ export default function Catalog(props) {
         window.localStorage.setItem("basket", JSON.stringify(newBasket));
     }
 
-    function christmas() {
-        if (props.christmas) {
-
-            let currentDate = new Date();
-            let christmasDate = new Date(currentDate.getFullYear(), 11, 25);
-            let distance = christmasDate - currentDate;
-            if (distance < 0) {
-                christmasDate = new Date(currentDate.getFullYear() + 1, 11, 25);
-                let distance = christmasDate - currentDate;
-            }
-            distance = Math.floor(distance/(1000*60*60*24));
-
-            return(
-                <div class="alert alert-dismissible alert-danger">
-                    Youpi ! Plus que {distance} jours avant Noël !
-                </div>
-            );
-        }
-    }
 
     function bottomButtons(deco) {
         if(props.owner && props.owner.id == 1) {
@@ -106,7 +87,7 @@ export default function Catalog(props) {
                     </div>
                     <div class="card-body">
                         <div class="d-flex justify-content-center h-50">
-                            <img class="little-image" src={deco.picture}/>
+                            <img class="little-image" src={deco.pictures[0].path}/>
                         </div>
                         <div class="d-flex flex-wrap justify-content-center align-content-center h-25">
                             {tags}
@@ -137,13 +118,8 @@ export default function Catalog(props) {
     }
 
     return (
-        <>
-             <div class="d-flex flex-wrap justify-content-center my-christmas">
-                {christmas()}
-            </div>
-            <div class="d-flex flex-wrap justify-content-center my-catalog">
-                {addAllDecorations()}
-            </div>
-        </>
+        <div class="d-flex flex-wrap justify-content-center my-catalog">
+            {addAllDecorations()}
+        </div>
     );
 }
