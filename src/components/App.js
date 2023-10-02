@@ -13,6 +13,7 @@ import ChristmasController from "./ChristmasController";
 import AboutController from "./AboutController";
 import NewDecorationController from "./NewDecorationController";
 import Delivery from "./Delivery";
+import NewController from "./NewController";
 
 import lightBg from "../img/light-bg.png";
 import darkBg from "../img/dark-bg.png";
@@ -294,6 +295,17 @@ export default function App() {
           />}></Route>
           <Route exact path="/noel" element={
             <ChristmasController
+            owner={owner}
+            basket={basket}
+            setBasket={setBasket}
+            decorations={decorations}
+            setDecorations={setDecorations}
+            themeBackground={themeBackground}
+            setThemeBackground={setThemeBackground}
+            domain = {domain}
+          />}></Route>
+          <Route exact path="/nouveautes" element={
+            <NewController
             owner={owner}
             basket={basket}
             setBasket={setBasket}
