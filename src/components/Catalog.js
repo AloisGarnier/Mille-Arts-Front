@@ -53,7 +53,7 @@ export default function Catalog(props) {
     function addAllDecorations() {
         let allDecorations = [];
 
-        if(props.decorations) {
+        if(props.decorations.length > 0) {
             props.decorations.forEach(deco => {
 
                 let currentPrice = 0;
