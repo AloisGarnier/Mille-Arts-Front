@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { Formik, Form, Field } from "formik";
 import { Helmet } from "react-helmet";
-import { PayPalButton } from "react-paypal-button-v2";
+// import { PayPalButton } from "react-paypal-button-v2";
 
 import favicon from '../img/favicon.png'
 
