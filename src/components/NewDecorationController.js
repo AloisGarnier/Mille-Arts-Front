@@ -6,7 +6,7 @@ export default function NewDecorationController(props) {
 
     const backUrl = "http://" + props.domain + ":8081/catalog/";
 
-    function addNewDecoration(name, picture, description, price, preparationDelay, tag1, tag2, tag3) {
+    function addNewDecoration(id, name, picture1, picture2, picture3, description, price, preparationDelay, weight, dimensions, tag1, tag2, tag3) {
         let tempTags = [tag1, tag2, tag3];
         let tempTags2 = [];
         for(let i=0;i<3;i++) {
@@ -14,18 +14,30 @@ export default function NewDecorationController(props) {
                 tempTags2.push(tempTags[i]);
             }
         }
+
+        let tempPics = [picture1, picture2, picture3];
+        let tempPics2 = [];
+        for(let i=0;i<3;i++) {
+            if(tempPics[i]) {
+                tempPics2.push(tempPics[i]);
+            }
+        }
+
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 name: name,
-                picture: picture, 
+                pictures: tempPics2, 
                 description: description, 
                 preparationDelay: preparationDelay,
+                weight: weight,
+                dimensions: dimensions,
                 price: price,
                 tags: tempTags2
             })
-        };
+        }
+
         fetch(backUrl + "create", requestOptions)
             .then(response => response.json())
     }
