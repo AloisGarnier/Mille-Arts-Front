@@ -6,7 +6,7 @@ export default function NewDecorationController(props) {
 
     const backUrl = "http://" + props.domain + ":8081/catalog/";
 
-    function addNewDecoration(id, name, picture1, picture2, picture3, description, price, preparationDelay, weight, dimensions, tag1, tag2, tag3) {
+    function addNewDecoration(name, picture1, picture2, picture3, description, price, preparationDelay, weight, dimensions, tag1, tag2, tag3) {
         let tempTags = [tag1, tag2, tag3];
         let tempTags2 = [];
         for(let i=0;i<3;i++) {
