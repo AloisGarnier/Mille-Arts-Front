@@ -182,10 +182,10 @@ export default function App() {
   }
 
   return (
-    <div class="theme" style={{ backgroundImage: `url(${themeBackground})` }}>
+    <div class="theme" style={{backgroundImage:`url(${themeBackground})`}}>
       {isSnow()}
       <Helmet>
-      <title>Mille Arts</title>
+        <title>Mille Arts</title>
         <meta name="description" content="Décorations et petits objets pour égayer le quotidien" />
         <meta property="og:title" content="Mille Arts" />
         <meta property="og:description" content="Venez dans ma boutique en-ligne pour acheter plein d'objets décoratifs" />
@@ -209,14 +209,19 @@ export default function App() {
                   <Link reloadDocument type="submit" to={getParamInURL()} class="btn btn-link my-2 my-sm-0"><i class="fas fa-search"></i></Link>
                 </form>
               </div>
-              <Link class="d-flex navbar-brand" to="/">Mille Arts</Link>
+              <Link class="d-flex navbar-brand me-auto" to="/">Mille Arts</Link>
               <div class="collapse navbar-collapse navbar-right">
                 <Link to={account()} class="btn btn-link"><i class="fa-solid fa-user"></i>&thinsp; {ownerName()}</Link>
                 {displayBasket()}
               </div>
-              <button class="navbar-toggler collapsed" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}>
-                <span class="navbar-toggler-icon"></span>
-              </button>
+              <div class="collapsed navbar-right-collapsed">
+                <div class="d-flex navbar-toggler-collapsed">
+                  <button class="navbar-toggler" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}>
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                </div>
+
+              </div>
             </div>
             <div class="my-bottom-row collapse navbar-collapse nav-item navbar-nav me-auto">
                 <Link to="/catalogue" class="btn btn-link">Tous les articles</Link>
@@ -224,7 +229,7 @@ export default function App() {
                 <Link to="/noel" class="btn btn-link">C'est déjà Noël !</Link>
                 <Link to="/a-propos" class="btn btn-link">Qui suis-je ?</Link>
             </div>
-              <div class="nav-item navbar-nav me-auto collapsed my-toggler d-block d-lg-none">
+            <div class="nav-item navbar-nav me-auto collapsed my-toggler d-block d-lg-none">
                   {displayCollapsedItems()}
             </div>
           </div>
@@ -335,7 +340,7 @@ export default function App() {
         </Routes>
     
 
-      <footer class="sticky-bottom my-footer d-flex flex-row">
+      <footer class="my-footer d-flex flex-row sticky-bottom">
         <button class="theme-button" onClick={() => changeTheme()} type="submit"><img class="theme-image" src={buttonTheme}/></button>
         {checkCookiesAcceptance()}
       </footer>

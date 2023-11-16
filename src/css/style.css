@@ -1,6 +1,17 @@
+body, html {
+  height: 100%;
+}
+
 .theme {
 	background-repeat: no-repeat;
 	background-size:cover;
+  height: 100%;
+}
+
+@media only screen and (max-width: 480px) {
+  .theme-button {
+    display: none !important;
+  }
 }
 
 .my-header {
@@ -8,8 +19,8 @@
 }
 
 .my-catalog {
-    margin: 0px 0px 150px;
     min-width: 150px;
+    min-height: 75%;
 }
 
 .my-christmas {
@@ -37,6 +48,8 @@
 
 .my-footer {
     margin: 0px 10px;
+    position: sticky;
+    bottom: 0;
 }
 
 .my-toggler {
@@ -133,6 +146,10 @@
     font-weight: bold !important;
 }
 
+.me-auto {
+  margin-inline-end: auto !important;
+}
+
 .navbar-left {
     justify-content: left !important;
     width: 33% !important;
@@ -143,8 +160,19 @@
     width: 33% !important;
 }
 
+.navbar-right-collapsed {
+  display:flex;
+  justify-content: right !important;
+  align-content: center !important;
+}
+
+.navbar-toggler-collapsed {
+  justify-content: right !important;
+  align-content: center !important;
+}
+
 .navbar-toggler {
-    margin-left: 50% !important;
+    justify-items: right !important;
 }
 
 .btn-link {
