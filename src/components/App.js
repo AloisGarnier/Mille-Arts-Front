@@ -30,6 +30,9 @@ import "../css/style.css";
 import "../css/sketchy.css";
 import "../css/fontawesome.all.min.css";
 import { Helmet } from "react-helmet";
+import DropdownMenu from "react-bootstrap/esm/DropdownMenu";
+import DropdownItem from "react-bootstrap/esm/DropdownItem";
+import { Dropdown, DropdownButton } from "react-bootstrap";
 
 export default function App() {
 
@@ -42,6 +45,7 @@ export default function App() {
   const [research, setResearch] = useState({search: ''});
   const [decorations, setDecorations] = useState([]);
   const [isCollapsedDisplayed, setCollapsedDisplayed] = useState(false);
+  const [isLightTheme, setLightTheme] = useState(true);
   const [about, setAbout] = useState("");
   const [cookies, setCookies] = useState(false);
 
@@ -90,6 +94,7 @@ export default function App() {
 
   function changeTheme() {
     buttonTheme == lightBtn ? setThemeBackground(darkBg) : setThemeBackground(lightBg);
+    buttonTheme == lightBtn ? setLightTheme(false) : setLightTheme(true);
     buttonTheme == lightBtn ? setButtonTheme(darkBtn) : setButtonTheme(lightBtn);
   }
 
@@ -220,14 +225,27 @@ export default function App() {
                     <span class="navbar-toggler-icon"></span>
                   </button>
                 </div>
-
               </div>
             </div>
+
             <div class="my-bottom-row collapse navbar-collapse nav-item navbar-nav me-auto">
+              <div class="sun-moon">
+                <label class="form-check-label me-2" for="flexSwitchCheckChecked"><i class="fa-solid fa-sun"></i></label>
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" onClick={() => changeTheme()} value={isLightTheme}/>
+                  <label class="form-check-label" for="flexSwitchCheckChecked"><i class="fa-sharp fa-solid fa-moon"></i></label>
+                </div>
+              </div>
+              <div>
                 <Link to="/catalogue" class="btn btn-link">Tous les articles</Link>
                 <Link to="/nouveautes" class="btn btn-link">Nouveautés</Link>
                 <Link to="/noel" class="btn btn-link">C'est déjà Noël !</Link>
                 <Link to="/a-propos" class="btn btn-link">Qui suis-je ?</Link>
+              </div>
+              <div class="pe-3 d-flex flex-row justify-content-around">
+                <Link to="https://id.pinterest.com/carolinemilard" class="btn-link social-network"><i class="fa-brands fa-pinterest"></i></Link>
+                <Link to="https://www.instagram.com/carolinemilard/" class="btn-link social-networkk"><i class="fa-brands fa-instagram"></i></Link>
+              </div>
             </div>
             <div class="nav-item navbar-nav me-auto collapsed my-toggler d-block d-lg-none">
                   {displayCollapsedItems()}
@@ -341,7 +359,6 @@ export default function App() {
     
 
       <footer class="my-footer d-flex flex-row sticky-bottom">
-        <button class="theme-button" onClick={() => changeTheme()} type="submit"><img class="theme-image" src={buttonTheme}/></button>
         {checkCookiesAcceptance()}
       </footer>
     </div>

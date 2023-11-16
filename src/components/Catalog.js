@@ -35,14 +35,14 @@ export default function Catalog(props) {
     function bottomButtons(deco) {
         if(props.owner && props.owner.id == 1) {
             return(
-                <div class="d-flex flex-wrap justify-content-center align-content-center h-25">
+                <div class="d-flex flex-wrap justify-content-center align-content-center max-20">
                     <Link to={moreDetails(deco)} type="button" class="btn btn-info">Modifier</Link>
                     <button onClick={() => props.deleteDecoration(deco)} type="button" class="btn btn-danger">Supprimer</button>
                 </div>
             );
         } else {
             return(
-                <div class="d-flex flex-wrap justify-content-center align-content-center h-25">
+                <div class="d-flex flex-wrap justify-content-center align-content-center max-20">
                     <button onClick={() => addOne(deco)} type="button" class="btn btn-success">Ajouter 1 au panier</button>
                     <Link to={moreDetails(deco)} type="button" class="btn btn-info">Plus d'infos</Link>
                 </div>
@@ -77,7 +77,7 @@ export default function Catalog(props) {
     
                 allDecorations.push(
                 <div class="card bg-light mb-3 single-card">
-                    <div class="card-header">
+                    <div class="card-header max-20">
                         <div class="my-card-header">
                             <span class="deco-name">{deco.name}</span>
                         </div>
@@ -85,14 +85,14 @@ export default function Catalog(props) {
                             <span class="badge badge-price bg-danger">{getFormattedPrice(currentPrice)}</span>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <div class="d-flex justify-content-center h-50">
+                    <div class="card-body max-80">
+                        <div class="d-flex justify-content-center max-60">
                             <img class="little-image" src={deco.pictures[0].path}/>
                         </div>
-                        <div class="d-flex flex-wrap justify-content-center align-content-center h-25">
+                        <div class="d-flex flex-wrap justify-content-center align-content-center max-20">
                             {tags}
                         </div>
-                            {bottomButtons(deco)}
+                        {bottomButtons(deco)}
                     </div>
                 </div> 
                 )
