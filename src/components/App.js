@@ -116,12 +116,12 @@ export default function App() {
     if(isCollapsedDisplayed){
       return (
         <div class="d-flex flex-column">
-          <Link to={account()} class="btn btn-link"><i class="fa-solid fa-user"></i>&thinsp; {ownerName()}</Link>
+          <Link to={account()} class="btn btn-link" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}><i class="fa-solid fa-user"></i>&thinsp; {ownerName()}</Link>
           {displayBasket()}
-          <Link to="/catalogue" class="btn btn-link">Tous les articles</Link>
-          <Link to="/nouveautes" class="btn btn-link">Nouveautés</Link>
-          <Link to="/noel" class="btn btn-link">C'est déjà Noël !</Link>
-          <Link to="/a-propos" class="btn btn-link">Qui suis-je ?</Link>
+          <Link to="/catalogue" class="btn btn-link" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}>Tous les articles</Link>
+          <Link to="/nouveautes" class="btn btn-link" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}>Nouveautés</Link>
+          <Link to="/noel" class="btn btn-link" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}>C'est déjà Noël !</Link>
+          <Link to="/a-propos" class="btn btn-link" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}>Qui suis-je ?</Link>
         </div>
       )
     }
