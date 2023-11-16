@@ -89,7 +89,7 @@ export default function Catalog(props) {
                         <div class="d-flex justify-content-center max-60">
                             <img class="little-image" src={deco.pictures[0].path}/>
                         </div>
-                        <div class="d-flex flex-wrap justify-content-center align-content-center max-20">
+                        <div class="d-flex flex-wrap justify-content-center align-content-center max-20 skip-tiny-screen">
                             {tags}
                         </div>
                         {bottomButtons(deco)}
