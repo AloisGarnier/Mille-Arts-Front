@@ -92,6 +92,14 @@ export default function App() {
     }
   }
 
+  function displayCollapsedBasket() {
+    if(!owner || owner.id != 1) {
+      return(
+        <Link to="/panier" class="btn btn-link" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}><i class="fa-solid fa-basket-shopping"></i>&thinsp; {basket.length}</Link>
+      );
+    }
+  }
+
   function changeTheme() {
     buttonTheme == lightBtn ? setThemeBackground(darkBg) : setThemeBackground(lightBg);
     buttonTheme == lightBtn ? setLightTheme(false) : setLightTheme(true);
@@ -117,11 +125,19 @@ export default function App() {
       return (
         <div class="d-flex flex-column">
           <Link to={account()} class="btn btn-link" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}><i class="fa-solid fa-user"></i>&thinsp; {ownerName()}</Link>
-          {displayBasket()}
+          {displayCollapsedBasket()}
           <Link to="/catalogue" class="btn btn-link" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}>Tous les articles</Link>
-          <Link to="/nouveautes" class="btn btn-link" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}>Nouveautés</Link>
-          <Link to="/noel" class="btn btn-link" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}>C'est déjà Noël !</Link>
           <Link to="/a-propos" class="btn btn-link" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}>Qui suis-je ?</Link>
+          <form class="d-flex" onSubmit={event => goToResearchPage(event)}>
+                  <input 
+                    class="form-control me-sm-2" 
+                    type="input" 
+                    placeholder="Votre recherche"
+                    value={research.search}
+                    onChange={form => setResearch({...research, search: form.target.value})}
+                  ></input>
+                  <Link reloadDocument type="submit" to={getParamInURL()} class="btn btn-link my-2 my-sm-0" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}><i class="fas fa-search"></i></Link>
+                </form>
         </div>
       )
     }
