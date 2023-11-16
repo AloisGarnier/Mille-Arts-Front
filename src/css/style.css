@@ -205,6 +205,7 @@ body, html {
   .single-card {
     width: 75% !important;
     height: 75% !important;
+    margin: 3rem 0 !important;
   }
 }
 
