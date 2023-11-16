@@ -34,7 +34,13 @@ body, html {
 }
 
 @media only screen and (max-width: 480px) {
-  .my-card .basket-card {
+  .my-card {
+    width: 75% !important;
+    height: 75% !important;
+    margin: 3rem 0 !important;
+  }
+
+  .basket-card {
     width: 75% !important;
     height: 75% !important;
     margin: 3rem 0 !important;
