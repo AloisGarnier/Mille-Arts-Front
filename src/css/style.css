@@ -37,13 +37,13 @@ body, html {
   .my-card {
     width: 75% !important;
     height: 75% !important;
-    margin: 3rem 0 !important;
+    margin: 3rem !important;
   }
 
   .basket-card {
     width: 75% !important;
     height: 75% !important;
-    margin: 3rem 0 !important;
+    margin: 3rem !important;
   }
 }
 
