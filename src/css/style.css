@@ -5,7 +5,8 @@ body, html {
 .theme {
 	background-repeat: no-repeat;
 	background-size:cover;
-  min-height: 100%;
+  position: relative;
+  height: 100%;
 }
 
 @media only screen and (max-width: 480px) {
