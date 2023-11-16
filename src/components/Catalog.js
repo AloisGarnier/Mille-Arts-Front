@@ -36,15 +36,15 @@ export default function Catalog(props) {
         if(props.owner && props.owner.id == 1) {
             return(
                 <div class="d-flex flex-wrap justify-content-center align-content-center max-20">
-                    <Link to={moreDetails(deco)} type="button" class="btn btn-info">Modifier</Link>
-                    <button onClick={() => props.deleteDecoration(deco)} type="button" class="btn btn-danger">Supprimer</button>
+                    <Link to={moreDetails(deco)} type="button" class="btn btn-info bottom-buttons">Modifier</Link>
+                    <button onClick={() => props.deleteDecoration(deco)} type="button" class="btn btn-danger bottom-buttons">Supprimer</button>
                 </div>
             );
         } else {
             return(
                 <div class="d-flex flex-wrap justify-content-center align-content-center max-20">
-                    <button onClick={() => addOne(deco)} type="button" class="btn btn-success">Ajouter 1 au panier</button>
-                    <Link to={moreDetails(deco)} type="button" class="btn btn-info">Plus d'infos</Link>
+                    <button onClick={() => addOne(deco)} type="button" class="btn btn-success bottom-buttons">Ajouter 1 au panier</button>
+                    <Link to={moreDetails(deco)} type="button" class="btn btn-info bottom-buttons">Plus d'infos</Link>
                 </div>
             );
         }
