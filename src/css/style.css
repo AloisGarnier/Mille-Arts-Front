@@ -46,8 +46,8 @@ body, html {
     margin: 3rem !important;
   }
 
-  .bottom-buttons {
-    max-width: 40% !important;
+  .tags {
+    margin: 5% 0 0 0 !important;
   }
 }
 
