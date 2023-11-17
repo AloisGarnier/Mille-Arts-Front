@@ -37,7 +37,7 @@ export default function Basket(props) {
             return(
                 <div class="d-flex justify-content-end">
                     <div class="d-flex flex-column">
-                        <h3 class="my-header">
+                        <h3 class="my-header mb-0">
                             Total : {getFormattedPrice(totalPrice)}
                         </h3>
                         <div>
