@@ -189,7 +189,7 @@ export default function Basket(props) {
                 basketElements.push(
                     <div class="d-flex flex-row">
                         <div class="whitespace-nowrap">
-                            {deco.name} &thinsp; x{quantity} :&nbsp;
+                            {deco.name} &nbsp; x{quantity} :&nbsp;
                         </div>
                         <div class="whitespace-nowrap">
                             {getFormattedPrice(currentPrice*quantity)} (TVA : {getFormattedPrice(currentPrice*quantity/6)})
