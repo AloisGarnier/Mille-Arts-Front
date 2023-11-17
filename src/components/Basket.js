@@ -188,13 +188,9 @@ export default function Basket(props) {
 
                 basketElements.push(
                     <div class="d-flex flex-row">
-                        <div>
-                            <Link to={"/decoration?id=" + deco.id} type="button">{deco.name}</Link>
-                        </div>
-                        <div>
-                            &nbsp; x{quantity} :&nbsp;
-                            {getFormattedPrice(currentPrice*quantity)} (TVA : {getFormattedPrice(currentPrice*quantity/6)})
-                        </div>
+                        <Link to={"/decoration?id=" + deco.id} type="button" class="whitespace-nowrap">{deco.name}</Link>
+                        &nbsp; x{quantity} :&nbsp;
+                        {getFormattedPrice(currentPrice*quantity)} (TVA : {getFormattedPrice(currentPrice*quantity/6)})
                     </div>
                 );
             }
