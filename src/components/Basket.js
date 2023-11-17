@@ -56,7 +56,7 @@ export default function Basket(props) {
                 <div class="m-2 d-flex justify-content-end">
                     <Link 
                         type="button" 
-                        class="btn btn-danger"
+                        class="btn btn-danger none-if-small"
                         to="/catalogue"
                         onClick={() => resetBasket()}
                     >
@@ -64,10 +64,25 @@ export default function Basket(props) {
                     </Link>
                     <Link 
                         type="button" 
-                        class="btn btn-success"
+                        class="btn btn-success none-if-small"
                         to="/livraison"
                     >
                         Valider votre panier
+                    </Link>
+                    <Link 
+                        type="button" 
+                        class="btn btn-danger none-if-large"
+                        to="/catalogue"
+                        onClick={() => resetBasket()}
+                    >
+                        Remettre à zéro
+                    </Link>
+                    <Link 
+                        type="button" 
+                        class="btn btn-success none-if-large"
+                        to="/livraison"
+                    >
+                        Valider
                     </Link>
                 </div>)
             } else {
@@ -75,7 +90,7 @@ export default function Basket(props) {
                 <div class="m-2 d-flex justify-content-end">
                     <Link 
                         type="button" 
-                        class="btn btn-danger"
+                        class="btn btn-danger none-if-small"
                         to="/catalogue"
                         onClick={() => resetBasket()}
                     >
@@ -83,10 +98,25 @@ export default function Basket(props) {
                     </Link>
                     <Link 
                         type="button" 
-                        class="btn btn-warning"
+                        class="btn btn-warning none-if-small"
                         to="/connexion"
                     >
                         Merci de vous connecter afin de passer commande
+                    </Link>
+                    <Link 
+                        type="button" 
+                        class="btn btn-danger none-if-large"
+                        to="/catalogue"
+                        onClick={() => resetBasket()}
+                    >
+                        Remettre à zéro
+                    </Link>
+                    <Link 
+                        type="button" 
+                        class="btn btn-warning none-if-large"
+                        to="/connexion"
+                    >
+                        Se connecter
                     </Link>
                 </div>)
             }
@@ -158,7 +188,7 @@ export default function Basket(props) {
 
                 basketElements.push(
                     <div class="d-flex flex-row">
-                        <Link to={"/decoration?id=" + deco.id} type="button">{deco.name}</Link> x{quantity} :
+                        <Link to={"/decoration?id=" + deco.id} type="button">{deco.name}</Link> &nbsp; x{quantity} :&nbsp;
                         {getFormattedPrice(currentPrice*quantity)} dont {getFormattedPrice(currentPrice*quantity/6)} de TVA
                     </div>
                 );

@@ -54,7 +54,7 @@ body, html {
     margin-bottom: 10%;
   }
 
-  .none-if-large {
+  .none-if-small {
     display: none !important;
   }
 }
@@ -69,7 +69,7 @@ body, html {
     margin: 5% 5% 20% !important;
   }
 
-  .none-if-small {
+  .none-if-large {
     display: none !important;
   }
 }
