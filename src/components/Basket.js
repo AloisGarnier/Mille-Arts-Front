@@ -36,10 +36,14 @@ export default function Basket(props) {
 
             return(
                 <div class="d-flex justify-content-end">
-                    <h3 class="my-header">
-                    Total : {getFormattedPrice(totalPrice)}
-                    </h3>
-                    <br />(dont TVA : {getFormattedPrice(totalPrice/6)})
+                    <div class="d-flex flex-column">
+                        <h3 class="my-header">
+                            Total : {getFormattedPrice(totalPrice)}
+                        </h3>
+                        <div>
+                            (dont TVA : {getFormattedPrice(totalPrice/6)})
+                        </div>
+                    </div>
                 </div>
             );
         }
