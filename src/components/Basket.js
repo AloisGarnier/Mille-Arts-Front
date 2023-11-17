@@ -189,7 +189,7 @@ export default function Basket(props) {
                 basketElements.push(
                     <div class="d-flex flex-row">
                         <div class="whitespace-nowrap">
-                            <Link to={"/decoration?id=" + deco.id} type="button" class="whitespace-nowrap">{deco.name}</Link>
+                            <Link to={"/decoration?id=" + deco.id} type="button">{deco.name}</Link>
                             &thinsp; x{quantity} :&nbsp;
                         </div>
                         <div class="whitespace-nowrap">
