@@ -39,6 +39,7 @@ export default function Basket(props) {
                     <h3 class="my-header">
                     Total : {getFormattedPrice(totalPrice)}
                     </h3>
+                    <br />(dont TVA : {getFormattedPrice(totalPrice/6)})
                 </div>
             );
         }
@@ -192,7 +193,7 @@ export default function Basket(props) {
                             {deco.name} x{quantity} :&nbsp;
                         </div>
                         <div class="whitespace-nowrap">
-                            {getFormattedPrice(currentPrice*quantity)} <br />(dont TVA : {getFormattedPrice(currentPrice*quantity/6)})
+                            {getFormattedPrice(currentPrice*quantity)}
                         </div>
                     </div>
                 );
