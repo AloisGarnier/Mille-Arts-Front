@@ -188,15 +188,20 @@ export default function Basket(props) {
 
                 basketElements.push(
                     <div class="d-flex flex-row">
-                        <Link to={"/decoration?id=" + deco.id} type="button">{deco.name}</Link> &nbsp; x{quantity} :&nbsp;
-                        {getFormattedPrice(currentPrice*quantity)} (TVA : {getFormattedPrice(currentPrice*quantity/6)})
+                        <div>
+                            <Link to={"/decoration?id=" + deco.id} type="button">{deco.name}</Link>
+                        </div>
+                        <div>
+                            &nbsp; x{quantity} :&nbsp;
+                            {getFormattedPrice(currentPrice*quantity)} (TVA : {getFormattedPrice(currentPrice*quantity/6)})
+                        </div>
                     </div>
                 );
             }
         }
 
         return(
-        <div class="flex-column-not-important none-if-large max-width-80">
+        <div class="flex-column-not-important none-if-large">
             {basketElements}
         </div>);
     }
