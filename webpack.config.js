@@ -17,7 +17,8 @@ module.exports = {
       '34.155.149.97',
       'mille-arts.fr',
       'www.mille-arts.fr',
-      '34.163.13.68'
+      '34.163.13.68',
+      'localhost'
        ]
   },
   plugins: [

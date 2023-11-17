@@ -77,7 +77,9 @@ export default function Decoration(props) {
             );
         } else if (pictures && pictures.length==1) {
             return(
-                <img class="large-image" src={pictures[0].path} />
+                <Carousel showStatus={false} showIndicators={false} showThumbs={false}>
+                    <img class="image" src={pictures[0].path} />
+                </Carousel>
             );
         }
     }
@@ -202,17 +204,17 @@ export default function Decoration(props) {
             <div class="card my-card">
                 <h3 class="card-header my-header">{props.decoration.name}</h3>
                 <div class="card-body d-flex flex-wrap justify-content-around my-5">
-                    <span class="my-carousel">
+                    <span class="my-carousel space-small-screen">
                         {carousel(props.decoration.pictures)}
                     </span>
-                    <span class="d-flex flex-column justify-content-start align-content-start w-25 my-carousel">
+                    <span class="d-flex flex-column justify-content-start align-content-start w-25 my-carousel space-small-screen">
                         <h3 class="mb-3 my-header">Prix : {getFormattedPrice(props.currentPrice)}</h3>
                         <div> {props.decoration.description} </div>
                         <div> <br /> Poids : {props.decoration.weight} </div>
                         <div> <br /> Dimensions : {props.decoration.dimensions} </div>
                         <div> <br /> Temps de préparation estimé : {props.decoration.preparationDelay} jours </div>
                     </span>
-                    <span class="d-flex flex-column justify-content-start align-self-center">
+                    <span class="d-flex flex-column justify-content-start align-self-center space-small-screen">
                         <Formik
                             initialValues={{
                                 quantity: 1

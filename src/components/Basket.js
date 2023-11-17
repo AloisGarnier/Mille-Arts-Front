@@ -124,7 +124,7 @@ export default function Basket(props) {
                 );
             }
         }
-        return(<table class="table table-hover">
+        return(<table class="table table-hover none-if-small">
                     <thead>
                         <tr>
                             <th scope="col">Décoration</th>
@@ -136,6 +136,39 @@ export default function Basket(props) {
                     </thead>
                     <tbody>{basketElements}</tbody>
                 </table>);
+    }
+
+    function basketElementsSmall() {
+        let basketElements = [];
+
+        if(props.basket.length == 0) {
+                return(<div class="d-flex justify-content-center">Votre panier est vide... allez vite le remplir !</div>);
+        } else {
+            for(let i=0; i < props.basket.length; i++) {
+
+                let deco = props.basket[i][0];
+                let quantity = props.basket[i][1];
+
+                let currentPrice = 0;
+                for(let i = 0; i < deco.decorationPrices.length; i++) {
+                    if(deco.decorationPrices[i].withdrawalPrice == null) {
+                        currentPrice = deco.decorationPrices[i].price.amount;
+                    }
+                }
+
+                basketElements.push(
+                    <div class="d-flex flex-row">
+                        <Link to={"/decoration?id=" + deco.id} type="button">{deco.name}</Link> x{quantity} :
+                        {getFormattedPrice(currentPrice*quantity)} dont {getFormattedPrice(currentPrice*quantity/6)} de TVA
+                    </div>
+                );
+            }
+        }
+
+        return(
+        <div class="d-flex flex-column none-if-large">
+            {basketElements}
+        </div>);
     }
 
     return(
@@ -152,6 +185,7 @@ export default function Basket(props) {
             <h3 class="card-header my-header">Votre panier</h3>
             <div class="card-body d-flex flex-column justify-content-center">
                 {basketElements()}
+                {basketElementsSmall()}
                 {getTotal()}
                 {bottomButtons()} 
             </div>

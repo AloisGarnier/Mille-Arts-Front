@@ -30,13 +30,11 @@ import "../css/style.css";
 import "../css/sketchy.css";
 import "../css/fontawesome.all.min.css";
 import { Helmet } from "react-helmet";
-import DropdownMenu from "react-bootstrap/esm/DropdownMenu";
-import DropdownItem from "react-bootstrap/esm/DropdownItem";
-import { Dropdown, DropdownButton } from "react-bootstrap";
 
 export default function App() {
 
   const domain = "34.155.113.82";
+  //const domain = "localhost"
 
   const [themeBackground, setThemeBackground] = useState(lightBg);
   const [buttonTheme, setButtonTheme] = useState(lightBtn);
