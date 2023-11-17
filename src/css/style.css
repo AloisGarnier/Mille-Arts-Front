@@ -79,6 +79,10 @@ body, html {
   flex-direction: column;
 }
 
+.max-width-80 {
+  max-width: 80% !important;
+}
+
 .empty-basket {
     margin-top:70px;
     text-align: center;
