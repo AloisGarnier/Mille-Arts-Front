@@ -257,8 +257,8 @@ export default function App() {
                 <Link to="/a-propos" class="btn btn-link">Qui suis-je ?</Link>
               </div>
               <div class="pe-3 d-flex flex-row justify-content-around">
-                <Link to="https://id.pinterest.com/carolinemilard" class="btn-link social-network"><i class="fa-brands fa-pinterest"></i></Link>
-                <Link to="https://www.instagram.com/carolinemilard/" class="btn-link social-networkk"><i class="fa-brands fa-instagram"></i></Link>
+                <Link to="https://id.pinterest.com/carolinemilard" target="_blank" class="btn-link social-network"><i class="fa-brands fa-pinterest"></i></Link>
+                <Link to="https://www.instagram.com/carolinemilard/" target="_blank" class="btn-link social-networkk"><i class="fa-brands fa-instagram"></i></Link>
               </div>
             </div>
             <div class="nav-item navbar-nav me-auto collapsed my-toggler d-block d-lg-none">
