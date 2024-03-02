@@ -31,7 +31,17 @@ export default function NewController(props) {
                 <meta property="og:type" content="website" />
                 <link rel="icon" href={favicon} />
             </Helmet>
-            <Catalog owner={props.owner} decorations={props.decorations} basket={props.basket} setBasket={props.setBasket}></Catalog>
+            <Catalog 
+                owner={props.owner} 
+                decorations={props.decorations} 
+                basket={props.basket} 
+                setBasket={props.setBasket}
+                favourites = {props.favourites}
+                setFavourites = {props.setFavourites}
+                isLightTheme = {props.isLightTheme}
+                isChristmas = {props.isChristmas}
+                setChristmas = {props.setChristmas}
+            ></Catalog>
         </>
     );
 }

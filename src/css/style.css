@@ -12,6 +12,24 @@ body, html {
     font-family: Neucha !important;
 }
 
+.my-title {
+    font-family: Neucha !important;
+    margin-top: 1rem;
+}
+
+.my-accordion {
+  margin: 1% !important;
+}
+
+.margin-x {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.text-align-justify {
+  text-align: justify !important;
+}
+
 .my-catalog {
     min-width: 150px;
 }
@@ -31,6 +49,21 @@ body, html {
 
 .max-80 {
   height: 80%;
+}
+
+.dark-card {
+  color: #fff !important;
+  background-color: #36527c !important;
+}
+
+.light-card {
+  color: #000 !important;
+  background-color: #f3f0e7 !important;
+}
+
+.christmas-card {
+  color: #fff !important;
+  background-color: #3d6d82 !important;
 }
 
 @media only screen and (max-width: 480px) {
@@ -77,6 +110,11 @@ body, html {
 .flex-column-not-important {
   display: flex;
   flex-direction: column;
+}
+
+.flex-center-not-important {
+  display: flex;
+  justify-content: center;
 }
 
 .whitespace-nowrap {
@@ -167,6 +205,7 @@ body, html {
 
 .my-badge {
     max-height: 25px !important;
+    border: transparent !important;
 }
 
 .my-row {
@@ -239,7 +278,8 @@ body, html {
 }
 
 .bg-light-purple {
-    background-color:#966FD6 !important;
+  color: #000 !important;
+  background-color: #7d8ba7 !important;
 }
 
 @media only screen and (max-width: 480px) {

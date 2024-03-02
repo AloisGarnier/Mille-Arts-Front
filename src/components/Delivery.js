@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { Formik, Form, Field } from "formik";
 import { Helmet } from "react-helmet";
-// import { PayPalButton } from "react-paypal-button-v2";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 import favicon from '../img/favicon.png'
 
@@ -12,6 +12,7 @@ export default function Delivery(props) {
     useEffect(() => fetchAllAddresses(), []);
 
     const backUrl = "http://" + props.domain + ":8081/addresses/";
+    const paypalUrl = "http://" + props.domain + ":8081/paypal/";
 
     function fetchAllAddresses() {
         fetch(backUrl + props.owner.id + "/all")
@@ -55,6 +56,75 @@ export default function Delivery(props) {
 
     }
 
+    function getTotal() {
+        let totalPrice = 0;
+        
+        for(let i=0; i < props.basket.length; i++) {
+
+            let deco = props.basket[i][0];
+            let quantity = props.basket[i][1];
+
+            let currentPrice = 0;
+            for(let i = 0; i < deco.decorationPrices.length; i++) {
+                if(deco.decorationPrices[i].withdrawalPrice == null) {
+                    currentPrice = deco.decorationPrices[i].price.amount;
+                }
+            }
+            totalPrice += currentPrice*quantity;
+            
+        }
+
+        return(totalPrice.toString());
+    }
+
+    function createOrder() {
+        return fetch(paypalUrl + "init", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            // use the "body" param to optionally pass additional order information
+            // like product ids and quantities
+            body: JSON.stringify({
+                cart: [
+                    {
+                        id: "YOUR_PRODUCT_ID",
+                        quantity: "YOUR_PRODUCT_QUANTITY",
+                    },
+                ],
+            }),
+        })
+            .then((response) => response.json())
+            .then((order) => order.id);
+    }
+
+    function onApprove(data) {
+        console.log("data : " + data.orderID)
+          return fetch(paypalUrl + "capture", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              orderID: data.orderID
+            })
+          })
+          .then((response) => response.json())
+          /** .then((orderData) => {
+                const name = orderData.payer.name.given_name;
+                alert(`Transaction completed by ${name}`);
+          });*/
+
+        }
+
+        const initialOptions = {
+            "client-id": "test",
+            "enable-funding": "venmo,card",
+            "disable-funding": "paylater",
+            "data-sdk-integration-source": "integrationbuilder_sc",
+            currency: "EUR",
+          };
+
     return(
     <div class="card my-card basket-card">
         <Helmet>
@@ -73,21 +143,15 @@ export default function Delivery(props) {
             <div class="m-5">
                 {addressChoice()}
             </div>
+            <PayPalScriptProvider options={initialOptions}>
+                <PayPalButtons
+                    style={{shape: "pill",
+                            layout: "vertical",}}
+                    createOrder={createOrder}
+                    onApprove={onApprove}
+                />
+            </PayPalScriptProvider>
         </div>
     </div>
     )
 }
-
-/*
-Add this to the "return":
-    <div class="m-2 d-flex justify-content-center">
-        <PayPalButton
-            amount="0.01"
-            currency="EUR"
-            shippingPreference="NO_SHIPPING"
-            onSuccess={(details, data) => {
-                alert("Transaction completed");
-                }}
-        />  
-    </div>
-*/

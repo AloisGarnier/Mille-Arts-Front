@@ -62,22 +62,10 @@ export default function About(props) {
                     <div class="form-group login-form">
                         {displayAbout()}
                     </div>
-                </div>
-            </div>
-            <div class="card my-card">
-                <h3 class="card-header my-header">Mentions légales</h3>
-                <div class="card-body">
-                    <div class="form-group login-form d-flex flex-row flex-wrap justify-content-center">
-                        <div class="mx-5 my-1">
-                            Le site internet mille-arts.fr est édité par Caroline Jurien de La Gravière,<br/>
-                            domiciliée au 58, rue Chardon-Lagache 75016 Paris <br/>
-                            Adresse e-mail de contact : caroline.milard@orange.fr
-                        </div>
-                        <div class="mx-5 my-1">
-                            Le site est hébergé par la société Google Cloud Platform, <br/>
-                            immatriculée au RCS de Paris sous le numéro Paris B 881 721 583, <br/>
-                            et dont l'adresse postale est : 8, rue de Londres 75009 Paris
-                        </div>
+                    <div class="m-2 d-flex justify-content-center">
+                        <Link to="/messagerie" type="button" class="btn btn-success">Envoyer un message</Link>
+                        <Link to="/cgv" type="button" class="btn btn-info">Conditions générales de vente</Link>
+                        <Link to="/mentions-legales" type="button" class="btn btn-secondary">Mentions légales</Link>
                     </div>
                 </div>
             </div>

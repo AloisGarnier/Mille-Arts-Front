@@ -14,17 +14,16 @@ import AboutController from "./AboutController";
 import NewDecorationController from "./NewDecorationController";
 import Delivery from "./Delivery";
 import NewController from "./NewController";
+import CommandController from "./CommandController";
+import StatsController from "./StatsController";
+import Legal from "./Legal";
+import Terms from "./Terms";
 
 import lightBg from "../img/light-bg.png";
 import darkBg from "../img/dark-bg.png";
 import christmasBg from "../img/christmas-bg.png";
 
-import lightBtn from "../img/go-to-dark-mode.png"
-import darkBtn from "../img/go-to-light-mode.png"
-
 import favicon from '../img/favicon.png'
-import faviconXmas from "../img/favicon-xmas.png";
-
 
 import "../css/style.css";
 import "../css/sketchy.css";
@@ -33,23 +32,25 @@ import { Helmet } from "react-helmet";
 
 export default function App() {
 
-  const domain = "34.155.113.82";
-  //const domain = "localhost"
+  //const domain = "34.155.113.82";
+  const domain = "localhost"
 
   const [themeBackground, setThemeBackground] = useState(lightBg);
-  const [buttonTheme, setButtonTheme] = useState(lightBtn);
   const [owner, setOwner] = useState(null);
   const [basket, setBasket] = useState([]);
   const [research, setResearch] = useState({search: ''});
   const [decorations, setDecorations] = useState([]);
   const [isCollapsedDisplayed, setCollapsedDisplayed] = useState(false);
   const [isLightTheme, setLightTheme] = useState(true);
+  const [isChristmas, setChristmas] = useState(false);
   const [about, setAbout] = useState("");
   const [cookies, setCookies] = useState(false);
+  const [favourites, setFavourites] = useState([]);
 
   useEffect(() => fetchConnectedOwner(), []);
   useEffect(() => fetchPreviousBasket(), []);
   useEffect(() => fetchCookies(), []);
+  useEffect(() => fetchFavourites(), []);
 
   const navigate = useNavigate();
 
@@ -74,6 +75,12 @@ export default function App() {
     }
   }
 
+  function fetchFavourites() {
+    if(JSON.parse(window.localStorage.getItem("favourites"))) {
+      setFavourites(JSON.parse(window.localStorage.getItem("favourites")))
+    }
+  }
+
   function ownerName() {
     return owner != undefined ? owner.firstName + " " + owner.lastName : "Connexion";
   }
@@ -90,18 +97,10 @@ export default function App() {
     }
   }
 
-  function displayCollapsedBasket() {
-    if(!owner || owner.id != 1) {
-      return(
-        <Link to="/panier" class="btn btn-link" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}><i class="fa-solid fa-basket-shopping"></i>&thinsp; {basket.length}</Link>
-      );
-    }
-  }
-
   function changeTheme() {
-    buttonTheme == lightBtn ? setThemeBackground(darkBg) : setThemeBackground(lightBg);
-    buttonTheme == lightBtn ? setLightTheme(false) : setLightTheme(true);
-    buttonTheme == lightBtn ? setButtonTheme(darkBtn) : setButtonTheme(lightBtn);
+    isLightTheme ? setThemeBackground(darkBg) : setThemeBackground(lightBg);
+    isLightTheme ? setLightTheme(false) : setLightTheme(true);
+    setChristmas(false);
   }
 
   function getParamInURL() {
@@ -119,11 +118,11 @@ export default function App() {
   }
 
   function displayCollapsedItems() {
-    if(isCollapsedDisplayed){
+    if(isCollapsedDisplayed && (!owner || owner.id != 1)){
       return (
         <div class="d-flex flex-column">
           <Link to={account()} class="btn btn-link" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}><i class="fa-solid fa-user"></i>&thinsp; {ownerName()}</Link>
-          {displayCollapsedBasket()}
+          <Link to="/panier" class="btn btn-link" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}><i class="fa-solid fa-basket-shopping"></i>&thinsp; {basket.length}</Link>
           <Link to="/catalogue" class="btn btn-link" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}>Tous les articles</Link>
           <Link to="/a-propos" class="btn btn-link" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}>Qui suis-je ?</Link>
           <form class="d-flex" onSubmit={event => goToResearchPage(event)}>
@@ -142,7 +141,7 @@ export default function App() {
   }
   
   function navBarClass() {
-    if(themeBackground == darkBg) {
+    if(!isLightTheme && !isChristmas) {
       return("navbar navbar-expand-lg navbar-light bg-light-purple sticky-top")
     } else {
       return("navbar navbar-expand-lg navbar-light bg-light-red sticky-top")
@@ -200,6 +199,28 @@ export default function App() {
     }
   }
 
+  function mainOptions() {
+    if(!owner || owner.id != 1) {
+      return(
+        <div>
+          <Link to="/catalogue" class="btn btn-link">Tous les articles</Link>
+          <Link to="/nouveautes" class="btn btn-link">Nouveautés</Link>
+          <Link to="/noel" class="btn btn-link">C'est déjà Noël !</Link>
+          <Link to="/a-propos" class="btn btn-link">Qui suis-je ?</Link>
+        </div>
+      );
+    } else {
+      return(
+        <div>
+          <Link to="/catalogue" class="btn btn-link">Catalogue</Link>
+          <Link to="/commandes" class="btn btn-link">Commandes</Link>
+          <Link to="/gestion" class="btn btn-link">Statistiques</Link>
+          <Link to="/a-propos" class="btn btn-link">Contact</Link>
+        </div>
+      );
+    }
+  }
+
   return (
     <div class="theme" style={{backgroundImage:`url(${themeBackground})`}}>
       {isSnow()}
@@ -250,12 +271,7 @@ export default function App() {
                   <label class="form-check-label" for="flexSwitchCheckChecked"><i class="fa-sharp fa-solid fa-moon"></i></label>
                 </div>
               </div>
-              <div>
-                <Link to="/catalogue" class="btn btn-link">Tous les articles</Link>
-                <Link to="/nouveautes" class="btn btn-link">Nouveautés</Link>
-                <Link to="/noel" class="btn btn-link">C'est déjà Noël !</Link>
-                <Link to="/a-propos" class="btn btn-link">Qui suis-je ?</Link>
-              </div>
+              {mainOptions()}
               <div class="pe-3 d-flex flex-row justify-content-around">
                 <Link to="https://id.pinterest.com/carolinemilard" target="_blank" class="btn-link social-network"><i class="fa-brands fa-pinterest"></i></Link>
                 <Link to="https://www.instagram.com/carolinemilard/" target="_blank" class="btn-link social-networkk"><i class="fa-brands fa-instagram"></i></Link>
@@ -277,6 +293,11 @@ export default function App() {
             decorations={decorations}
             setDecorations={setDecorations}
             domain = {domain}
+            favourites = {favourites}
+            setFavourites = {setFavourites}
+            isLightTheme = {isLightTheme}
+            isChristmas = {isChristmas}
+            setChristmas = {setChristmas}
           />}></Route>
           <Route exact path="/catalogue" element={
             <CatalogController
@@ -286,12 +307,19 @@ export default function App() {
             decorations={decorations}
             setDecorations={setDecorations}
             domain = {domain}
+            favourites = {favourites}
+            setFavourites = {setFavourites}
+            isLightTheme = {isLightTheme}
+            isChristmas = {isChristmas}
+            setChristmas = {setChristmas}
           />}></Route>
           <Route exact path="/connexion" element={
             <LoginController 
               owner={owner}
               setOwner={setOwner}
               domain = {domain}
+              favourites={favourites}
+              setFavourites={setFavourites}
           />}></Route>
           <Route exact path="/inscription" element={
             <SignupController
@@ -316,6 +344,11 @@ export default function App() {
             decorations={decorations}
             setDecorations={setDecorations}
             domain = {domain}
+            favourites = {favourites}
+            setFavourites = {setFavourites}
+            isLightTheme = {isLightTheme}
+            isChristmas = {isChristmas}
+            setChristmas = {setChristmas}
           />}></Route>
           <Route exact path="/compte" element={
             <MyAccountController
@@ -329,6 +362,11 @@ export default function App() {
             basket={basket}
             setBasket={setBasket}
             domain = {domain}
+            favourites = {favourites}
+            setFavourites = {setFavourites}
+            isLightTheme = {isLightTheme}
+            isChristmas = {isChristmas}
+            setChristmas = {setChristmas}
           />}></Route>
           <Route exact path="/noel" element={
             <ChristmasController
@@ -340,6 +378,11 @@ export default function App() {
             themeBackground={themeBackground}
             setThemeBackground={setThemeBackground}
             domain = {domain}
+            favourites = {favourites}
+            setFavourites = {setFavourites}
+            isLightTheme = {isLightTheme}
+            isChristmas = {isChristmas}
+            setChristmas = {setChristmas}
           />}></Route>
           <Route exact path="/nouveautes" element={
             <NewController
@@ -351,6 +394,11 @@ export default function App() {
             themeBackground={themeBackground}
             setThemeBackground={setThemeBackground}
             domain = {domain}
+            favourites = {favourites}
+            setFavourites = {setFavourites}
+            isLightTheme = {isLightTheme}
+            isChristmas = {isChristmas}
+            setChristmas = {setChristmas}
           />}></Route>
           <Route exact path="/a-propos" element={
             <AboutController
@@ -368,6 +416,27 @@ export default function App() {
             <Delivery
             domain = {domain}
             owner = {owner}
+            basket = {basket}
+          />}></Route>
+          <Route exact path="/commandes" element={
+            <CommandController
+            domain = {domain}
+          />}></Route>
+          <Route exact path="/gestion" element={
+            <StatsController
+            domain = {domain}
+          />}></Route>
+          <Route exact path="/cgv" element={
+            <Terms
+            domain = {domain}
+            owner = {owner}
+            basket = {basket}
+          />}></Route>
+          <Route exact path="/mentions-legales" element={
+            <Legal
+            domain = {domain}
+            owner = {owner}
+            basket = {basket}
           />}></Route>
         </Routes>
     

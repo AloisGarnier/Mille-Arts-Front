@@ -132,7 +132,7 @@ export default function Basket(props) {
         let basketElements = [];
 
         if(props.basket.length == 0) {
-                return(<div class="d-flex justify-content-center">Votre panier est vide... allez vite le remplir !</div>);
+                return(<div class="flex-center-not-important none-if-small">Votre panier est vide... allez vite le remplir !</div>);
         } else {
             for(let i=0; i < props.basket.length; i++) {
 
@@ -177,7 +177,7 @@ export default function Basket(props) {
         let basketElements = [];
 
         if(props.basket.length == 0) {
-                return(<div class="d-flex justify-content-center">Votre panier est vide... allez vite le remplir !</div>);
+                return(<div class="flex-center-not-important none-if-large">Votre panier est vide... allez vite le remplir !</div>);
         } else {
             for(let i=0; i < props.basket.length; i++) {
 

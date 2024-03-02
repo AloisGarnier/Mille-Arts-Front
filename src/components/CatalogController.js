@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 
 import Catalog from "./Catalog";
@@ -10,6 +10,7 @@ export default function CatalogController(props) {
     useEffect(() => fetchAllDecorations(), []);
 
     const backUrl = "http://" + props.domain + ":8081/catalog/";
+    const favUrl = "http://" + props.domain + ":8081/favourites/";
 
     function fetchAllDecorations() {
         fetch(backUrl + "all")
@@ -24,6 +25,35 @@ export default function CatalogController(props) {
         };
         fetch(backUrl + deco.id + "/delete", requestOptions)
             .then(response => response.json())
+    }
+
+    function removeFromFavourites(deco) {
+        const requestOptions = {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' }
+        };
+        fetch(favUrl + "remove/" + props.owner.id + "/" + deco.id, requestOptions)
+            .then(() => fetchFavourites())
+    }
+
+    function addToFavourites(deco) {
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        };
+        fetch(favUrl + "new/" + props.owner.id + "/" + deco.id, requestOptions)
+            .then(() => fetchFavourites())
+    }
+
+    function fetchFavourites() {
+        fetch(favUrl + props.owner.id + "/all")
+            .then(response => response.json())
+            .then(json => saveFavourites(json))
+    }
+
+    function saveFavourites(json) {
+        props.setFavourites(json);
+        window.localStorage.setItem("favourites", JSON.stringify(json))
     }
 
     return(
@@ -43,7 +73,14 @@ export default function CatalogController(props) {
                 decorations={props.decorations} 
                 basket={props.basket} 
                 setBasket={props.setBasket}
-                deleteDecoration={deleteDecoration}>
+                deleteDecoration={deleteDecoration}
+                favourites = {props.favourites}
+                setFavourites = {props.setFavourites}
+                isLightTheme = {props.isLightTheme}
+                isChristmas = {props.isChristmas}
+                setChristmas = {props.setChristmas}
+                removeFromFavourites = {removeFromFavourites}
+                addToFavourites = {addToFavourites}>
             </Catalog>
         </>
     );

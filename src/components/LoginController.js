@@ -8,6 +8,7 @@ import favicon from '../img/favicon.png'
 export default function LoginController(props) {
 
     const backUrl = "http://" + props.domain + ":8081/security";
+    const favUrl = "http://" + props.domain + ":8081/favourites/";
 
     function ownerRegistration(json) {
         if(!json.owner.withdrawalDate) {
@@ -29,6 +30,8 @@ export default function LoginController(props) {
                 password: json.owner.password,
                 phoneNumber: json.owner.phoneNumber
             }))
+
+            fetchFavourites(json.owner);
         }
     }
 
@@ -43,6 +46,17 @@ export default function LoginController(props) {
             .then(json => ownerRegistration(json));
 
         return props.owner ? true : false;
+    }
+
+    function fetchFavourites(owner) {
+        fetch(favUrl + owner.id + "/all")
+            .then(response => response.json())
+            .then(json => saveFavourites(json))
+    }
+
+    function saveFavourites(json) {
+        props.setFavourites(json);
+        window.localStorage.setItem("favourites", JSON.stringify(json))
     }
 
     return (

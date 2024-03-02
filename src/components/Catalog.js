@@ -1,7 +1,12 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
+import "../css/fontawesome.all.min.css";
+
+
 export default function Catalog(props) {
+
+    const backUrl = "http://" + props.domain + ":8081/catalog";
 
     function moreDetails(decoration) {
         return "/decoration?id=" + decoration.id;
@@ -50,6 +55,37 @@ export default function Catalog(props) {
         }
     }
 
+    function isFavourite(deco) {
+        if(props.owner) {
+            for(let i=0; i<props.favourites.length; i++) {
+                if(props.favourites[i].id == deco.id) {
+                    return(
+                        <button onClick={() => props.removeFromFavourites(deco)} class="badge my-badge rounded-pill bg-danger mx-1"><i class="fa-solid fa-heart"></i></button> 
+                    )
+                }
+            }
+            return(            
+                <button onClick={() => props.addToFavourites(deco)} class="badge my-badge rounded-pill bg-secondary mx-1"><i class="fa-solid fa-heart"></i></button>
+            )
+        }
+        return(
+            <></>
+        )
+    }
+
+    function cardClass() {
+        if(props.isChristmas) {
+            return "card christmas-card mb-3 single-card"
+        }
+
+        if(props.isLightTheme) {
+            return "card light-card mb-3 single-card"
+        }
+        
+        return "card dark-card mb-3 single-card"
+        
+    }
+
     function addAllDecorations() {
         let allDecorations = [];
 
@@ -76,10 +112,10 @@ export default function Catalog(props) {
                 }
     
                 allDecorations.push(
-                <div class="card bg-light mb-3 single-card">
-                    <div class="card-header max-20">
+                <div class={cardClass()}>
+                    <div class="card-header max-20 d-flex justify-content-between align-items-center">
                         <div class="my-card-header">
-                            <span class="deco-name">{deco.name}</span>
+                            {deco.name}
                         </div>
                         <div class="my-card-header">
                             <span class="badge badge-price bg-danger">{getFormattedPrice(currentPrice)}</span>
@@ -90,7 +126,7 @@ export default function Catalog(props) {
                             <img class="little-image" src={deco.pictures[0].path}/>
                         </div>
                         <div class="d-flex flex-wrap justify-content-center align-content-center max-20 tags">
-                            {tags}
+                            {isFavourite(deco)} <span class="badge my-badge rounded-pill bg-warning mx-1">Non noté</span>
                         </div>
                         {bottomButtons(deco)}
                     </div>
