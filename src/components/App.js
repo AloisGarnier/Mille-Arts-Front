@@ -32,8 +32,8 @@ import { Helmet } from "react-helmet";
 
 export default function App() {
 
-  //const domain = "34.155.113.82";
-  const domain = "localhost"
+  const domain = "34.155.113.82";
+  //const domain = "localhost"
 
   const [themeBackground, setThemeBackground] = useState(lightBg);
   const [owner, setOwner] = useState(null);
