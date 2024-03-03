@@ -7,8 +7,8 @@ import favicon from '../img/favicon.png'
 
 export default function LoginController(props) {
 
-    const backUrl = "http://" + props.domain + ":8081/security";
-    const favUrl = "http://" + props.domain + ":8081/favourites/";
+    const backUrl = "http://" + props.domain + "/security";
+    const favUrl = "http://" + props.domain + "/favourites/";
 
     function ownerRegistration(json) {
         if(!json.owner.withdrawalDate) {

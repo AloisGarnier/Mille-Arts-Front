@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 
 export default function AccountInfo(props) {
 
-    const backUrl = "http://" + props.domain + ":8081/security";
+    const backUrl = "http://" + props.domain + "/security";
 
     function logOut() {
         props.setOwner(undefined);

@@ -9,8 +9,8 @@ export default function CatalogController(props) {
 
     useEffect(() => fetchAllDecorations(), []);
 
-    const backUrl = "http://" + props.domain + ":8081/catalog/";
-    const favUrl = "http://" + props.domain + ":8081/favourites/";
+    const backUrl = "http://" + props.domain + "/catalog/";
+    const favUrl = "http://" + props.domain + "/favourites/";
 
     function fetchAllDecorations() {
         fetch(backUrl + "all")

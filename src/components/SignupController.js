@@ -7,7 +7,7 @@ import favicon from '../img/favicon.png'
 
 export default function SignupController(props) {
 
-    const backUrl = "http://" + props.domain + ":8081/security";
+    const backUrl = "http://" + props.domain + "/security";
 
     function ownerRegistration(json) {
         props.setOwner({ 

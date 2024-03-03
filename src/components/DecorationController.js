@@ -17,7 +17,7 @@ export default function DecorationController(props) {
         fetchDecoration();
     }, []);
 
-    const backUrl = "http://" + props.domain + ":8081/catalog/";
+    const backUrl = "http://" + props.domain + "/catalog/";
 
     function fetchDecoration() {
 

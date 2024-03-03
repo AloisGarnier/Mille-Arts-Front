@@ -8,7 +8,7 @@ export default function ResearchController(props) {
         fetchDecorations();
     }, []);
 
-    const backUrl = "http://" + props.domain + ":8081/catalog";
+    const backUrl = "http://" + props.domain + "/catalog";
 
     function fetchDecorations() {
         fetch(backUrl + "/" + location.search.substring(3))

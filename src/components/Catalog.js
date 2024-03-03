@@ -6,8 +6,6 @@ import "../css/fontawesome.all.min.css";
 
 export default function Catalog(props) {
 
-    const backUrl = "http://" + props.domain + ":8081/catalog";
-
     function moreDetails(decoration) {
         return "/decoration?id=" + decoration.id;
     }
