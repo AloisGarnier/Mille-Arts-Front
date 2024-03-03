@@ -13,7 +13,7 @@ export default function CommandController(props) {
 
     useEffect(() => fetchCommands(), []);
 
-    const backUrl = "http://" + props.domain + "/commands/";
+    const backUrl = props.domain + "/commands/";
 
     function fetchCommands() {
         fetch(backUrl + "todo")

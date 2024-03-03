@@ -15,8 +15,8 @@ export default function ChristmasController(props) {
         props.setChristmas(true);
     }, []);
 
-    const backUrl = "http://" + props.domain + "/catalog";
-    const favUrl = "http://" + props.domain + "/favourites";
+    const backUrl = props.domain + "/catalog";
+    const favUrl = props.domain + "/favourites";
 
     function fetchDecorations() {
         fetch(backUrl + "/noel")

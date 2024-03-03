@@ -6,7 +6,7 @@ export default function CommandsInfo(props) {
 
     useEffect(() => fetchAllCommands(), []);
 
-    const backUrl = "http://" + props.domain + "/commands/";
+    const backUrl = props.domain + "/commands/";
 
     function fetchAllCommands() {
         fetch(backUrl + props.owner.id + "/all")

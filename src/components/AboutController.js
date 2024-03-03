@@ -7,7 +7,7 @@ import favicon from '../img/favicon.png'
 
 export default function AboutController(props) {
 
-    const backUrl = "http://" + props.domain + "/about";
+    const backUrl = props.domain + "/about";
 
     useEffect(() => fetchAbout(), []);
 

@@ -4,7 +4,7 @@ import NewDecoration from "./NewDecoration";
 
 export default function NewDecorationController(props) {
 
-    const backUrl = "http://" + props.domain + "/catalog/";
+    const backUrl = props.domain + "/catalog/";
 
     function addNewDecoration(name, picture1, picture2, picture3, description, price, preparationDelay, weight, dimensions, tag1, tag2, tag3) {
         let tempTags = [tag1, tag2, tag3];

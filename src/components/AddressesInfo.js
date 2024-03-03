@@ -10,7 +10,7 @@ export default function AddressesInfo(props) {
 
     useEffect(() => fetchAllAddresses(), []);
 
-    const backUrl = "http://" + props.domain + "/addresses/";
+    const backUrl = props.domain + "/addresses/";
 
     function fetchAllAddresses() {
         fetch(backUrl + props.owner.id + "/all")

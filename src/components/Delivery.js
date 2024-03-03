@@ -11,8 +11,8 @@ export default function Delivery(props) {
 
     useEffect(() => fetchAllAddresses(), []);
 
-    const backUrl = "http://" + props.domain + "/addresses/";
-    const paypalUrl = "http://" + props.domain + "/paypal/";
+    const backUrl = props.domain + "/addresses/";
+    const paypalUrl = props.domain + "/paypal/";
 
     function fetchAllAddresses() {
         fetch(backUrl + props.owner.id + "/all")
