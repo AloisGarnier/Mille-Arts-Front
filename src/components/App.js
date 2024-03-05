@@ -184,6 +184,36 @@ export default function App() {
     }
   }
 
+  function checkCollapsedCookiesAcceptance() {
+    if(!cookies) {
+      return(
+        <div class="alert popup alert-danger d-flex flex-column justify-content-between">
+          <div class="m-2">
+            Nous utilisons des cookies et outils similaires afin de faciliter votre navigation sur ce site et améliorer votre expérience d'achat. <br/>
+            Merci d'accepter tous les cookies ou de refuser les cookies non-essentiels.
+          </div>
+            <Link 
+                type="button" 
+                class="btn btn-info"
+                to="/catalogue"
+                onClick={() => acceptCookies()}
+            >
+                J'accepte seulement les cookies essentiels
+            </Link>
+            <Link 
+                type="button" 
+                class="btn btn-success"
+                to="/catalogue"
+                onClick={() => acceptCookies()}
+            >
+                J'accepte tous les cookies
+            </Link>
+        </div>
+      );
+    }
+  }
+
+
   function isSnow() {
     if(themeBackground == christmasBg) {
       let snowflakes = [];
@@ -439,10 +469,17 @@ export default function App() {
             basket = {basket}
           />}></Route>
         </Routes>
-    
 
-      <footer class="my-footer d-flex flex-row sticky-bottom">
-        {checkCookiesAcceptance()}
+      <footer class="none-if-small sticky-bottom">
+        <div class="my-footer d-flex flex-row">
+          {checkCookiesAcceptance()}
+        </div>
+      </footer>
+
+      <footer class="none-if-large sticky-bottom">
+        <div class="my-footer d-flex flex-row">
+          {checkCollapsedCookiesAcceptance()}
+        </div>
       </footer>
     </div>
   );

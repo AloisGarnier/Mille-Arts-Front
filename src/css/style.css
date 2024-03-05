@@ -288,6 +288,9 @@ body, html {
     height: 75% !important;
     margin: 3rem 0 !important;
   }
+  .my-footer {
+    display: none !important;
+  }
 }
 
 @media only screen and (min-width: 480px) {
@@ -300,6 +303,9 @@ body, html {
   .single-card:hover {
     width: 320px;
     height: 320px !important;
+  }
+  .my-footer-collapsed {
+    display: none !important;
   }
 }
 
