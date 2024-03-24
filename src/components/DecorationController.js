@@ -12,18 +12,22 @@ export default function DecorationController(props) {
     const [tags, setTags] = useState([]);
     const [tagDisplay, setTagDisplay] = useState([]);
     const [pictures, setPictures] = useState([]);
+    const [average, setAverage] = useState(0);
+    const [evalNumber, setEvalNumber] = useState(0);
 
-    useEffect(() => {
-        fetchDecoration();
-    }, []);
+    useEffect(() => { fetchDecoration(); }, []);
+    useEffect(() => { fetchAverage(); }, []);
+    useEffect(() => { fetchEvalNumber(); }, []);
 
     const backUrl = props.domain + "/catalog/";
+    const favUrl = props.domain + "/favourites/";
+    const evalUrl = props.domain + "/evaluation/";
 
     function fetchDecoration() {
 
         fetch(backUrl + location.search.substring(4) + "/all")
             .then(response => response.json())
-            .then(json => setThisDecoration(json));
+            .then(json => setThisDecoration(json))
         
         fetch(backUrl + location.search.substring(4) + "/pictures")
             .then(response => response.json())
@@ -36,6 +40,18 @@ export default function DecorationController(props) {
         fetch(backUrl + location.search.substring(4) + "/tags")
             .then(response => response.json())
             .then(json => displayTags(json));
+    }
+
+    function fetchAverage() {
+        fetch(evalUrl + "average/" + location.search.substring(4))
+            .then(response => response.text())
+            .then(text => setAverage(parseFloat(text)))
+    }
+
+    function fetchEvalNumber() {
+        fetch(evalUrl + "evaluationNumber/" + location.search.substring(4))
+        .then(response => response.text())
+        .then(text => setEvalNumber(parseFloat(text)))
     }
 
     function modifyDecoration(id, name, picture1, picture2, picture3, description, price, preparationDelay, weight, dimensions, tag1, tag2, tag3) {
@@ -74,13 +90,42 @@ export default function DecorationController(props) {
             .then(response => response.json())
     }
 
+    function removeFromFavourites(deco) {
+        const requestOptions = {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' }
+        };
+        fetch(favUrl + "remove/" + props.owner.id + "/" + deco.id, requestOptions)
+            .then(() => fetchFavourites())
+    }
+
+    function addToFavourites(deco) {
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        };
+        fetch(favUrl + "new/" + props.owner.id + "/" + deco.id, requestOptions)
+            .then(() => fetchFavourites())
+    }
+
+    function fetchFavourites() {
+        fetch(favUrl + props.owner.id + "/all")
+            .then(response => response.json())
+            .then(json => saveFavourites(json))
+    }
+
+    function saveFavourites(json) {
+        props.setFavourites(json);
+        window.localStorage.setItem("favourites", JSON.stringify(json))
+    }
+
     function displayTags(json) {
         let tempTags = ["", "", ""];
         let display = [];
         for(let i=0; i<json.length;i++) {
             tempTags[i] = json[i];
             display.push(
-                <span class="badge my-badge rounded-pill bg-secondary">{json[i]}</span>
+                <span class="badge my-badge rounded-pill bg-info mx-2">{json[i]}</span>
             );
         }
         setTags(tempTags);
@@ -108,6 +153,17 @@ export default function DecorationController(props) {
                 setBasket={props.setBasket}
                 modifyDecoration={modifyDecoration}
                 pictures={pictures}
+                favourites={props.favourites}
+                setFavourites={props.setFavourites}
+                removeFromFavourites = {removeFromFavourites}
+                addToFavourites = {addToFavourites}
+                average = {average}
+                setAverage = {setAverage}
+                evalNumber = {evalNumber}
+                setEvalNumber = {setEvalNumber}
+                isLightTheme = {props.isLightTheme}
+                isChristmas = {props.isChristmas}
+                setChristmas = {props.setChristmas}
             />
         </>
     );

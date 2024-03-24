@@ -60,6 +60,9 @@ export default function MyAccountController(props) {
             owner={props.owner} 
             setOwner={props.setOwner}
             changeCustomer={(firstName, lastName, email, password, phoneNumber) => changeCustomer(firstName, lastName, email, password, phoneNumber)} 
+            isLightTheme = {props.isLightTheme}
+            isChristmas = {props.isChristmas}
+            setChristmas = {props.setChristmas}
             />
         </>
     );

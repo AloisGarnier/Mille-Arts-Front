@@ -70,7 +70,13 @@ export default function LoginController(props) {
                 <meta property="og:type" content="website" />
                 <link rel="icon" href={favicon} />
             </Helmet>
-            <Login linkSignUp={props.linkSignUp} fetchCustomer={(login, password) => fetchCustomer(login, password)} />
+            <Login 
+                linkSignUp={props.linkSignUp} 
+                fetchCustomer={(login, password) => fetchCustomer(login, password)} 
+                isLightTheme = {props.isLightTheme}
+                isChristmas = {props.isChristmas}
+                setChristmas = {props.setChristmas}
+            />
         </>
 
     ); 

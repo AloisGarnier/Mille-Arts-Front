@@ -29,11 +29,12 @@ import "../css/style.css";
 import "../css/sketchy.css";
 import "../css/fontawesome.all.min.css";
 import { Helmet } from "react-helmet";
+import MessagesController from "./MessagesController";
 
 export default function App() {
 
-  const domain = "https://api.mille-arts.fr";
-  //const domain = "http://localhost:8081"
+  //const domain = "https://api.mille-arts.fr";
+  const domain = "http://localhost:8081"
 
   const [themeBackground, setThemeBackground] = useState(lightBg);
   const [owner, setOwner] = useState(null);
@@ -43,9 +44,11 @@ export default function App() {
   const [isCollapsedDisplayed, setCollapsedDisplayed] = useState(false);
   const [isLightTheme, setLightTheme] = useState(true);
   const [isChristmas, setChristmas] = useState(false);
+  const [isDiscussionDisplayed, setDiscussionDisplayed] = useState(false);
   const [about, setAbout] = useState("");
   const [cookies, setCookies] = useState(false);
   const [favourites, setFavourites] = useState([]);
+  const [averages, setAverages] = useState([]);
 
   useEffect(() => fetchConnectedOwner(), []);
   useEffect(() => fetchPreviousBasket(), []);
@@ -251,6 +254,19 @@ export default function App() {
     }
   }
 
+  function displayMessageController() {
+    if(owner) {
+      return(
+        <MessagesController 
+        owner = {owner}
+        domain = {domain}
+        isDiscussionDisplayed = {isDiscussionDisplayed}
+        setDiscussionDisplayed = {setDiscussionDisplayed}
+        />
+      );
+    }
+  }
+
   return (
     <div class="theme" style={{backgroundImage:`url(${themeBackground})`}}>
       {isSnow()}
@@ -328,6 +344,8 @@ export default function App() {
             isLightTheme = {isLightTheme}
             isChristmas = {isChristmas}
             setChristmas = {setChristmas}
+            averages = {averages}
+            setAverages = {setAverages}
           />}></Route>
           <Route exact path="/catalogue" element={
             <CatalogController
@@ -342,6 +360,8 @@ export default function App() {
             isLightTheme = {isLightTheme}
             isChristmas = {isChristmas}
             setChristmas = {setChristmas}
+            averages = {averages}
+            setAverages = {setAverages}
           />}></Route>
           <Route exact path="/connexion" element={
             <LoginController 
@@ -350,6 +370,9 @@ export default function App() {
               domain = {domain}
               favourites={favourites}
               setFavourites={setFavourites}
+              isLightTheme = {isLightTheme}
+              isChristmas = {isChristmas}
+              setChristmas = {setChristmas}
           />}></Route>
           <Route exact path="/inscription" element={
             <SignupController
@@ -363,6 +386,9 @@ export default function App() {
             basket={basket}
             setBasket={setBasket}
             domain = {domain}
+            isLightTheme = {isLightTheme}
+            isChristmas = {isChristmas}
+            setChristmas = {setChristmas}
             />
           }></Route>
           <Route exact path="/recherche" element={
@@ -379,12 +405,17 @@ export default function App() {
             isLightTheme = {isLightTheme}
             isChristmas = {isChristmas}
             setChristmas = {setChristmas}
+            averages = {averages}
+            setAverages = {setAverages}
           />}></Route>
           <Route exact path="/compte" element={
             <MyAccountController
             owner={owner}
             setOwner={setOwner}
             domain = {domain}
+            isLightTheme = {isLightTheme}
+            isChristmas = {isChristmas}
+            setChristmas = {setChristmas}
           />}></Route>
           <Route exact path="/decoration" element={
             <DecorationController
@@ -413,6 +444,8 @@ export default function App() {
             isLightTheme = {isLightTheme}
             isChristmas = {isChristmas}
             setChristmas = {setChristmas}
+            averages = {averages}
+            setAverages = {setAverages}
           />}></Route>
           <Route exact path="/nouveautes" element={
             <NewController
@@ -429,6 +462,8 @@ export default function App() {
             isLightTheme = {isLightTheme}
             isChristmas = {isChristmas}
             setChristmas = {setChristmas}
+            averages = {averages}
+            setAverages = {setAverages}
           />}></Route>
           <Route exact path="/a-propos" element={
             <AboutController
@@ -436,37 +471,58 @@ export default function App() {
             owner = {owner}
             about = {about}
             setAbout = {setAbout}
+            isLightTheme = {isLightTheme}
+            isChristmas = {isChristmas}
+            setChristmas = {setChristmas}
           />}></Route>
           <Route exact path="/nouvelle-decoration" element={
             <NewDecorationController
             domain = {domain}
             owner = {owner}
+            isLightTheme = {isLightTheme}
+            isChristmas = {isChristmas}
+            setChristmas = {setChristmas}
           />}></Route>
           <Route exact path="/livraison" element={
             <Delivery
             domain = {domain}
             owner = {owner}
             basket = {basket}
+            isLightTheme = {isLightTheme}
+            isChristmas = {isChristmas}
+            setChristmas = {setChristmas}
           />}></Route>
           <Route exact path="/commandes" element={
             <CommandController
             domain = {domain}
+            isLightTheme = {isLightTheme}
+            isChristmas = {isChristmas}
+            setChristmas = {setChristmas}
           />}></Route>
           <Route exact path="/gestion" element={
             <StatsController
             domain = {domain}
+            isLightTheme = {isLightTheme}
+            isChristmas = {isChristmas}
+            setChristmas = {setChristmas}
           />}></Route>
           <Route exact path="/cgv" element={
             <Terms
             domain = {domain}
             owner = {owner}
             basket = {basket}
+            isLightTheme = {isLightTheme}
+            isChristmas = {isChristmas}
+            setChristmas = {setChristmas}
           />}></Route>
           <Route exact path="/mentions-legales" element={
             <Legal
             domain = {domain}
             owner = {owner}
             basket = {basket}
+            isLightTheme = {isLightTheme}
+            isChristmas = {isChristmas}
+            setChristmas = {setChristmas}
           />}></Route>
         </Routes>
 
@@ -481,6 +537,11 @@ export default function App() {
           {checkCollapsedCookiesAcceptance()}
         </div>
       </footer>
+
+      <footer class="none-if-small sticky-bottom">
+        {displayMessageController()}
+      </footer>
+
     </div>
   );
 }

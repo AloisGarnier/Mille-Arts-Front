@@ -54,7 +54,7 @@ export default function Catalog(props) {
     }
 
     function isFavourite(deco) {
-        if(props.owner) {
+        if(props.owner && props.owner.id != 1) {
             for(let i=0; i<props.favourites.length; i++) {
                 if(props.favourites[i].id == deco.id) {
                     return(
@@ -81,7 +81,74 @@ export default function Catalog(props) {
         }
         
         return "card dark-card mb-3 single-card"
-        
+    }
+
+    function getRating(deco) {
+        for(let av in props.averages) {
+            console.log(props.averages[av].decorationId )
+            if(props.averages[av].decorationId == deco.id) {
+                let rating = props.averages[av].rating
+                if(rating < 0.25) {
+                    return("Non noté")
+                } if(rating >= 0.25 && rating < 0.75) {
+                    return(<i class="fa-solid fa-star-half"></i>)
+                } if(rating >= 0.75 && rating < 1.25) {
+                    return(<i class="fa-solid fa-star"></i>)
+                } if(rating >= 1.25 && rating < 1.75) {
+                    return(<>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star-half"></i>
+                        </> )
+                } if(rating >= 1.75 && rating < 2.25) {
+                    return(<>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </> )
+                } if(rating >= 2.25 && rating < 2.75) {
+                    return(<>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half"></i>
+                    </> )
+                } if(rating >= 2.75 && rating < 3.25) {
+                    return(<>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </> )
+                } if(rating >= 3.25 && rating < 3.75) {
+                    return(<>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half"></i>
+                    </> )
+                } if(rating >= 3.75 && rating < 4.25) {
+                    return(<>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </> )
+                } if(rating >= 4.25 && rating < 4.75) {
+                    return(<>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half"></i>
+                    </> )
+                } if(rating >= 4.75) {
+                    return(<>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </> )
+                }
+            }
+        }
     }
 
     function addAllDecorations() {
@@ -124,7 +191,10 @@ export default function Catalog(props) {
                             <img class="little-image" src={deco.pictures[0].path}/>
                         </div>
                         <div class="d-flex flex-wrap justify-content-center align-content-center max-20 tags">
-                            {isFavourite(deco)} <span class="badge my-badge rounded-pill bg-warning mx-1">Non noté</span>
+                            {isFavourite(deco)} 
+                            <span class="badge my-badge rounded-pill bg-warning mx-1">
+                                {getRating(deco)}
+                            </span>
                         </div>
                         {bottomButtons(deco)}
                     </div>
@@ -135,7 +205,7 @@ export default function Catalog(props) {
 
         if(props.owner && props.owner.id == 1) {
             allDecorations.push(
-                <div class="card bg-light mb-3 single-card">
+                <div class={cardClass()}>
                     <div class="card-header">
                         <div class="my-card-header">
                             <span class="deco-name">Nouvelle décoration</span>

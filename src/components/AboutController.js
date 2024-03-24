@@ -39,7 +39,15 @@ export default function AboutController(props) {
                 <meta property="og:type" content="website" />
                 <link rel="icon" href={favicon} />
             </Helmet>
-            <About owner={props.owner} about={props.about} fetchAbout={() => fetchAbout()} modifyAbout={(newDescription) => modifyAbout(newDescription)}></About>
+            <About 
+                owner={props.owner} 
+                about={props.about} 
+                fetchAbout={() => fetchAbout()} 
+                modifyAbout={(newDescription) => modifyAbout(newDescription)}
+                isLightTheme = {props.isLightTheme}
+                isChristmas = {props.isChristmas}
+                setChristmas = {props.setChristmas}>
+            </About>
         </>
     )
 }

@@ -8,9 +8,11 @@ import favicon from '../img/favicon.png'
 export default function CatalogController(props) {
 
     useEffect(() => fetchAllDecorations(), []);
+    useEffect(() => fetchAverages(), []);
 
     const backUrl = props.domain + "/catalog/";
     const favUrl = props.domain + "/favourites/";
+    const evalUrl = props.domain + "/evaluation/"
 
     function fetchAllDecorations() {
         fetch(backUrl + "all")
@@ -56,6 +58,12 @@ export default function CatalogController(props) {
         window.localStorage.setItem("favourites", JSON.stringify(json))
     }
 
+    function fetchAverages() {
+        fetch(evalUrl + "all/ratings")
+            .then(response => response.json())
+            .then(json => props.setAverages(json))
+    }
+
     return(
         <>
             <Helmet>
@@ -79,6 +87,8 @@ export default function CatalogController(props) {
                 isLightTheme = {props.isLightTheme}
                 isChristmas = {props.isChristmas}
                 setChristmas = {props.setChristmas}
+                averages = {props.averages}
+                setAverages = {props.setAverages}
                 removeFromFavourites = {removeFromFavourites}
                 addToFavourites = {addToFavourites}>
             </Catalog>

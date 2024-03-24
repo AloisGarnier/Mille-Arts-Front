@@ -5,6 +5,18 @@ import { Helmet } from "react-helmet";
 
 export default function About(props) {
 
+    function cardClass() {
+        if(props.isChristmas) {
+            return "card christmas-card my-card"
+        }
+
+        if(props.isLightTheme) {
+            return "card light-card my-card"
+        }
+        
+        return "card dark-card my-card"
+    }
+
     function displayAbout() {
 
         let whatAbout = [];
@@ -56,14 +68,13 @@ export default function About(props) {
         <meta property="og:url" content="https://mille-arts.fr/" />
         <meta property="og:type" content="website" />
       </Helmet>
-            <div class="card my-card">
+            <div class={cardClass()}>
                 <h3 class="card-header my-header">Qui suis-je ?</h3>
                 <div class="card-body">
                     <div class="form-group login-form">
                         {displayAbout()}
                     </div>
                     <div class="m-2 d-flex justify-content-center">
-                        <Link to="/messagerie" type="button" class="btn btn-success">Envoyer un message</Link>
                         <Link to="/cgv" type="button" class="btn btn-info">Conditions générales de vente</Link>
                         <Link to="/mentions-legales" type="button" class="btn btn-secondary">Mentions légales</Link>
                     </div>

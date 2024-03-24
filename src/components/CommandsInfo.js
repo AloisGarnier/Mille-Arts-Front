@@ -48,7 +48,7 @@ export default function CommandsInfo(props) {
     }
 
     return(
-        <div class="d-grid justify-content-center my-3">
+        <div class="d-grid justify-content-center my-3 always-black">
             {commandsDisplay}
         </div>
     );

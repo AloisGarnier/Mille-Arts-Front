@@ -23,7 +23,7 @@ export default function AddressesInfo(props) {
         let addressesDisplayTemp = [];
         for(let i=0; i<addresses.length; i++) {
             addressesDisplayTemp.push(
-                    <div class="d-flex flex-row justify-content-center card my-3">
+                    <div class="d-flex flex-row justify-content-center card my-3 always-black">
                         <span class="mx-5 my-3">
                             {addresses[i].name} <br />
                             {addresses[i].streetNumber} {addresses[i].street} <br />
@@ -51,7 +51,7 @@ export default function AddressesInfo(props) {
         }
 
         addressesDisplayTemp.push(
-            <div class="d-flex justify-content-center my-3">
+            <div class="d-flex justify-content-center my-3 always-black">
                 <Link 
                 type="button" 
                 class="btn btn-success"

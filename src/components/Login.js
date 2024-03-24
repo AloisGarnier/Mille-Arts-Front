@@ -5,6 +5,18 @@ import * as Yup from 'yup';
 
 export default function Login(props) {
 
+    function cardClass() {
+        if(props.isChristmas) {
+            return "card christmas-card my-card"
+        }
+
+        if(props.isLightTheme) {
+            return "card light-card my-card"
+        }
+        
+        return "card dark-card my-card"
+    }
+
     const loginSchema = Yup.object().shape({
 
         email: Yup.string().email('Adresse e-mail invalide').required('Champ obligatoire'),
@@ -30,13 +42,13 @@ export default function Login(props) {
                     <Form>
                         <div class="form-floating mb-3">
                             <Field name="email" type="email" class="form-control" />
-                            <label for="floatingInput">Adresse e-mail</label>
+                            <label for="floatingInput" class="always-grey">Adresse e-mail</label>
                             {errors.email && touched.email ? (<div class="error">{errors.email}</div>) : null}
                         </div> 
                         
                         <div class="form-floating">
                             <Field name="password" type="password" class="form-control" />
-                            <label for="floatingInput">Mot de passe</label>
+                            <label for="floatingInput" class="always-grey">Mot de passe</label>
                             {errors.password && touched.password ? (<div class="error">{errors.password}</div>) : null}
                         </div>
                         
@@ -58,7 +70,7 @@ export default function Login(props) {
     }
 
     return(
-        <div class="card my-card">
+        <div class={cardClass()}>
             <h3 class="card-header my-header">Connexion</h3>
             <div class="card-body">
                 <div class="form-group login-form">

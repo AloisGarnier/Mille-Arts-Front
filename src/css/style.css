@@ -32,11 +32,26 @@ body, html {
 
 .my-catalog {
     min-width: 150px;
+    min-height: 80vh !important;
 }
 
 .my-christmas {
     margin: 60px 0px 0px 0px;
     min-width: 150px;
+}
+
+.my-body {
+  color: #000 !important;
+}
+
+.received {
+  max-width: 75% !important;
+  align-self: self-start !important;
+}
+
+.sent {
+  max-width: 75% !important;
+  align-self: self-end !important;
 }
 
 .max-20 {
@@ -52,18 +67,77 @@ body, html {
 }
 
 .dark-card {
-  color: #fff !important;
+  color: #fff;
   background-color: #36527c !important;
 }
 
 .light-card {
-  color: #000 !important;
+  color: #000 ;
   background-color: #f3f0e7 !important;
 }
 
 .christmas-card {
-  color: #fff !important;
+  color: #fff;
   background-color: #3d6d82 !important;
+}
+
+.dark-tab {
+  color: #fff !important;
+  background-color: transparent !important;
+}
+
+.light-tab {
+  color: #000 !important;
+  background-color: transparent !important;
+}
+
+.christmas-tab {
+  color: #fff !important;
+  background-color: transparent !important;
+}
+
+.my-footer-discussion {
+  padding: 5% !important;
+}
+
+.my-discussion {
+  margin-right: 1%;
+  margin-top: -486px !important;
+  top:calc(100vh-486px) !important;
+  height: 486px !important;
+  width: 300px !important;
+  animation: slidein .5s;
+  transform-origin: 100% 100%;
+}
+
+.white-icon {
+  color: white !important;
+}
+
+.my-star {
+  color: #ffc107 !important;
+}
+
+@keyframes slidein {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.transparent-button {
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+
+
+.my-cross-button {
+  margin-top: -60px !important;
+  top:calc(100vh-60px) !important;
+  height: 60px !important;
+  width: 60px !important;
 }
 
 @media only screen and (max-width: 480px) {
@@ -192,8 +266,22 @@ body, html {
     display: inline-grid !important;
 }
 
+.grey {
+  color: #555 !important;
+}
+
+.light-grey {
+  color: #888 !important;
+}
+
 .deco-name {
     justify-self: left;
+}
+
+.big-badge-price {
+  justify-self: right;
+  margin-top: 10px !important;
+  margin: 5px;
 }
 
 .badge-price {
@@ -280,6 +368,14 @@ body, html {
 .bg-light-purple {
   color: #000 !important;
   background-color: #7d8ba7 !important;
+}
+
+.always-grey {
+  color: #222 !important;
+}
+
+.always-black {
+  color: #000 !important;
 }
 
 @media only screen and (max-width: 480px) {
@@ -3193,4 +3289,3 @@ body, html {
     max-width: 25%;
     min-width: 200px;
   }
-  

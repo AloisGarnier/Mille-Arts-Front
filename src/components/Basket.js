@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 import favicon from '../img/favicon.png'
+import { Button } from "react-bootstrap";
 
 export default function Basket(props) {
 
@@ -128,6 +129,42 @@ export default function Basket(props) {
         }
     }
 
+    function tableClass() {
+        if(props.isChristmas) {
+            return "table table-hover none-if-small christmas-tab"
+        }
+
+        if(props.isLightTheme) {
+            return "table table-hover none-if-small light-tab"
+        }
+        
+        return "table table-hover none-if-small dark-tab"
+    }
+
+    function plus(i) {
+        if(props.basket[i][1] < 9) {
+            props.basket[i][1] ++
+        }
+    }
+
+    function minus(i) {
+        if(props.basket[i][1] > 0) {
+            props.basket[i][1] --
+        }
+    }
+
+    function classPlus(i) {
+        if(props.basket[i][1] == 9) {
+            return "light-grey"
+        }
+    }
+
+    function classMinus(i) {
+        if(props.basket[i][1] == 0) {
+            return "light-grey"
+        }
+    }
+
     function basketElements() {
         let basketElements = [];
 
@@ -147,10 +184,28 @@ export default function Basket(props) {
                 }
 
                 basketElements.push(
-                    <tr class="table-light">
-                        <th><Link to={"/decoration?id=" + deco.id} type="button">{deco.name}</Link></th>
+                    <tr class="align-items-center">
+                        <th>
+                            <Link to={"/decoration?id=" + deco.id} type="button" class="btn btn-outline-warning btn-sm">
+                                {deco.name}
+                            </Link>
+                        </th>
                         <td>
-                            {quantity}
+                            <Link 
+                                type="button"
+                                class={classMinus(i)} 
+                                onClick={() => minus(i)}
+                            >
+                                <i class="fa-solid fa-circle-minus"></i>
+                            </Link>
+                            &ensp;{quantity}&ensp;
+                            <Link 
+                                type="button"
+                                class={classPlus(i)} 
+                                onClick={() => plus(i)}
+                            >
+                                <i class="fa-solid fa-circle-plus"></i>
+                            </Link>
                         </td>
                         <td>{getFormattedPrice(currentPrice)}</td>
                         <td>{getFormattedPrice(currentPrice*quantity)}</td>
@@ -159,7 +214,7 @@ export default function Basket(props) {
                 );
             }
         }
-        return(<table class="table table-hover none-if-small">
+        return(<table class={tableClass()}>
                     <thead>
                         <tr>
                             <th scope="col">Décoration</th>
@@ -210,8 +265,20 @@ export default function Basket(props) {
         </div>);
     }
 
+    function cardClass() {
+        if(props.isChristmas) {
+            return "card christmas-card my-card basket-card"
+        }
+
+        if(props.isLightTheme) {
+            return "card light-card my-card basket-card"
+        }
+        
+        return "card dark-card my-card basket-card"
+    }
+
     return(
-        <div class="card my-card basket-card">
+        <div class={cardClass()}>
             <Helmet>
                 <title>Votre panier - Mille Arts</title>
                 <meta name="description" content="Décorations et petits objets pour égayer le quotidien" />

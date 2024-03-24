@@ -56,6 +56,18 @@ export default function Delivery(props) {
 
     }
 
+    function cardClass() {
+        if(props.isChristmas) {
+            return "card christmas-card my-card basket-card"
+        }
+
+        if(props.isLightTheme) {
+            return "card light-card my-card basket-card"
+        }
+        
+        return "card dark-card my-card basket-card"
+    }
+
     function getTotal() {
         let totalPrice = 0;
         
@@ -115,18 +127,18 @@ export default function Delivery(props) {
                 alert(`Transaction completed by ${name}`);
           });*/
 
-        }
+    }
 
-        const initialOptions = {
-            "client-id": "test",
-            "enable-funding": "venmo,card",
-            "disable-funding": "paylater",
-            "data-sdk-integration-source": "integrationbuilder_sc",
-            currency: "EUR",
-          };
+    const initialOptions = {
+        "client-id": "test",
+        "enable-funding": "venmo,card",
+        "disable-funding": "paylater",
+        "data-sdk-integration-source": "integrationbuilder_sc",
+        currency: "EUR",
+    };
 
     return(
-    <div class="card my-card basket-card">
+    <div class={cardClass()}>
         <Helmet>
                 <title>Livraison - Mille Arts</title>
                 <meta name="description" content="Décorations et petits objets pour égayer le quotidien" />
