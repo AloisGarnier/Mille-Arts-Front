@@ -33,8 +33,8 @@ import MessagesController from "./MessagesController";
 
 export default function App() {
 
-  //const domain = "https://api.mille-arts.fr";
-  const domain = "http://localhost:8081"
+  const domain = "https://api.mille-arts.fr";
+  //const domain = "http://localhost:8081"
 
   const [themeBackground, setThemeBackground] = useState(lightBg);
   const [owner, setOwner] = useState(null);
