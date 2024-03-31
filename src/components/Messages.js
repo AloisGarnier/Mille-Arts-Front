@@ -45,7 +45,7 @@ export default function Messages(props) {
 
     if(year == today.getFullYear() && month == today.getMonth()+1 && day == today.getDate()) {
       let dateUTC = new Date(date + ".000Z")
-      return(dateUTC.toLocaleString());
+      return(dateUTC.toLocaleString().substring(11, 16));
     } else if (today.getTime()-dateDate.getTime() < 1000*3600*24*2) {
       return("Hier");
     } else {
