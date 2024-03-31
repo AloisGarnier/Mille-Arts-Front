@@ -165,6 +165,14 @@ export default function Basket(props) {
         }
     }
 
+    function className() {
+        if(props.isLightTheme) {
+            return "btn btn-outline-info btn-sm"
+        } else {
+            return "btn btn-outline-warning btn-sm"
+        }
+    }
+
     function basketElements() {
         let basketElements = [];
 
@@ -186,7 +194,7 @@ export default function Basket(props) {
                 basketElements.push(
                     <tr class="align-items-center">
                         <th>
-                            <Link to={"/decoration?id=" + deco.id} type="button" class="btn btn-outline-warning btn-sm">
+                            <Link to={"/decoration?id=" + deco.id} type="button" class={className()}>
                                 {deco.name}
                             </Link>
                         </th>

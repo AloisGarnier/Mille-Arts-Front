@@ -27,6 +27,18 @@ export default function Signup(props) {
 
     }
 
+    function cardClass() {
+        if(props.isChristmas) {
+            return "card christmas-card my-card"
+        }
+
+        if(props.isLightTheme) {
+            return "card light-card my-card"
+        }
+        
+        return "card dark-card my-card"
+    }
+
     const signupSchema = Yup.object().shape({
 
         firstName: Yup.string().required('Champ obligatoire'),
@@ -188,7 +200,7 @@ export default function Signup(props) {
 
 
     return (
-        <div class="card my-card">
+        <div class={cardClass()}>
             <h3 class="card-header my-header">Créer un compte</h3>
             <div class="card-body">
                 <div class="form-group login-form">

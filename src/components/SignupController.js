@@ -10,7 +10,8 @@ export default function SignupController(props) {
     const backUrl = props.domain + "/security";
 
     function ownerRegistration(json) {
-        props.setOwner({ 
+        props.setOwner({
+            id: json.owner.id, 
             firstName: json.owner.firstName, 
             lastName: json.owner.lastName, 
             email: json.owner.username, 
