@@ -86,7 +86,7 @@ export default function Delivery(props) {
             
         }
 
-        return(totalPrice.toString());
+        return(totalPrice.toFixed(2));
     }
 
     function createOrder() {
@@ -97,14 +97,7 @@ export default function Delivery(props) {
             },
             // use the "body" param to optionally pass additional order information
             // like product ids and quantities
-            body: JSON.stringify({
-                cart: [
-                    {
-                        id: "YOUR_PRODUCT_ID",
-                        quantity: "YOUR_PRODUCT_QUANTITY",
-                    },
-                ],
-            }),
+            body: getTotal()
         })
             .then((response) => response.json())
             .then((order) => order.id);
@@ -122,7 +115,7 @@ export default function Delivery(props) {
             })
           })
           .then((response) => response.json())
-          /** .then((orderData) => {
+          /*.then((orderData) => {
                 const name = orderData.payer.name.given_name;
                 alert(`Transaction completed by ${name}`);
           });*/
@@ -130,7 +123,7 @@ export default function Delivery(props) {
     }
 
     const initialOptions = {
-        "client-id": "test",
+        "client-id": "AX9eCDEYeb4nkJLqlCJEGVgwo7oWtGy-AGG-UH7FNmuwPNBanNfz-9mSuW1NJeljitE3ZMjRVnZxZB8K",
         "enable-funding": "venmo,card",
         "disable-funding": "paylater",
         "data-sdk-integration-source": "integrationbuilder_sc",
@@ -140,7 +133,7 @@ export default function Delivery(props) {
     return(
     <div class={cardClass()}>
         <Helmet>
-                <title>Livraison - Mille Arts</title>
+                <title>Livraison et paiement - Mille Arts</title>
                 <meta name="description" content="Décorations et petits objets pour égayer le quotidien" />
                 <meta property="og:title" content="Mille Arts" />
                 <meta property="og:description" content="Options de livraison" />
@@ -148,13 +141,16 @@ export default function Delivery(props) {
                 <meta property="og:type" content="website" />
                 <link rel="icon" href={favicon} />
         </Helmet>
-        <h3 class="card-header my-header">Livraison</h3>
-        <div class="card-body d-flex flex-column justify-content-center">
-            La livraison en France métropolitaine est offerte ! <br/>
-            Si vous habitez hors de France, merci de nous contacter avant toute commande. <br/>
-            <div class="m-5">
-                {addressChoice()}
+        <h3 class="card-header my-header">Livraison et paiement</h3>
+        <div class="card-body d-flex flex-row justify-content-center">
+            <div class="d-flex flex-column justify-content-center">
+                La livraison en France métropolitaine est offerte ! <br/>
+                Si vous habitez hors de France, merci de nous contacter avant toute commande. <br/>
+                <div class="m-5">
+                    {addressChoice()}
+                </div>
             </div>
+
             <PayPalScriptProvider options={initialOptions}>
                 <PayPalButtons
                     style={{shape: "pill",

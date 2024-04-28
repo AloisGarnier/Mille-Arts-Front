@@ -285,7 +285,7 @@ export default function Decoration(props) {
                         </div>
                         <div class="m-2 d-flex justify-content-end">
                             <Link to="/catalogue" type="button" class="btn btn-warning">Annuler</Link>
-                            <Link 
+                            <Link
                                 type="button" 
                                 class="btn btn-success"
                                 to="/catalogue"

@@ -29,6 +29,22 @@ export default function CommandController(props) {
             .then(json => setDoneCommands(json));
     }
 
+    function realizeCommand(command) {
+        const requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+        };
+        fetch(backUrl + command.id + "/realize", requestOptions)
+    }
+
+    function deliverCommand(command) {
+        const requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+        };
+        fetch(backUrl + command.id + "/deliver", requestOptions)
+    }
+
     return(
         <>
             <Helmet>
@@ -44,6 +60,8 @@ export default function CommandController(props) {
                 toDoCommands = {toDoCommands}
                 toDeliverCommands = {toDeliverCommands}
                 doneCommands = {doneCommands}
+                realizeCommand = {realizeCommand}
+                deliverCommand = {deliverCommand}
             />
         </>
     );

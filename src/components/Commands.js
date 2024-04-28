@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import { Accordion } from "react-bootstrap";
 
@@ -8,6 +9,141 @@ export default function Commands(props) {
     const [activeTab, setActiveTab] = useState(["nav-link active", "nav-link", "nav-link"]);
 
     useEffect(() => clickFirstTab(), []);
+
+    function letterMonth(month) {
+        switch(month) {
+          case "1":
+            return(" janvier ");
+          case "2":
+            return(" février ");
+          case "3":
+            return(" mars ");
+          case "4":
+            return(" avril ");
+          case "5":
+            return(" mai ");
+          case "6":
+            return(" juin ");
+          case "7":
+            return(" juillet ");
+          case "8":
+            return(" août ");
+          case "9":
+            return(" septembre ");
+          case "10":
+            return(" octobre ");
+          case "11":
+            return(" novembre ");
+          case "12":
+            return(" décembre ");
+        }
+      }
+    
+    function formatDate(date) {
+        let year = date.substring(0,4);
+        let month = date.substring(5,7)[0] == "0" ? date.substring(6,7) : date.substring(5,7);
+        let day = date.substring(8,10)[0] == "0" ? date.substring(9,10) : date.substring(8,10);
+
+        if(day == "1") {
+            day = "1er"
+        }
+
+        return(day + letterMonth(month) + year);
+    }
+
+    function returnDates(activeStep, command) {
+        let datesDisplay = []
+        
+        switch(activeStep){
+            case 1:
+                datesDisplay.push(
+                    <div>
+                        Date de commande : {formatDate(command.orderDate)}
+                    </div>
+                )
+                break;
+            case 2:
+                datesDisplay.push(
+                    <div>
+                        Date de commande : {formatDate(command.orderDate)}
+                    </div>
+                )
+                datesDisplay.push(
+                    <div>
+                        Date de réalisation : {formatDate(command.realizationDate)}
+                    </div>
+                )
+                break;
+            case 3:
+                datesDisplay.push(
+                    <div>
+                        Date de commande : {formatDate(command.orderDate)}
+                    </div>
+                )
+                datesDisplay.push(
+                    <div>
+                        Date de réalisation : {formatDate(command.realizationDate)}
+                    </div>
+                )
+                datesDisplay.push(
+                    <div>
+                        Date de livraison : {formatDate(command.deliveryDate)}
+                    </div>
+                )
+                break;
+            default:
+                break;
+        }
+
+        return datesDisplay
+    }
+
+    function returnDecos(command) {
+        let decosDisplay = []
+
+        for(let i=0; i<command.commandLines.length; i++) {
+            decosDisplay.push(
+                <li>
+                    {command.commandLines[i].decoration.name} x{command.commandLines[i].quantity}
+                </li>
+            )
+        }
+
+        return(
+            <ul>
+                {decosDisplay}
+            </ul>
+        )
+
+    }
+
+    function returnButton(activeStep, command) {
+        switch(activeStep){
+            case 1:
+                return(
+                    <Link
+                        type="button" 
+                        class="btn btn-success"
+                        onClick={() => props.realizeCommand(command)}
+                    >
+                        Commande réalisée !
+                    </Link>
+                )
+            case 2:
+                return(
+                    <Link
+                        type="button" 
+                        class="btn btn-success"
+                        onClick={() => props.deliverCommand(command)}
+                    >
+                        Commande envoyée !
+                    </Link>
+                )
+            case 3:
+            default:
+                break;
+        }
+    }
 
     function displayCommands() {
 
@@ -27,7 +163,7 @@ export default function Commands(props) {
         }
 
         // If there is no command
-        if(commands == null) {
+        if(commands.length == 0) {
             let niceDisplay = "";
             switch(activeStep){
                 case 1:
@@ -43,7 +179,7 @@ export default function Commands(props) {
                     break;
             }
             return(
-                <div>Il n'y a aucune commande {niceDisplay}</div>
+                <div class="d-flex justify-content-center my-5">Il n'y a aucune commande {niceDisplay}</div>
             )
         }
 
@@ -66,11 +202,24 @@ export default function Commands(props) {
             commandsDisplay.push(
                 <Accordion.Item eventKey={i}>
                     <Accordion.Header class="accordion-header" id="headingOne">
-                            Accordion Item #1
+                            Commande #{commands[i].id}
                     </Accordion.Header>
                     <Accordion.Body id="collapseOne" class="accordion-collapse collapse">
-                        <div class="accordion-body">
-                            <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                        <div class="d-flex flex-row justify-content-between align-items-center">
+                            <div class="accordion-body">
+                                {returnDates(activeStep, commands[i])}
+                                <div>
+                                    Client : {commands[i].customer.firstName} {commands[i].customer.lastName} <br/>
+                                    Adresse : {commands[i].address}
+                                </div>
+                                <div>
+                                    Décorations : <br/>
+                                    {returnDecos(commands[i])}
+                                </div>
+                            </div>
+                            <div>
+                                {returnButton(activeStep, commands[i])}
+                            </div>
                         </div>
                     </Accordion.Body>
                 </Accordion.Item>
@@ -78,7 +227,7 @@ export default function Commands(props) {
         }  
         
         return(
-            <div class="my-accordion">
+            <div class="form-group login-form">
                 <Accordion alwaysOpen>
                     {commandsDisplay}
                 </Accordion>

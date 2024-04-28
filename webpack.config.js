@@ -2,7 +2,8 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 const webpack = require("webpack");
 const http = require("http");
-const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   entry: "./src/index.js",
@@ -28,7 +29,11 @@ module.exports = {
     new webpack.ProvidePlugin({
       process: 'process/browser.js',
     }),
-    new NodePolyfillPlugin()
+    new NodePolyfillPlugin(),
+    new CopyPlugin({
+        patterns: [
+            { from: "src/robots.txt", to: "robots.txt" }
+        ]})
   ],
   resolve: {
     modules: [__dirname, "src", "node_modules"],

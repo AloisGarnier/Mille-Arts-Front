@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 import favicon from '../img/favicon.png'
-import { Button } from "react-bootstrap";
 
 export default function Basket(props) {
 
@@ -71,7 +70,7 @@ export default function Basket(props) {
                     <Link 
                         type="button" 
                         class="btn btn-success none-if-small"
-                        to="/livraison"
+                        to="/livraison-paiement"
                     >
                         Valider votre panier
                     </Link>
