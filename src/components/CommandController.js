@@ -35,6 +35,8 @@ export default function CommandController(props) {
             headers: { 'Content-Type': 'application/json' },
         };
         fetch(backUrl + command.id + "/realize", requestOptions)
+            .then(() => window.location.href = '/commandes')
+
     }
 
     function deliverCommand(command) {
@@ -43,6 +45,8 @@ export default function CommandController(props) {
             headers: { 'Content-Type': 'application/json' },
         };
         fetch(backUrl + command.id + "/deliver", requestOptions)
+            .then(() => window.location.href = '/commandes')
+
     }
 
     return(
@@ -57,6 +61,7 @@ export default function CommandController(props) {
                 <link rel="icon" href={favicon} />
             </Helmet>
             <Commands
+                owner = {props.owner}
                 toDoCommands = {toDoCommands}
                 toDeliverCommands = {toDeliverCommands}
                 doneCommands = {doneCommands}

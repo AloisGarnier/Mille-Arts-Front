@@ -288,7 +288,6 @@ export default function Decoration(props) {
                             <Link
                                 type="button" 
                                 class="btn btn-success"
-                                to="/catalogue"
                                 onClick={() => props.modifyDecoration(props.decoration.id, 
                                     values.name, 
                                     values.picture1, 

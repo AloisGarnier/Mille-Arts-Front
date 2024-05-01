@@ -85,7 +85,6 @@ export default function Catalog(props) {
 
     function getRating(deco) {
         for(let av in props.averages) {
-            console.log(props.averages[av].decorationId )
             if(props.averages[av].decorationId == deco.id) {
                 let rating = props.averages[av].rating
                 if(rating < 0.25) {

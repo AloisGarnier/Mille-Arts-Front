@@ -32,8 +32,6 @@ module.exports = {
     new NodePolyfillPlugin(),
     new CopyPlugin({
         patterns: [
-            { from: 'source', to: 'dest' },
-            { from: 'other', to: 'public' },
             { from: "src/robots.txt", to: "robots.txt" }
         ]})
   ],

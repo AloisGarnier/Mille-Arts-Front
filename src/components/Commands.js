@@ -234,34 +234,7 @@ export default function Commands(props) {
             </div>
             );
     }
-    
-    function moveStepButton(command) {
-        switch(activeStep){
-            case 1:
-                return(
-                    <Link 
-                        type="button" 
-                        class="btn btn-success"
-                        to="/commandes"
-                        //onClick={}
-                    >
-                            Réalisée
-                    </Link>
-                )
-            case 2:
-                <Link 
-                        type="button" 
-                        class="btn btn-success"
-                        to="/commandes"
-                        //onClick={}
-                    >
-                            Envoyée
-                    </Link>
-                break;
-            default:
-                return(<></>)
-        }
-    }
+
 
     function clickFirstTab() {
         setActiveStep(1);
@@ -278,48 +251,61 @@ export default function Commands(props) {
         setActiveTab(["nav-link", "nav-link", "nav-link active"]);
     }
 
+    function getContent() {
+        console.log(props.owner)
+        if(props.owner && props.owner.id == 1) {
+            return(
+                <div class="card-body">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <button 
+                            class={activeTab[0]} 
+                            data-bs-toggle="tab" 
+                            onClick={() => clickFirstTab()} 
+                            aria-selected="false" 
+                            role="tab" 
+                            tabindex="-1">
+                                A réaliser
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button 
+                            class={activeTab[1]} 
+                            data-bs-toggle="tab" 
+                            onClick={() => clickSecondTab()} 
+                            aria-selected="true" 
+                            role="tab">
+                                A envoyer
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button 
+                            class={activeTab[2]} 
+                            data-bs-toggle="tab" 
+                            onClick={() => clickThirdTab()} 
+                            aria-selected="false" 
+                            tabindex="-1" 
+                            role="tab">
+                                Terminées
+                            </button>
+                        </li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+                        {displayCommands()}
+                    </div>
+                </div>
+            )
+        } else {
+            return(
+                <></>
+            )
+        }
+    }
+
     return(
         <div class="card my-card">
             <h3 class="card-header my-header">Commandes</h3>
-            <div class="card-body">
-                <ul class="nav nav-tabs">
-                    <li class="nav-item">
-                        <button 
-                        class={activeTab[0]} 
-                        data-bs-toggle="tab" 
-                        onClick={() => clickFirstTab()} 
-                        aria-selected="false" 
-                        role="tab" 
-                        tabindex="-1">
-                            A réaliser
-                        </button>
-                    </li>
-                    <li class="nav-item">
-                        <button 
-                        class={activeTab[1]} 
-                        data-bs-toggle="tab" 
-                        onClick={() => clickSecondTab()} 
-                        aria-selected="true" 
-                        role="tab">
-                            A envoyer
-                        </button>
-                    </li>
-                    <li class="nav-item">
-                        <button 
-                        class={activeTab[2]} 
-                        data-bs-toggle="tab" 
-                        onClick={() => clickThirdTab()} 
-                        aria-selected="false" 
-                        tabindex="-1" 
-                        role="tab">
-                            Terminées
-                        </button>
-                    </li>
-                </ul>
-                <div id="myTabContent" class="tab-content">
-                    {displayCommands()}
-                </div>
-            </div>
+            {getContent()}
         </div>
     );
 

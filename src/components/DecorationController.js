@@ -22,12 +22,30 @@ export default function DecorationController(props) {
     const backUrl = props.domain + "/catalog/";
     const favUrl = props.domain + "/favourites/";
     const evalUrl = props.domain + "/evaluation/";
+    const viewUrl = props.domain + "/view/";
+
+    function sendView(id) {
+        if(props.owner && props.owner.id != 1) {
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+            };
+            fetch(viewUrl + "new/" + id + '/' + props.owner.id, requestOptions)
+        } else if(props.owner == null) {
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+            };
+            fetch(viewUrl + "new/" + id + '/0', requestOptions)
+        }
+    }
 
     function fetchDecoration() {
 
         fetch(backUrl + location.search.substring(4) + "/all")
             .then(response => response.json())
             .then(json => setThisDecoration(json))
+            .then(() => sendView(location.search.substring(4)))
         
         fetch(backUrl + location.search.substring(4) + "/pictures")
             .then(response => response.json())
@@ -88,6 +106,7 @@ export default function DecorationController(props) {
         };
         fetch(backUrl + "modify", requestOptions)
             .then(response => response.json())
+            .then(() => window.location.href = '/catalogue')
     }
 
     function removeFromFavourites(deco) {

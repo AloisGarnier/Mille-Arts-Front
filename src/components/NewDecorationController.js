@@ -37,7 +37,6 @@ export default function NewDecorationController(props) {
                 tags: tempTags2
             })
         }
-
         fetch(backUrl + "create", requestOptions)
             .then(response => response.json())
     }

@@ -115,10 +115,7 @@ export default function Delivery(props) {
             })
           })
           .then((response) => response.json())
-          /*.then((orderData) => {
-                const name = orderData.payer.name.given_name;
-                alert(`Transaction completed by ${name}`);
-          });*/
+          .then(() => window.location.href = '/catalogue')
 
     }
 

@@ -33,8 +33,8 @@ import MessagesController from "./MessagesController";
 
 export default function App() {
 
-  const domain = "https://api.mille-arts.fr";
-  //const domain = "http://localhost:8081"
+  //const domain = "https://api.mille-arts.fr";
+  const domain = "http://localhost:8081"
 
   const [themeBackground, setThemeBackground] = useState(lightBg);
   const [owner, setOwner] = useState(null);
@@ -495,6 +495,7 @@ export default function App() {
           <Route exact path="/commandes" element={
             <CommandController
             domain = {domain}
+            owner = {owner}
             isLightTheme = {isLightTheme}
             isChristmas = {isChristmas}
             setChristmas = {setChristmas}
