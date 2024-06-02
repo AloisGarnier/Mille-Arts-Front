@@ -11,8 +11,9 @@ export default function Catalog(props) {
     }
 
     function getFormattedPrice(price) {
+        price = price.toFixed(2)
         if(price - Math.trunc(price) >= 0.01) {
-            return Math.floor(price) + "," + ((price - Math.trunc(price))*100) + " €";
+            return Math.floor(price) + "," + ((price - Math.trunc(price))*100).toFixed(0) + " €";
         } else {
             return price + " €";
         }
