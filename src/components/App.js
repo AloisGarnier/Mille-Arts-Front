@@ -319,7 +319,7 @@ export default function App() {
               </div>
               {mainOptions()}
               <div class="pe-3 d-flex flex-row justify-content-around">
-                <Link to="https://id.pinterest.com/carolinemilard" target="_blank" class="btn-link social-network"><i class="fa-brands fa-pinterest"></i></Link>
+                <Link to="https://www.pinterest.fr/milleartsfr/" target="_blank" class="btn-link social-network"><i class="fa-brands fa-pinterest"></i></Link>
                 <Link to="https://www.instagram.com/carolinemilard/" target="_blank" class="btn-link social-networkk"><i class="fa-brands fa-instagram"></i></Link>
               </div>
             </div>

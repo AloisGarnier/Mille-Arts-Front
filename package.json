@@ -46,6 +46,7 @@
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.9.0",
     "react-scripts": "^5.0.1",
+    "sitemap": "^7.1.1",
     "url": "^0.11.3",
     "whatwg-fetch": "^3.6.2",
     "yup": "^1.1.1"
