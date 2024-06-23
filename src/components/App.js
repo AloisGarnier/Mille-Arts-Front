@@ -30,16 +30,18 @@ import "../css/sketchy.css";
 import "../css/fontawesome.all.min.css";
 import { Helmet } from "react-helmet";
 import MessagesController from "./MessagesController";
+import MessagesHandlingController from "./MessagesHandlingController";
 
 export default function App() {
 
-  const domain = "https://api.mille-arts.fr";
-  //const domain = "http://localhost:8081"
+  //const domain = "https://api.mille-arts.fr";
+  const domain = "http://localhost:8081"
 
   const [themeBackground, setThemeBackground] = useState(lightBg);
   const [owner, setOwner] = useState(null);
   const [basket, setBasket] = useState([]);
   const [research, setResearch] = useState({search: ''});
+  const [allDecorations, setAllDecorations] = useState([]);
   const [decorations, setDecorations] = useState([]);
   const [isCollapsedDisplayed, setCollapsedDisplayed] = useState(false);
   const [isLightTheme, setLightTheme] = useState(true);
@@ -107,7 +109,11 @@ export default function App() {
   }
 
   function getParamInURL() {
-    return "/recherche?q=" + research.search;
+    if(research.search) {
+      return "/recherche?q=" + research.search;
+    } else {
+      return "/catalogue"
+    }
   }
 
   /**
@@ -115,9 +121,11 @@ export default function App() {
    * @param {when the research form is validated by click or enter} event 
    */
   function goToResearchPage(event) {
+    if(research.search) {
       event.preventDefault();
       navigate("/recherche?q=" + research.search);
       navigate(0);
+    }
   }
 
   function displayCollapsedItems() {
@@ -168,7 +176,6 @@ export default function App() {
             <Link 
                 type="button" 
                 class="btn btn-info"
-                to="/catalogue"
                 onClick={() => acceptCookies()}
             >
                 J'accepte seulement les cookies essentiels
@@ -176,7 +183,6 @@ export default function App() {
             <Link 
                 type="button" 
                 class="btn btn-success"
-                to="/catalogue"
                 onClick={() => acceptCookies()}
             >
                 J'accepte tous les cookies
@@ -247,6 +253,7 @@ export default function App() {
         <div>
           <Link to="/catalogue" class="btn btn-link">Catalogue</Link>
           <Link to="/commandes" class="btn btn-link">Commandes</Link>
+          <Link to="/messagerie" class="btn btn-link">Messagerie</Link>
           <Link to="/gestion" class="btn btn-link">Statistiques</Link>
           <Link to="/a-propos" class="btn btn-link">Contact</Link>
         </div>
@@ -255,7 +262,7 @@ export default function App() {
   }
 
   function displayMessageController() {
-    if(owner) {
+    if(owner && owner.id != 1) {
       return(
         <MessagesController 
         owner = {owner}
@@ -338,6 +345,8 @@ export default function App() {
             setBasket={setBasket}
             decorations={decorations}
             setDecorations={setDecorations}
+            allDecorations={allDecorations}
+            setAllDecorations={setAllDecorations}
             domain = {domain}
             favourites = {favourites}
             setFavourites = {setFavourites}
@@ -354,6 +363,8 @@ export default function App() {
             setBasket={setBasket}
             decorations={decorations}
             setDecorations={setDecorations}
+            allDecorations={allDecorations}
+            setAllDecorations={setAllDecorations}
             domain = {domain}
             favourites = {favourites}
             setFavourites = {setFavourites}
@@ -399,6 +410,8 @@ export default function App() {
             setBasket={setBasket}
             decorations={decorations}
             setDecorations={setDecorations}
+            allDecorations={allDecorations}
+            setAllDecorations={setAllDecorations}
             domain = {domain}
             favourites = {favourites}
             setFavourites = {setFavourites}
@@ -436,6 +449,8 @@ export default function App() {
             setBasket={setBasket}
             decorations={decorations}
             setDecorations={setDecorations}
+            allDecorations={allDecorations}
+            setAllDecorations={setAllDecorations}
             themeBackground={themeBackground}
             setThemeBackground={setThemeBackground}
             domain = {domain}
@@ -454,6 +469,8 @@ export default function App() {
             setBasket={setBasket}
             decorations={decorations}
             setDecorations={setDecorations}
+            allDecorations={allDecorations}
+            setAllDecorations={setAllDecorations}
             themeBackground={themeBackground}
             setThemeBackground={setThemeBackground}
             domain = {domain}
@@ -521,6 +538,14 @@ export default function App() {
             domain = {domain}
             owner = {owner}
             basket = {basket}
+            isLightTheme = {isLightTheme}
+            isChristmas = {isChristmas}
+            setChristmas = {setChristmas}
+          />}></Route>
+          <Route exact path="/messagerie" element={
+            <MessagesHandlingController
+            domain = {domain}
+            owner = {owner}
             isLightTheme = {isLightTheme}
             isChristmas = {isChristmas}
             setChristmas = {setChristmas}

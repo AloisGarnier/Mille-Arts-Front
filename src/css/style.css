@@ -66,6 +66,10 @@ body, html {
   height: 80%;
 }
 
+.max-100 {
+  height: 100%;
+}
+
 .dark-card {
   color: #fff;
   background-color: #36527c !important;

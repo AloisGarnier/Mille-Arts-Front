@@ -7,17 +7,29 @@ import favicon from '../img/favicon.png'
 
 export default function CatalogController(props) {
 
-    useEffect(() => fetchAllDecorations(), []);
+    useEffect(() => fetchDecorations(), []);
     useEffect(() => fetchAverages(), []);
 
     const backUrl = props.domain + "/catalog/";
     const favUrl = props.domain + "/favourites/";
     const evalUrl = props.domain + "/evaluation/"
 
-    function fetchAllDecorations() {
+    function fetchDecorations() {
         fetch(backUrl + "all")
             .then(response => response.json())
-            .then(json => props.setDecorations(json))
+            .then(json => saveDecorations(json))
+    }
+
+    function saveDecorations(json) {
+        props.setAllDecorations(json)
+        if(json.length <= 5) {
+            props.setDecorations(json)
+        } else if(!location.page.substring(3)) {
+            props.setDecorations(json.subarray(0, 5))
+        } else {
+            var pageNumber = location.page.substring(3)
+            props.setDecorations(json.subarray(5*(pageNumber-1), 5*pageNumber))
+        }
     }
 
     function deleteDecoration(deco) {
@@ -78,7 +90,8 @@ export default function CatalogController(props) {
             <Catalog 
                 owner={props.owner} 
                 domain={props.domain} 
-                decorations={props.decorations} 
+                decorations={props.decorations}
+                allDecorations={props.allDecorations}  
                 basket={props.basket} 
                 setBasket={props.setBasket}
                 deleteDecoration={deleteDecoration}

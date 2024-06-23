@@ -4,11 +4,8 @@ import Catalog from "./Catalog";
 
 export default function ResearchController(props) {
 
-    useEffect(() => {
-        fetchDecorations();
-    }, []);
+    useEffect(() => fetchDecorations(), []);
     useEffect(() => fetchAverages(), []);
-
 
     const backUrl = props.domain + "/catalog";
     const favUrl = props.domain + "/favourites/";

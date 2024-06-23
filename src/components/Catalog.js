@@ -83,6 +83,28 @@ export default function Catalog(props) {
         return "card dark-card mb-3 single-card"
     }
 
+    function paginationClass() {
+        if(props.isChristmas) {
+            return "page-item christmas-card"
+        }
+        if(props.isLightTheme) {
+            return "page-item light-card"
+        }
+        
+        return "page-item dark-card"
+    }
+
+    function linkClass() {
+        if(props.isChristmas) {
+            return "page-link christmas-card"
+        }
+        if(props.isLightTheme) {
+            return "page-link light-card"
+        }
+        
+        return "page-link dark-card"
+    }
+
     function getRating(deco) {
         for(let av in props.averages) {
             if(props.averages[av].decorationId == deco.id) {
@@ -220,9 +242,42 @@ export default function Catalog(props) {
         return allDecorations;
     }
 
+    function addPagination() {
+        return(
+            <ul class="pagination pagination-lg">
+                <li class={paginationClass()}>
+                    <a class={linkClass()} href="#">&laquo;</a>
+                </li>
+                <li class="page-item active">
+                    <a class={linkClass()} href="#">1</a>
+                </li>
+                <li class="page-item">
+                    <a class={linkClass()} href="#">2</a>
+                </li>
+                <li class="page-item">
+                    <a class={linkClass()} href="#">3</a>
+                </li>
+                <li class="page-item">
+                    <a class={linkClass()} href="#">4</a>
+                </li>
+                <li class="page-item">
+                    <a class={linkClass()} href="#">5</a>
+                </li>
+                <li class="page-item">
+                    <a class={linkClass()} href="#">&raquo;</a>
+                </li>
+            </ul>
+        )
+    }
+
     return (
-        <div class="d-flex flex-wrap justify-content-center my-catalog">
-            {addAllDecorations()}
+        <div class="d-flex flex-column justify-content-center">
+            <div class="d-flex flex-wrap justify-content-center my-catalog">
+                {addAllDecorations()}
+            </div>
+            <div class="d-flex justify-content-center my-5">
+                {addPagination()}
+            </div>
         </div>
     );
 }

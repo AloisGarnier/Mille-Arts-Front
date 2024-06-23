@@ -59,13 +59,13 @@ export default function Messages(props) {
 
     if(props.messages) {
       for(let m = props.messages.length-1; m>=0; m--) {
-        if(props.messages[m].received) {
+        if(props.messages[m].isReceived) {
           messagesDisplay.push(
             <>
-              <div class="grey mb-3">{formatDate(props.messages[m].date)}</div>
+              <div class="grey mb-3">{formatDate(props.messages[m].sendingDate)}</div>
               <div class="card received">
                 <div class="card-body my-body">
-                  {props.messages[m].content}
+                  {props.messages[m].messageContent}
                 </div>
               </div>
             </>
@@ -73,10 +73,10 @@ export default function Messages(props) {
         } else {
             messagesDisplay.push(
               <>
-                <div class="grey sent mb-3">{formatDate(props.messages[m].date)}</div>
+                <div class="grey sent mb-3">{formatDate(props.messages[m].sendingDate)}</div>
                 <div class="card sent">
                   <div class="card-body my-body">
-                  {props.messages[m].content}
+                  {props.messages[m].messageContent}
                   </div>
                 </div>
               </>
@@ -106,7 +106,7 @@ export default function Messages(props) {
                 {displayMessages()}
             </div>
             <div class="d-flex flex-row justify-content-end card-footer my-footer-discussion">
-              <form class="d-flex" onSubmit={event => goToResearchPage(event)}>
+              <form class="d-flex" onSubmit={() => props.sendMessage(message.message)}>
                 <input 
                   class="form-control me-sm-2" 
                   type="input" 
