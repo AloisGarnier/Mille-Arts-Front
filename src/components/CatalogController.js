@@ -25,10 +25,10 @@ export default function CatalogController(props) {
         if(json.length <= 5) {
             props.setDecorations(json)
         } else if(!location.search.substring(3)) {
-            props.setDecorations(json.subarray(0, 5))
+            props.setDecorations(json.slice(0, 5))
         } else {
             var pageNumber = location.search.substring(3)
-            props.setDecorations(json.subarray(5*(pageNumber-1), 5*pageNumber))
+            props.setDecorations(json.slice(5*(pageNumber-1), 5*pageNumber))
         }
     }
 
