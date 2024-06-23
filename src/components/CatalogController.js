@@ -27,7 +27,7 @@ export default function CatalogController(props) {
         } else if(!location.page.substring(3)) {
             props.setDecorations(json.subarray(0, 5))
         } else {
-            var pageNumber = location.page.substring(3)
+            var pageNumber = location.search.substring(3)
             props.setDecorations(json.subarray(5*(pageNumber-1), 5*pageNumber))
         }
     }
