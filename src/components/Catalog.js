@@ -204,6 +204,12 @@ export default function Catalog(props) {
         }
     }
 
+    function littleImage(deco) {
+        if(deco.pictures[0]) {
+            return(<img class="little-image" src={deco.pictures[0].path}/>)
+        }
+    }
+
     function addAllDecorations() {
         let allDecorations = [];
 
@@ -241,7 +247,7 @@ export default function Catalog(props) {
                     </div>
                     <div class="card-body max-80">
                         <div class="d-flex justify-content-center max-60">
-                            <img class="little-image" src={deco.pictures[0].path}/>
+                            {littleImage(deco)}
                         </div>
                         <div class="d-flex flex-wrap justify-content-center align-content-center max-20 tags">
                             {isFavourite(deco)} 
@@ -258,7 +264,7 @@ export default function Catalog(props) {
 
         if(props.owner && props.owner.id == 1) {
             props.deactivatedDecorations.forEach(deco => {
-                
+
                 let currentPrice = 0;
                 for(let i = 0; i < deco.decorationPrices.length; i++) {
                     if(deco.decorationPrices[i].withdrawalPrice == null) {
