@@ -56,13 +56,13 @@ export default function MyAccountController(props) {
                 <link rel="icon" href={favicon} />
             </Helmet>
             <MyAccount 
-            domain={props.domain}
-            owner={props.owner} 
-            setOwner={props.setOwner}
-            changeCustomer={(firstName, lastName, email, password, phoneNumber) => changeCustomer(firstName, lastName, email, password, phoneNumber)} 
-            isLightTheme = {props.isLightTheme}
-            isChristmas = {props.isChristmas}
-            setChristmas = {props.setChristmas}
+                domain={props.domain}
+                owner={props.owner} 
+                setOwner={props.setOwner}
+                changeCustomer={(firstName, lastName, email, password, phoneNumber) => changeCustomer(firstName, lastName, email, password, phoneNumber)} 
+                isLightTheme = {props.isLightTheme}
+                isChristmas = {props.isChristmas}
+                setChristmas = {props.setChristmas}
             />
         </>
     );

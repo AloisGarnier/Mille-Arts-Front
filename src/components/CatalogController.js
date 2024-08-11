@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect } from "react";
+import {useNavigate} from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 import Catalog from "./Catalog";
@@ -8,7 +9,10 @@ import favicon from '../img/favicon.png'
 export default function CatalogController(props) {
 
     useEffect(() => fetchDecorations(), []);
+    useEffect(() => fetchDeactivated(), []);
     useEffect(() => fetchAverages(), []);
+
+    const navigate = useNavigate();
 
     const backUrl = props.domain + "/catalog/";
     const favUrl = props.domain + "/favourites/";
@@ -22,23 +26,48 @@ export default function CatalogController(props) {
 
     function saveDecorations(json) {
         props.setAllDecorations(json)
-        if(json.length <= 5) {
+        if(props.owner && props.owner.id == 1) {
+            props.setPageNumber(1)
+            props.setCurrentPage(1)
             props.setDecorations(json)
-        } else if(!location.search.substring(3)) {
-            props.setDecorations(json.slice(0, 5))
         } else {
-            var pageNumber = location.search.substring(3)
-            props.setDecorations(json.slice(5*(pageNumber-1), 5*pageNumber))
+            props.setPageNumber(Math.trunc(json.length / 5.01) + 1)
+            if(json.length <= 5) {
+                props.setCurrentPage(1)
+                props.setDecorations(json)
+            } else if(!location.search.substring(3)) {
+                props.setCurrentPage(1)
+                props.setDecorations(json.slice(0, 5))
+            } else {
+                var substring = location.search.substring(3)
+                props.setCurrentPage(substring)
+                props.setDecorations(json.slice(5*(substring-1), 5*substring))
+            }
         }
     }
 
-    function deleteDecoration(deco) {
+    function fetchDeactivated() {
+        fetch(backUrl + "deactivated")
+            .then(response => response.json())
+            .then(json => props.setDeactivatedDecorations(json))
+    }
+
+    function deactivateDecoration(deco) {
         const requestOptions = {
-            method: 'DELETE',
+            method: 'PUT',
             headers: { 'Content-Type': 'application/json' }
         };
-        fetch(backUrl + deco.id + "/delete", requestOptions)
-            .then(response => response.json())
+        fetch(backUrl + deco.id + "/deactivate", requestOptions)
+        setTimeout(() => { navigate(0) }, 1000)
+    }
+
+    function reactivateDecoration(deco) {
+        const requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' }
+        };
+        fetch(backUrl + deco.id + "/reactivate", requestOptions)
+        setTimeout(() => { navigate(0) }, 1000)
     }
 
     function removeFromFavourites(deco) {
@@ -91,10 +120,14 @@ export default function CatalogController(props) {
                 owner={props.owner} 
                 domain={props.domain} 
                 decorations={props.decorations}
-                allDecorations={props.allDecorations}  
+                allDecorations={props.allDecorations}
+                currentPage={props.currentPage}
+                pageNumber={props.pageNumber}
                 basket={props.basket} 
                 setBasket={props.setBasket}
-                deleteDecoration={deleteDecoration}
+                deactivateDecoration={deactivateDecoration}
+                reactivateDecoration={reactivateDecoration}
+                deactivatedDecorations={props.deactivatedDecorations}
                 favourites = {props.favourites}
                 setFavourites = {props.setFavourites}
                 isLightTheme = {props.isLightTheme}
@@ -103,7 +136,9 @@ export default function CatalogController(props) {
                 averages = {props.averages}
                 setAverages = {props.setAverages}
                 removeFromFavourites = {removeFromFavourites}
-                addToFavourites = {addToFavourites}>
+                addToFavourites = {addToFavourites}
+                url = {"/catalogue"}
+                >
             </Catalog>
         </>
     );

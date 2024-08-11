@@ -39,14 +39,76 @@ export default function Signup(props) {
         return "card dark-card my-card"
     }
 
+    function noFirstName() {
+        if(props.noFirstName) {
+            return(
+                <div class="d-flex justify-content-end mt-2 mb-0 ">
+                    <div class="text-danger align-self-center vertical-align-middle">
+                        Merci de renseigner votre prénom&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
+            </div>
+            );
+        }
+    }
+
+    function noLastName() {
+        if(props.noLastName) {
+            return(
+                <div class="d-flex justify-content-end mt-2 mb-0 ">
+                    <div class="text-danger align-self-center vertical-align-middle">
+                        Merci de renseigner votre nom de famille&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
+                </div>
+            );
+        }
+    }
+
+    function wrongEmail() {
+        if(props.wrongEmail) {
+            return(
+                <div class="d-flex justify-content-end mt-2 mb-0 ">
+                    <div class="text-danger align-self-center vertical-align-middle">
+                        Merci de renseigner une adresse e-mail valide&nbsp;
+                    </div>
+                </div>
+            );
+        }
+    }
+
+    function wrongPassword() {
+        if(props.wrongPassword) {
+            return(
+                <div class="d-flex justify-content-end mt-2 mb-0 ">
+                    <div class="text-danger align-self-center vertical-align-middle">
+                        Merci de choisir un mot de passe composé de :
+                        <ul>
+                            <li>8 caractères minimum</li>
+                            <li>au moins 1 chiffre</li>
+                            <li>au moins 1 caractère spécial</li>
+                        </ul>
+                    </div>
+                </div>
+            );
+        }
+    }
+
+    function alreadyExists() {
+        if(props.alreadyExists) {
+            return(
+                <div class="d-flex justify-content-end mt-2 mb-0 ">
+                    <div class="text-danger align-self-center vertical-align-middle">
+                        Un compte utilise déjà cette adresse e-mail.
+                        <br/>Merci de choisir une autre adresse ou de nous contacter.
+                    </div>
+                </div>
+            );
+        }
+    }
+
     const signupSchema = Yup.object().shape({
 
         firstName: Yup.string().required('Champ obligatoire'),
         lastName: Yup.string().required('Champ obligatoire'),
-        phoneNumber: Yup.number().required('Champ obligatoire')
-            .typeError("Numéro de téléphone invalide")
-            .min(100000000, "Numéro de téléphone invalide")
-            .max(999999999, "Numéro de téléphone invalide"),
         streetNumber: Yup.string().required('Champ obligatoire'),
         street: Yup.string().required('Champ obligatoire'),
         city: Yup.string().required('Champ obligatoire'),
@@ -98,7 +160,7 @@ export default function Signup(props) {
 
                         <div class="form-floating mb-3">
                             <Field name="phoneNumber" type="label" class="form-control" />
-                            <label for="floatingInput" class="always-grey">Numéro de téléphone</label>
+                            <label for="floatingInput" class="always-grey">Numéro de téléphone (facultatif mais conseillé)</label>
                             {errors.phoneNumber && touched.phoneNumber ? (<div class="error">{errors.phoneNumber}</div>) : null}
                         </div>
 
@@ -110,7 +172,7 @@ export default function Signup(props) {
 
                         <div class="form-floating mb-3">
                             <Field name="password" type="password" class="form-control" />
-                            <label for="floatingInput" class="always-grey">Mot de passe</label>
+                            <label for="floatingInput" class="always-grey">Mot de passe (plus de 8 caractères, dont au moins 1 chiffre et 1 caractère spécial)</label>
                             {errors.password && touched.password ? (<div class="error">{errors.password}</div>) : null}
                         </div>
 
@@ -174,12 +236,19 @@ export default function Signup(props) {
                                 {errors.city && touched.city ? (<div class="error">{errors.city}</div>) : null}
                             </div>
                         </div>
+
+                        <div class="d-flex flex-column justify-self-right mt-2 mb-0">
+                            {noFirstName()}
+                            {noLastName()}
+                            {wrongEmail()}
+                            {wrongPassword()}
+                            {alreadyExists()}
+                        </div>
                          
                         <div class="m-2 d-flex justify-content-end">
                             <Link 
                                 type="button" 
                                 class="btn btn-success"
-                                to="/catalogue"
                                 onClick={() => props.addCustomer(values.firstName, 
                                                     values.lastName, 
                                                     values.email, 

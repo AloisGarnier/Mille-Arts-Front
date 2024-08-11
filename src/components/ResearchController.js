@@ -14,7 +14,23 @@ export default function ResearchController(props) {
     function fetchDecorations() {
         fetch(backUrl + "/" + location.search.substring(3))
             .then(response => response.json())
-            .then(json => props.setDecorations(json))
+            .then(json => saveDecorations(json))
+    }
+
+    function saveDecorations(json) {
+        props.setAllDecorations(json)
+        props.setPageNumber(json.length % 5 + 1)
+        if(json.length <= 5) {
+            props.setCurrentPage(1)
+            props.setDecorations(json)
+        } else if(!location.search.substring(3)) {
+            props.setCurrentPage(1)
+            props.setDecorations(json.slice(0, 5))
+        } else {
+            var substring = location.search.substring(3)
+            props.setCurrentPage(substring)
+            props.setDecorations(json.slice(5*(substring-1), 5*substring))
+        }
     }
 
     function removeFromFavourites(deco) {
@@ -55,8 +71,9 @@ export default function ResearchController(props) {
     return(
         <Catalog 
             owner={props.owner} 
-            decorations={props.decorations} 
-            basket={props.basket} 
+            decorations={props.decorations}
+            allDecorations={props.allDecorations}  
+            basket={props.basket}
             setBasket={props.setBasket}
             favourites={props.favourites}
             setFavourites={props.setFavourites}
@@ -66,7 +83,8 @@ export default function ResearchController(props) {
             averages = {props.averages}
             setAverages = {props.setAverages}
             removeFromFavourites = {removeFromFavourites}
-            addToFavourites = {addToFavourites}>
+            addToFavourites = {addToFavourites}
+            url = {"/recherche" + location.search}>
         </Catalog>
     );
 

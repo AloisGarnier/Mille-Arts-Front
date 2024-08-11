@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
-import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Routes, Link, useNavigate} from "react-router-dom";
+import {Route, Routes, Link, useNavigate} from "react-router-dom";
+import Dropdown from 'react-bootstrap/Dropdown';
 
 import CatalogController from "./CatalogController";
 import LoginController from "./LoginController";
@@ -42,6 +42,8 @@ export default function App() {
   const [basket, setBasket] = useState([]);
   const [research, setResearch] = useState({search: ''});
   const [allDecorations, setAllDecorations] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageNumber, setPageNumber] = useState(1);
   const [decorations, setDecorations] = useState([]);
   const [isCollapsedDisplayed, setCollapsedDisplayed] = useState(false);
   const [isLightTheme, setLightTheme] = useState(true);
@@ -51,13 +53,22 @@ export default function App() {
   const [cookies, setCookies] = useState(false);
   const [favourites, setFavourites] = useState([]);
   const [averages, setAverages] = useState([]);
+  const [fullCatalog, setFullCatalog] = useState([]);
+  const [deactivatedDecorations, setDeactivatedDecorations] = useState([]);
 
   useEffect(() => fetchConnectedOwner(), []);
   useEffect(() => fetchPreviousBasket(), []);
   useEffect(() => fetchCookies(), []);
   useEffect(() => fetchFavourites(), []);
+  useEffect(() => fetchFullCatalog(), []);
 
   const navigate = useNavigate();
+
+  function fetchFullCatalog() {
+    fetch(domain + "/catalog/all")
+      .then(response => response.json())
+      .then(json => setFullCatalog(json))
+  }
 
   /**
    * Fetches a connectedOwner in localStorage if there is one
@@ -86,18 +97,18 @@ export default function App() {
     }
   }
 
-  function ownerName() {
-    return owner != undefined ? owner.firstName + " " + owner.lastName : "Connexion";
-  }
-
-  function account() {
-    return owner != undefined ? "/compte" : "/connexion";
+  function basketLength() {
+    var l = 0;
+    for(var i=0; i<basket.length; i++) {
+      l+=basket[i][1]
+    }
+    return l
   }
 
   function displayBasket() {
     if(!owner || owner.id != 1) {
       return(
-        <Link to="/panier" class="btn btn-link"><i class="fa-solid fa-basket-shopping"></i>&thinsp; {basket.length}</Link>
+        <Link to="/panier" class="btn btn-link"><i class="fa-solid fa-basket-shopping"></i><span class="cart-badge"> {basketLength()} </span></Link>
       );
     }
   }
@@ -133,7 +144,7 @@ export default function App() {
       return (
         <div class="d-flex flex-column">
           <Link to={account()} class="btn btn-link" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}><i class="fa-solid fa-user"></i>&thinsp; {ownerName()}</Link>
-          <Link to="/panier" class="btn btn-link" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}><i class="fa-solid fa-basket-shopping"></i>&thinsp; {basket.length}</Link>
+          <Link to="/panier" class="btn btn-link" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}><i class="fa-solid fa-basket-shopping"></i><span class="cart-badge"> {basketLength()} </span> </Link>
           <Link to="/catalogue" class="btn btn-link" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}>Tous les articles</Link>
           <Link to="/a-propos" class="btn btn-link" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}>Qui suis-je ?</Link>
           <form class="d-flex" onSubmit={event => goToResearchPage(event)}>
@@ -274,6 +285,42 @@ export default function App() {
     }
   }
 
+  function logOut() {
+    setOwner(undefined);
+    window.localStorage.removeItem("owner");
+  }
+
+  function displayAccount() {
+    if(owner != undefined) {
+      return(<Dropdown>
+                <Dropdown.Toggle variant="transparent-account" id="dropdown-basic">
+                  <i class="fa-solid fa-user-check"></i>
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  <Dropdown.Item><Link to="/compte" class="not-underlined">Votre compte</Link></Dropdown.Item>
+                  <Dropdown.Item><Link to="/favoris" class="not-underlined">Vos favoris</Link></Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item href="/catalogue" onClick={() => logOut()}>Se déconnecter</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+      );
+    } else {
+    return(
+               <Dropdown>
+                <Dropdown.Toggle variant="transparent-account" id="dropdown-basic">
+                  <i class="fa-solid fa-user"></i>
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  <Dropdown.Item href="/connexion">Se connecter</Dropdown.Item>
+                  <Dropdown.Item href="/inscription">Créer un compte</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+          );
+    }
+  }
+
   return (
     <div class="theme" style={{backgroundImage:`url(${themeBackground})`}}>
       {isSnow()}
@@ -304,7 +351,7 @@ export default function App() {
               </div>
               <Link class="d-flex navbar-brand me-auto" to="/">Mille Arts</Link>
               <div class="collapse navbar-collapse navbar-right">
-                <Link to={account()} class="btn btn-link"><i class="fa-solid fa-user"></i>&thinsp; {ownerName()}</Link>
+                {displayAccount()}
                 {displayBasket()}
               </div>
               <div class="collapsed navbar-right-collapsed">
@@ -347,6 +394,10 @@ export default function App() {
             setDecorations={setDecorations}
             allDecorations={allDecorations}
             setAllDecorations={setAllDecorations}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            pageNumber={pageNumber}
+            setPageNumber={setPageNumber}
             domain = {domain}
             favourites = {favourites}
             setFavourites = {setFavourites}
@@ -355,6 +406,8 @@ export default function App() {
             setChristmas = {setChristmas}
             averages = {averages}
             setAverages = {setAverages}
+            deactivatedDecorations={deactivatedDecorations}
+            setDeactivatedDecorations={setDeactivatedDecorations}
           />}></Route>
           <Route exact path="/catalogue" element={
             <CatalogController
@@ -365,6 +418,10 @@ export default function App() {
             setDecorations={setDecorations}
             allDecorations={allDecorations}
             setAllDecorations={setAllDecorations}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            pageNumber={pageNumber}
+            setPageNumber={setPageNumber}
             domain = {domain}
             favourites = {favourites}
             setFavourites = {setFavourites}
@@ -373,6 +430,8 @@ export default function App() {
             setChristmas = {setChristmas}
             averages = {averages}
             setAverages = {setAverages}
+            deactivatedDecorations={deactivatedDecorations}
+            setDeactivatedDecorations={setDeactivatedDecorations}
           />}></Route>
           <Route exact path="/connexion" element={
             <LoginController 
@@ -390,6 +449,9 @@ export default function App() {
               owner={owner}
               setOwner={setOwner}
               domain = {domain}
+              isLightTheme = {isLightTheme}
+              isChristmas = {isChristmas}
+              setChristmas = {setChristmas}
           />}></Route>
           <Route exact path="/panier" element={
             <Basket
@@ -412,6 +474,10 @@ export default function App() {
             setDecorations={setDecorations}
             allDecorations={allDecorations}
             setAllDecorations={setAllDecorations}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            pageNumber={pageNumber}
+            setPageNumber={setPageNumber}
             domain = {domain}
             favourites = {favourites}
             setFavourites = {setFavourites}
@@ -420,6 +486,30 @@ export default function App() {
             setChristmas = {setChristmas}
             averages = {averages}
             setAverages = {setAverages}
+          />}></Route>
+          <Route exact path="/favoris" element={
+            <CatalogController
+            owner={owner}
+            basket={basket}
+            setBasket={setBasket}
+            decorations={favourites}
+            setDecorations={setDecorations}
+            allDecorations={allDecorations}
+            setAllDecorations={setAllDecorations}
+            currentPage={1}
+            setCurrentPage={setCurrentPage}
+            pageNumber={1}
+            setPageNumber={setPageNumber}
+            domain = {domain}
+            favourites = {favourites}
+            setFavourites = {setFavourites}
+            isLightTheme = {isLightTheme}
+            isChristmas = {isChristmas}
+            setChristmas = {setChristmas}
+            averages = {averages}
+            setAverages = {setAverages}
+            deactivatedDecorations={deactivatedDecorations}
+            setDeactivatedDecorations={setDeactivatedDecorations}
           />}></Route>
           <Route exact path="/compte" element={
             <MyAccountController
@@ -441,6 +531,8 @@ export default function App() {
             isLightTheme = {isLightTheme}
             isChristmas = {isChristmas}
             setChristmas = {setChristmas}
+            averages = {averages}
+            setAverages = {setAverages}
           />}></Route>
           <Route exact path="/noel" element={
             <ChristmasController
@@ -451,6 +543,10 @@ export default function App() {
             setDecorations={setDecorations}
             allDecorations={allDecorations}
             setAllDecorations={setAllDecorations}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            pageNumber={pageNumber}
+            setPageNumber={setPageNumber}
             themeBackground={themeBackground}
             setThemeBackground={setThemeBackground}
             domain = {domain}
@@ -471,6 +567,10 @@ export default function App() {
             setDecorations={setDecorations}
             allDecorations={allDecorations}
             setAllDecorations={setAllDecorations}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            pageNumber={pageNumber}
+            setPageNumber={setPageNumber}
             themeBackground={themeBackground}
             setThemeBackground={setThemeBackground}
             domain = {domain}
@@ -520,6 +620,8 @@ export default function App() {
           <Route exact path="/gestion" element={
             <StatsController
             domain = {domain}
+            fullCatalog = {fullCatalog}
+            fetchFullCatalog = {fetchFullCatalog}
             isLightTheme = {isLightTheme}
             isChristmas = {isChristmas}
             setChristmas = {setChristmas}

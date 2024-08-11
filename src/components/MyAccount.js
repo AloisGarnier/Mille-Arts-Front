@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 
 import AccountInfo from "./AccountInfo";
 import AddressesInfo from "./AddressesInfo";
@@ -110,7 +109,7 @@ export default function MyAccount(props) {
                     </li>
                 </ul>
                 <div id="myTabContent" class="tab-content">
-                    {body}
+                    {props.owner ? body : ""}
                 </div>
             </div>
         </div>

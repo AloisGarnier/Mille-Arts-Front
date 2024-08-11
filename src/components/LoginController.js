@@ -1,17 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 
 import Login from "./Login";
 
 import favicon from '../img/favicon.png'
+import { useNavigate } from "react-router-dom";
 
 export default function LoginController(props) {
 
     const backUrl = props.domain + "/security";
     const favUrl = props.domain + "/favourites/";
 
+    const [wrongLogin, setWrongLogin] = useState(false);
+
+    const navigate = useNavigate();
+
     function ownerRegistration(json) {
-        if(!json.owner.withdrawalDate) {
+        if(json && !json.owner.withdrawalDate) {
             props.setOwner({ 
                 id: json.owner.id,
                 firstName: json.owner.firstName, 
@@ -32,7 +37,17 @@ export default function LoginController(props) {
             }))
 
             fetchFavourites(json.owner);
+            navigate("/catalogue");
+        } else {
+            setWrongLogin(true);
         }
+    }
+
+    function jsonIfNotNull(response) {
+        if(!response.ok) {
+            return null
+        }
+        return response.json()
     }
 
     function fetchCustomer(login, password) {
@@ -42,10 +57,9 @@ export default function LoginController(props) {
             body: JSON.stringify({ username: login, password: password})
         };
         fetch(backUrl + "/authorize", requestOptions)
-            .then(response => response.json())
+            //.then(response => response.json())
+            .then(response => jsonIfNotNull(response))
             .then(json => ownerRegistration(json));
-
-        return props.owner ? true : false;
     }
 
     function fetchFavourites(owner) {
@@ -76,6 +90,7 @@ export default function LoginController(props) {
                 isLightTheme = {props.isLightTheme}
                 isChristmas = {props.isChristmas}
                 setChristmas = {props.setChristmas}
+                wrongLogin = {wrongLogin}
             />
         </>
 

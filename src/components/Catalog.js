@@ -40,7 +40,7 @@ export default function Catalog(props) {
             return(
                 <div class="d-flex flex-wrap justify-content-center align-content-center max-20">
                     <Link to={moreDetails(deco)} type="button" class="btn btn-info">Modifier</Link>
-                    <button onClick={() => props.deleteDecoration(deco)} type="button" class="btn btn-danger">Supprimer</button>
+                    <button onClick={() => props.deactivateDecoration(deco)} type="button" class="btn btn-danger">Désactiver</button>
                 </div>
             );
         } else {
@@ -48,6 +48,17 @@ export default function Catalog(props) {
                 <div class="d-flex flex-wrap justify-content-center align-content-center max-20">
                     <button onClick={() => addOne(deco)} type="button" class="btn btn-success">Ajouter 1 au panier</button>
                     <Link to={moreDetails(deco)} type="button" class="btn btn-info">Plus d'infos</Link>
+                </div>
+            );
+        }
+    }
+
+    function bottomButtonsDeactivated(deco) {
+        if(props.owner && props.owner.id == 1) {
+            return(
+                <div class="d-flex flex-wrap justify-content-center align-content-center max-20">
+                    <Link to={moreDetails(deco)} type="button" class="btn btn-info">Modifier</Link>
+                    <button onClick={() => props.reactivateDecoration(deco)} type="button" class="btn btn-success">Réactiver</button>
                 </div>
             );
         }
@@ -83,26 +94,47 @@ export default function Catalog(props) {
         return "card dark-card mb-3 single-card"
     }
 
-    function paginationClass() {
+    function paginationClass(thisPage) {
+        var thisClass = "page-item"
+
         if(props.isChristmas) {
-            return "page-item christmas-card"
+            thisClass += " christmas-card"
         }
-        if(props.isLightTheme) {
-            return "page-item light-card"
+        else if(props.isLightTheme) {
+            thisClass += " light-card"
+        } else {
+            thisClass += " dark-card"
+        }
+
+        if(props.currentPage == thisPage) {
+            thisClass += " active"
+        }
+        if((thisPage == "<" && props.currentPage == 1) ||
+            (thisPage == ">" && props.pageNumber == props.currentPage)) {
+            thisClass += " disabled"        
         }
         
-        return "page-item dark-card"
+        return thisClass
+        
     }
 
-    function linkClass() {
+    function linkClass(thisPage) {
+        var thisClass = "page-link"
+
         if(props.isChristmas) {
-            return "page-link christmas-card"
+            thisClass += " christmas-card"
         }
-        if(props.isLightTheme) {
-            return "page-link light-card"
+        else if(props.isLightTheme) {
+            thisClass += " light-card"
+        } else {
+            thisClass += " dark-card"
+        }
+
+        if(props.currentPage == thisPage) {
+            thisClass += " black-bg"
         }
         
-        return "page-link dark-card"
+        return thisClass
     }
 
     function getRating(deco) {
@@ -225,6 +257,41 @@ export default function Catalog(props) {
         }
 
         if(props.owner && props.owner.id == 1) {
+            props.deactivatedDecorations.forEach(deco => {
+                
+                let currentPrice = 0;
+                for(let i = 0; i < deco.decorationPrices.length; i++) {
+                    if(deco.decorationPrices[i].withdrawalPrice == null) {
+                        currentPrice = deco.decorationPrices[i].price.amount;
+                    }
+                }
+
+                allDecorations.push(
+                <div class={cardClass()}>
+                    <div class="card-header max-20 d-flex justify-content-between align-items-center">
+                        <div class="my-card-header">
+                            {deco.name}
+                        </div>
+                        <div class="my-card-header">
+                            <span class="badge badge-price bg-danger">{getFormattedPrice(currentPrice)}</span>
+                        </div>
+                    </div>
+                    <div class="card-body max-80">
+                        <div class="d-flex justify-content-center max-60">
+                            <img class="little-image" src={deco.pictures[0].path}/>
+                        </div>
+                        <div class="d-flex flex-wrap justify-content-center align-content-center max-20 tags">
+                            {isFavourite(deco)} 
+                            <span class="badge my-badge rounded-pill bg-warning mx-1">
+                                {getRating(deco)}
+                            </span>
+                        </div>
+                        {bottomButtonsDeactivated(deco)}
+                    </div>
+                </div> 
+                )
+            })
+
             allDecorations.push(
                 <div class={cardClass()}>
                     <div class="card-header">
@@ -243,31 +310,31 @@ export default function Catalog(props) {
     }
 
     function addPagination() {
-        return(
-            <ul class="pagination pagination-lg">
-                <li class={paginationClass()}>
-                    <a class={linkClass()} href="#">&laquo;</a>
+        if(props.pageNumber > 1.5) {
+            var pag = []
+            pag.push(
+                <li class={paginationClass("<")}>
+                    <a class={linkClass("<")} href={props.url + "?p=" + (parseInt(props.currentPage) - 1)}>&laquo;</a>
                 </li>
-                <li class="page-item active">
-                    <a class={linkClass()} href="#">1</a>
+            )
+            for(let i=1;i<=props.pageNumber;i++) {
+                pag.push(
+                    <li class={paginationClass(i)}>
+                        <a class={linkClass(i)} href={props.url + "?p=" + i}>{i}</a>
+                    </li>
+                )
+            }
+            pag.push(
+                <li class={paginationClass(">")}>
+                    <a class={linkClass(">")} href={props.url + "?p=" + (parseInt(props.currentPage)  + 1)}>&raquo;</a>
                 </li>
-                <li class="page-item">
-                    <a class={linkClass()} href="#">2</a>
-                </li>
-                <li class="page-item">
-                    <a class={linkClass()} href="#">3</a>
-                </li>
-                <li class="page-item">
-                    <a class={linkClass()} href="#">4</a>
-                </li>
-                <li class="page-item">
-                    <a class={linkClass()} href="#">5</a>
-                </li>
-                <li class="page-item">
-                    <a class={linkClass()} href="#">&raquo;</a>
-                </li>
-            </ul>
-        )
+            )
+            return(
+                <ul class="pagination pagination-lg">
+                    {pag}
+                </ul>
+            )
+        }
     }
 
     return (

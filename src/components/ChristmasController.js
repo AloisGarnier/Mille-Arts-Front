@@ -24,7 +24,23 @@ export default function ChristmasController(props) {
     function fetchDecorations() {
         fetch(backUrl + "/noel")
             .then(response => response.json())
-            .then(json => props.setDecorations(json))
+            .then(json => saveDecorations(json))
+    }
+
+    function saveDecorations(json) {
+        props.setAllDecorations(json)
+        props.setPageNumber(json.length % 5 + 1)
+        if(json.length <= 5) {
+            props.setCurrentPage(1)
+            props.setDecorations(json)
+        } else if(!location.search.substring(3)) {
+            props.setCurrentPage(1)
+            props.setDecorations(json.slice(0, 5))
+        } else {
+            var substring = location.search.substring(3)
+            props.setCurrentPage(substring)
+            props.setDecorations(json.slice(5*(substring-1), 5*substring))
+        }
     }
 
     function removeFromFavourites(deco) {
@@ -85,7 +101,8 @@ export default function ChristmasController(props) {
                     isChristmas = {props.isChristmas}
                     setChristmas = {props.setChristmas}
                     removeFromFavourites = {removeFromFavourites}
-                    addToFavourites = {addToFavourites}>
+                    addToFavourites = {addToFavourites}
+                    url = {"/noel"}>
             </Catalog>
         </>
     );

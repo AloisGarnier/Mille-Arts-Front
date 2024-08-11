@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import * as Yup from 'yup';
@@ -15,6 +15,18 @@ export default function Login(props) {
         }
         
         return "card dark-card my-card"
+    }
+
+    function wrongLogin() {
+        if(props.wrongLogin) {
+            return(
+                <div class="d-flex justify-content-end mt-2 mb-0 ">
+                    <div class="text-danger align-self-center vertical-align-middle">
+                        L'adresse e-mail ou le mot de passe sont erronés.
+                    </div>
+                </div>
+            );
+        }
     }
 
     const loginSchema = Yup.object().shape({
@@ -43,21 +55,20 @@ export default function Login(props) {
                         <div class="form-floating mb-3">
                             <Field name="email" type="email" class="form-control" />
                             <label for="floatingInput" class="always-grey">Adresse e-mail</label>
-                            {errors.email && touched.email ? (<div class="error">{errors.email}</div>) : null}
                         </div> 
                         
                         <div class="form-floating">
                             <Field name="password" type="password" class="form-control" />
                             <label for="floatingInput" class="always-grey">Mot de passe</label>
-                            {errors.password && touched.password ? (<div class="error">{errors.password}</div>) : null}
                         </div>
+
+                        {wrongLogin()}
                         
                         <div class="m-2 d-flex justify-content-end">
                             <Link to="/inscription" type="button" class="btn btn-warning">Je n'ai pas de compte</Link>
                             <Link 
                                 type="button" 
                                 class="btn btn-success"
-                                to="/catalogue"
                                 onClick={() => props.fetchCustomer(values.email, values.password)}
                             >
                                     Valider
@@ -70,15 +81,16 @@ export default function Login(props) {
     }
 
     return(
-        <div class={cardClass()}>
-            <h3 class="card-header my-header">Connexion</h3>
-            <div class="card-body">
-                <div class="form-group login-form">
-                    {loginForm()}
+        <>
+            <div class={cardClass()}>
+                <h3 class="card-header my-header">Connexion</h3>
+                <div class="card-body">
+                    <div class="form-group login-form">
+                        {loginForm()}
+                    </div>
                 </div>
             </div>
-        </div>
-        
+        </>
     );
 
 }

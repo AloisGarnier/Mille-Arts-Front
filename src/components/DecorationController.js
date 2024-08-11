@@ -14,15 +14,28 @@ export default function DecorationController(props) {
     const [pictures, setPictures] = useState([]);
     const [average, setAverage] = useState(0);
     const [evalNumber, setEvalNumber] = useState(0);
+    const [recommendations, setRecommendations] = useState([]);
+    const [evals, setEvals] = useState([]);
+    const [hasBought, setHasBought] = useState(0);
 
     useEffect(() => { fetchDecoration(); }, []);
     useEffect(() => { fetchAverage(); }, []);
     useEffect(() => { fetchEvalNumber(); }, []);
+    useEffect(() => { fetchEvals(); }, []);
+    useEffect(() => { fetchBought(); }, []);
+    useEffect(() => { fetchAverages(); }, []);
+    useEffect(() => { sendView(location.search.substring(4)); }, []);
 
     const backUrl = props.domain + "/catalog/";
     const favUrl = props.domain + "/favourites/";
     const evalUrl = props.domain + "/evaluation/";
     const viewUrl = props.domain + "/view/";
+
+    function fetchAverages() {
+        fetch(evalUrl + "all/ratings")
+            .then(response => response.json())
+            .then(json => props.setAverages(json))
+    }
 
     function sendView(id) {
         if(props.owner && props.owner.id != 1) {
@@ -45,7 +58,6 @@ export default function DecorationController(props) {
         fetch(backUrl + location.search.substring(4) + "/all")
             .then(response => response.json())
             .then(json => setThisDecoration(json))
-            .then(() => sendView(location.search.substring(4)))
         
         fetch(backUrl + location.search.substring(4) + "/pictures")
             .then(response => response.json())
@@ -58,6 +70,11 @@ export default function DecorationController(props) {
         fetch(backUrl + location.search.substring(4) + "/tags")
             .then(response => response.json())
             .then(json => displayTags(json));
+
+        fetch(backUrl + location.search.substring(4) + "/recommendations")
+            .then(response => response.json())
+            .then(json => setRecommendations(json));
+            
     }
 
     function fetchAverage() {
@@ -68,8 +85,22 @@ export default function DecorationController(props) {
 
     function fetchEvalNumber() {
         fetch(evalUrl + "evaluationNumber/" + location.search.substring(4))
-        .then(response => response.text())
-        .then(text => setEvalNumber(parseFloat(text)))
+            .then(response => response.text())
+            .then(text => setEvalNumber(parseFloat(text)))
+    }
+
+    function fetchEvals() {
+        fetch(evalUrl + "byDecoration/" + location.search.substring(4) + "/all")
+            .then(response => response.json())
+            .then(json => setEvals(json));
+    }
+
+    function fetchBought() {
+        if(props.owner && props.owner.id != 1) {
+            fetch(evalUrl + "alreadyBought/" + location.search.substring(4) + "/" + props.owner.id)
+                .then(response => response.text())
+                .then(text => setHasBought(parseFloat(text)));
+        }
     }
 
     function modifyDecoration(id, name, picture1, picture2, picture3, description, price, preparationDelay, weight, dimensions, tag1, tag2, tag3) {
@@ -183,6 +214,10 @@ export default function DecorationController(props) {
                 isLightTheme = {props.isLightTheme}
                 isChristmas = {props.isChristmas}
                 setChristmas = {props.setChristmas}
+                recommendations = {recommendations}
+                averages = {props.averages}
+                evals = {evals}
+                hasBought = {hasBought}
             />
         </>
     );
