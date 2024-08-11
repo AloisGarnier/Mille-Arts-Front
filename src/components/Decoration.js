@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Link } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { Carousel } from "react-responsive-carousel";
@@ -6,6 +6,12 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import ProgressBar from 'react-bootstrap/ProgressBar';
 
 export default function Decoration(props) {
+
+    const [myNewRating, setNewRating] = useState("5");
+
+    function fetchNewRating(event) {
+        setNewRating(event.target.value)
+    }
 
     function getQuantity() {
         let options = [];
@@ -279,6 +285,45 @@ export default function Decoration(props) {
         }
     }
 
+    function getMonth(month) {
+        switch(month) {
+            case "01" : 
+                return "janvier"
+            case "02" :
+                return "février"
+            case "03" : 
+                return "mars"
+            case "04" :
+                return "avril"
+            case "05" : 
+                return "mai"
+            case "06" :
+                return "juin"
+            case "07" : 
+                return "juillet"
+            case "08" :
+                return "août"
+            case "09" :
+                return "septembre"
+            case "10" : 
+                return "octobre"
+            case "11" :
+                return "novembre"
+            case "12" : 
+                return "décembre"
+            default :
+                return "n/a"
+        }
+    }
+
+    function displayDate(date) {
+        let day = date[8] == "0" ? date[9] : date.substring(8)
+        let month = getMonth(date.substring(5,7))
+        let year = date.substring(0,4)
+
+        return day + " " + month + " " + year
+    }
+
     function addAllComments() {
         var comments = [];
         for(var i=0; i<props.evals.length; i++) {
@@ -291,7 +336,7 @@ export default function Decoration(props) {
                 </div>
                 <div>
                     <strong>
-                        {"par " + props.evals[i].customer.firstName + " " + props.evals[i].customer.lastName.charAt(0) + ". le " + props.evals[i].date} 
+                        {"par " + props.evals[i].customer.firstName + " " + props.evals[i].customer.lastName.charAt(0) + ". le " + displayDate(props.evals[i].date)} 
                     </strong>
                 </div>
                 <div>
@@ -303,15 +348,23 @@ export default function Decoration(props) {
         return comments;
     }
 
+    function displayAverage() {
+        var toDisplay = props.average.toFixed(1).toString()
+        if(toDisplay[2] == "0") {
+            return toDisplay[0]
+        }
+        return toDisplay
+    }
+
     function evalDisplay() {
         var evalString = "";
 
         if(props.average >= 0.25) {
-            evalString += props.average.toFixed(1) + "/5 sur la base de " + props.evals.length;
+            evalString += displayAverage() + "/5 sur la base de " + props.evals.length;
             if(props.evals.length > 1 ) {
                 evalString += " évaluations";
             } else {
-                evalString += "évaluation";
+                evalString += " évaluation";
             }
         }
         return evalString;
@@ -370,24 +423,10 @@ export default function Decoration(props) {
                                 <label for="floatingInput" class="always-grey">Commentaire</label>
                         </div>
                         <div class="d-flex justify-content-center align-self-center w-25">
-                            <Link
+                            <Link 
                                 type="button" 
                                 class="btn btn-success"
-                                onClick={() => props.modifyDecoration(props.decoration.id, 
-                                    values.name, 
-                                    values.picture1, 
-                                    values.picture2,
-                                    values.picture3,
-                                    values.description, 
-                                    values.price, 
-                                    values.preparationDelay,
-                                    values.weight,
-                                    values.dimensions,
-                                    values.tag1,
-                                    values.tag2,
-                                    values.tag3
-                                    )}
-                            >
+                                onClick={() => props.sendNewComment(values.commentaire, myNewRating)}>
                                     Valider
                             </Link>
                         </div>
@@ -776,17 +815,17 @@ export default function Decoration(props) {
     function ratingNewComment() {
         return(
             <div class="feedback w-25 align-self-center">
-                <div class="rating">
-                <input type="radio" name="rating" id="rating-5"/>
-                <label for="rating-5"></label>
-                <input type="radio" name="rating" id="rating-4"/>
-                <label for="rating-4"></label>
-                <input type="radio" name="rating" id="rating-3"/>
-                <label for="rating-3"></label>
-                <input type="radio" name="rating" id="rating-2"/>
-                <label for="rating-2"></label>
-                <input type="radio" name="rating" id="rating-1"/>
-                <label for="rating-1"></label>
+                <div class="rating" onChange={fetchNewRating.bind(this)}>
+                    <input type="radio" name="rating" id="rating-5" value="5"/>
+                    <label for="rating-5"></label>
+                    <input type="radio" name="rating" id="rating-4" value="4"/>
+                    <label for="rating-4"></label>
+                    <input type="radio" name="rating" id="rating-3" value="3"/>
+                    <label for="rating-3"></label>
+                    <input type="radio" name="rating" id="rating-2" value="2"/>
+                    <label for="rating-2"></label>
+                    <input type="radio" name="rating" id="rating-1" value="1"/>
+                    <label for="rating-1"></label>
                 <div class="emoji-wrapper">
                     <div class="emoji">
                     <svg class="rating-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">

@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import {useNavigate} from "react-router-dom";
+
 import { Helmet } from "react-helmet";
 
 import Decoration from "./Decoration";
@@ -25,6 +27,8 @@ export default function DecorationController(props) {
     useEffect(() => { fetchBought(); }, []);
     useEffect(() => { fetchAverages(); }, []);
     useEffect(() => { sendView(location.search.substring(4)); }, []);
+
+    const navigate = useNavigate();
 
     const backUrl = props.domain + "/catalog/";
     const favUrl = props.domain + "/favourites/";
@@ -101,6 +105,19 @@ export default function DecorationController(props) {
                 .then(response => response.text())
                 .then(text => setHasBought(parseFloat(text)));
         }
+    }
+
+    function sendNewComment(theNewComment, theNewRating) {
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                comment: theNewComment,
+                rating: theNewRating
+            })
+        };
+        fetch(evalUrl + "newEvaluation/" + thisDecoration.id + "/" + props.owner.id, requestOptions)
+        setTimeout(() => { navigate("/catalogue") }, 100)
     }
 
     function modifyDecoration(id, name, picture1, picture2, picture3, description, price, preparationDelay, weight, dimensions, tag1, tag2, tag3) {
@@ -218,6 +235,7 @@ export default function DecorationController(props) {
                 averages = {props.averages}
                 evals = {evals}
                 hasBought = {hasBought}
+                sendNewComment={sendNewComment}
             />
         </>
     );

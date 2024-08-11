@@ -31,6 +31,7 @@ import "../css/fontawesome.all.min.css";
 import { Helmet } from "react-helmet";
 import MessagesController from "./MessagesController";
 import MessagesHandlingController from "./MessagesHandlingController";
+import { randomUUID } from "crypto";
 
 export default function App() {
 
