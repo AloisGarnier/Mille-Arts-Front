@@ -25,13 +25,18 @@ import christmasBg from "../img/christmas-bg.png";
 
 import favicon from '../img/favicon.png'
 
+import moon from '../img/moon.png'
+import sun from '../img/sun.png'
+import basketicon from '../img/basket.png'
+import search from '../img/search.png'
+import user from '../img/user.png'
+
 import "../css/style.css";
 import "../css/sketchy.css";
 import "../css/fontawesome.all.min.css";
 import { Helmet } from "react-helmet";
 import MessagesController from "./MessagesController";
 import MessagesHandlingController from "./MessagesHandlingController";
-import { randomUUID } from "crypto";
 
 export default function App() {
 
@@ -109,7 +114,7 @@ export default function App() {
   function displayBasket() {
     if(!owner || owner.id != 1) {
       return(
-        <Link to="/panier" class="btn btn-link"><i class="fa-solid fa-basket-shopping"></i><span class="cart-badge"> {basketLength()} </span></Link>
+        <Link to="/panier" class="btn btn-link"><img src={basketicon} class="icon-menu"></img><span class="cart-badge"> {basketLength()} </span></Link>
       );
     }
   }
@@ -144,8 +149,8 @@ export default function App() {
     if(isCollapsedDisplayed && (!owner || owner.id != 1)){
       return (
         <div class="d-flex flex-column">
-          <Link to={account()} class="btn btn-link" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}><i class="fa-solid fa-user"></i>&thinsp; {ownerName()}</Link>
-          <Link to="/panier" class="btn btn-link" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}><i class="fa-solid fa-basket-shopping"></i><span class="cart-badge"> {basketLength()} </span> </Link>
+          <Link to={account()} class="btn btn-link" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}><img src={user} class="big-icon-menu"></img>&thinsp; {ownerName()}</Link>
+          <Link to="/panier" class="btn btn-link" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}><img src={basketicon} class="icon-menu"></img><span class="cart-badge"> {basketLength()} </span> </Link>
           <Link to="/catalogue" class="btn btn-link" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}>Tous les articles</Link>
           <Link to="/a-propos" class="btn btn-link" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}>Qui suis-je ?</Link>
           <form class="d-flex" onSubmit={event => goToResearchPage(event)}>
@@ -156,7 +161,7 @@ export default function App() {
                     value={research.search}
                     onChange={form => setResearch({...research, search: form.target.value})}
                   ></input>
-                  <Link reloadDocument type="submit" to={getParamInURL()} class="btn btn-link my-2 my-sm-0" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}><i class="fas fa-search"></i></Link>
+                  <Link reloadDocument type="submit" to={getParamInURL()} class="btn btn-link my-2 my-sm-0" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}><img src={user} class="big-icon-menu"></img></Link>
                 </form>
         </div>
       )
@@ -295,7 +300,7 @@ export default function App() {
     if(owner != undefined) {
       return(<Dropdown>
                 <Dropdown.Toggle variant="transparent-account" id="dropdown-basic">
-                  <i class="fa-solid fa-user-check"></i>
+                  <img src={user} class="big-icon-menu"></img>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
@@ -310,7 +315,7 @@ export default function App() {
     return(
                <Dropdown>
                 <Dropdown.Toggle variant="transparent-account" id="dropdown-basic">
-                  <i class="fa-solid fa-user"></i>
+                  <img src={user} class="big-icon-menu"></img>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
@@ -347,7 +352,7 @@ export default function App() {
                     value={research.search}
                     onChange={form => setResearch({...research, search: form.target.value})}
                   ></input>
-                  <Link reloadDocument type="submit" to={getParamInURL()} class="btn btn-link my-2 my-sm-0"><i class="fas fa-search"></i></Link>
+                  <Link reloadDocument type="submit" to={getParamInURL()} class="btn btn-link my-2 my-sm-0"><img src={search} class="icon-menu"></img></Link>
                 </form>
               </div>
               <Link class="d-flex navbar-brand me-auto" to="/">Mille Arts</Link>
@@ -366,16 +371,16 @@ export default function App() {
 
             <div class="my-bottom-row collapse navbar-collapse nav-item navbar-nav me-auto">
               <div class="sun-moon">
-                <label class="form-check-label me-2" for="flexSwitchCheckChecked"><i class="fa-solid fa-sun"></i></label>
-                <div class="form-check form-switch">
+                <label class="form-check-label m-2" for="flexSwitchCheckChecked"><img src={sun} class="icon-menu"></img></label>
+                <div class="form-check form-switch my-2">
                   <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" onClick={() => changeTheme()} value={isLightTheme}/>
-                  <label class="form-check-label" for="flexSwitchCheckChecked"><i class="fa-sharp fa-solid fa-moon"></i></label>
                 </div>
+                <label class="form-check-label m-2" for="flexSwitchCheckChecked"><img src={moon} class="small-icon-menu"></img></label>
               </div>
               {mainOptions()}
               <div class="pe-3 d-flex flex-row justify-content-around">
                 <Link to="https://www.pinterest.fr/milleartsfr/" target="_blank" class="btn-link social-network"><i class="fa-brands fa-pinterest"></i></Link>
-                <Link to="https://www.instagram.com/carolinemilard/" target="_blank" class="btn-link social-networkk"><i class="fa-brands fa-instagram"></i></Link>
+                <Link to="https://www.instagram.com/carolinemillearts/" target="_blank" class="btn-link social-networkk"><i class="fa-brands fa-instagram"></i></Link>
               </div>
             </div>
             <div class="nav-item navbar-nav me-auto collapsed my-toggler d-block d-lg-none">
