@@ -154,15 +154,15 @@ export default function App() {
           <Link to="/catalogue" class="btn btn-link" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}>Tous les articles</Link>
           <Link to="/a-propos" class="btn btn-link" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}>Qui suis-je ?</Link>
           <form class="d-flex" onSubmit={event => goToResearchPage(event)}>
-                  <input 
-                    class="form-control me-sm-2" 
-                    type="input" 
-                    placeholder="Votre recherche"
-                    value={research.search}
-                    onChange={form => setResearch({...research, search: form.target.value})}
-                  ></input>
-                  <Link reloadDocument type="submit" to={getParamInURL()} class="btn btn-link my-2 my-sm-0" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}><img src={user} class="big-icon-menu"></img></Link>
-                </form>
+            <input 
+              class="form-control me-sm-2" 
+              type="input" 
+              placeholder="Votre recherche"
+              value={research.search}
+              onChange={form => setResearch({...research, search: form.target.value})}
+            ></input>
+            <Link reloadDocument type="submit" to={getParamInURL()} class="btn btn-link my-2 my-sm-0" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}><img src={search} class="big-icon-menu"></img></Link>
+          </form>
         </div>
       )
     }
