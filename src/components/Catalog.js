@@ -262,7 +262,7 @@ export default function Catalog(props) {
             });
         }
 
-        if(props.owner && props.owner.id == 1) {
+        if(props.owner && props.owner.id == 1 && props.deactivatedDecorations.length > 0) {
             props.deactivatedDecorations.forEach(deco => {
 
                 let currentPrice = 0;

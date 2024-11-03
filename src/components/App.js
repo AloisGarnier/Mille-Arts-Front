@@ -149,7 +149,7 @@ export default function App() {
     if(isCollapsedDisplayed && (!owner || owner.id != 1)){
       return (
         <div class="d-flex flex-column">
-          <Link to={account()} class="btn btn-link" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}><img src={user} class="big-icon-menu"></img>&thinsp; {ownerName()}</Link>
+          <Link class="btn btn-link">{displayAccount()}</Link>
           <Link to="/panier" class="btn btn-link" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}><img src={basketicon} class="icon-menu"></img><span class="cart-badge"> {basketLength()} </span> </Link>
           <Link to="/catalogue" class="btn btn-link" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}>Tous les articles</Link>
           <Link to="/a-propos" class="btn btn-link" onClick={() => setCollapsedDisplayed(!isCollapsedDisplayed)}>Qui suis-je ?</Link>
@@ -332,7 +332,7 @@ export default function App() {
       {isSnow()}
       <Helmet>
         <title>Mille Arts</title>
-        <meta name="description" content="Décorations et petits objets pour égayer le quotidien" />
+        <meta name="description" content="Caroline, créatrice d'objets décoratifs : couture, cartonnage, perles, fabrication de cadeaux, etc. N'hésitez pas à me contacter et à visiter ma boutique en ligne !" />
         <meta property="og:title" content="Mille Arts" />
         <meta property="og:description" content="Venez dans ma boutique en-ligne pour acheter plein d'objets décoratifs" />
         <meta property="og:url" content="https://mille-arts.fr/" />
