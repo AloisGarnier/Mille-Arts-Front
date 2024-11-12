@@ -445,6 +445,24 @@ body, html {
   text-align: center !important;
 }
 
+.my-choose {
+  margin: 1rem 0 !important;
+}
+
+.grey-text {
+  color: grey
+}
+
+.my-min25 {
+  min-width: 20% !important;
+}
+
+.my-bg {
+  position: fixed !important;
+  z-index: 100 !important;
+  width: 100% !important;
+}
+
 @media only screen and (max-width: 480px) {
   .single-card {
     width: 75% !important;
@@ -452,6 +470,9 @@ body, html {
     margin: 3rem 0 !important;
   }
   .my-footer {
+    display: none !important;
+  }
+  .my-bg {
     display: none !important;
   }
 }

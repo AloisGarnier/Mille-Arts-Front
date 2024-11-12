@@ -70,7 +70,7 @@ export default function Basket(props) {
                     <Link 
                         type="button" 
                         class="btn btn-success none-if-small"
-                        to="/livraison-paiement"
+                        to="/livraison"
                     >
                         Valider votre panier
                     </Link>
@@ -172,6 +172,13 @@ export default function Basket(props) {
         }
     }
 
+    function displayModel(model) {
+        if(model && model != "Modèle unique") {
+            return "("+model+")"
+        }
+        return ""
+    }
+
     function basketElements() {
         let basketElements = [];
 
@@ -182,6 +189,7 @@ export default function Basket(props) {
 
                 let deco = props.basket[i][0];
                 let quantity = props.basket[i][1];
+                let model = props.basket[i][2];
 
                 let currentPrice = 0;
                 for(let i = 0; i < deco.decorationPrices.length; i++) {
@@ -194,7 +202,7 @@ export default function Basket(props) {
                     <tr class="align-items-center">
                         <th>
                             <Link to={"/decoration?id=" + deco.id} type="button" class={className()}>
-                                {deco.name}
+                                {deco.name} {displayModel(model)}
                             </Link>
                         </th>
                         <td>
@@ -245,6 +253,7 @@ export default function Basket(props) {
 
                 let deco = props.basket[i][0];
                 let quantity = props.basket[i][1];
+                let model = props.basket[i][2];
 
                 let currentPrice = 0;
                 for(let i = 0; i < deco.decorationPrices.length; i++) {
@@ -256,7 +265,7 @@ export default function Basket(props) {
                 basketElements.push(
                     <div class="d-flex flex-row">
                         <div class="whitespace-nowrap">
-                            {deco.name} x{quantity} :&nbsp;
+                            {deco.name} {displayModel(model)} x{quantity} :&nbsp;
                         </div>
                         <div class="whitespace-nowrap">
                             {getFormattedPrice(currentPrice*quantity)}
@@ -284,7 +293,25 @@ export default function Basket(props) {
         return "card dark-card my-card basket-card"
     }
 
+    function bcClass() {
+        if(props.isChristmas) {
+            return "breadcrumb my-bg bg-light-red"
+        }
+
+        if(props.isLightTheme) {
+            return "breadcrumb my-bg bg-light-red"
+        }
+        
+        return "breadcrumb my-bg bg-light-purple"
+    }
+
     return(
+        <>
+        <ol class={bcClass()}>
+            <li class="breadcrumb-item"><b>1. Panier</b></li>
+            <li class="breadcrumb-item">2. Livraison</li>
+            <li class="breadcrumb-item">3. Paiement</li>
+        </ol>
         <div class={cardClass()}>
             <Helmet>
                 <title>Votre panier - Mille Arts</title>
@@ -303,6 +330,7 @@ export default function Basket(props) {
                 {bottomButtons()} 
             </div>
         </div>
+        </>
     );
 
 }

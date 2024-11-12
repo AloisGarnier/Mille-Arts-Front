@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 
 import AccountInfo from "./AccountInfo";
-import AddressesInfo from "./AddressesInfo";
 import CommandsInfo from "./CommandsInfo";
 
 export default function MyAccount(props) {
 
-    const [activeTab, setActiveTab] = useState(["nav-link active", "nav-link", "nav-link"]);
+    const [activeTab, setActiveTab] = useState(["nav-link active", "nav-link"]);
     const [body, setBody] = useState(<AccountInfo 
         owner={props.owner} 
         setOwner={props.setOwner} 
@@ -39,7 +38,7 @@ export default function MyAccount(props) {
     }
 
     function clickFirstTab() {
-        setActiveTab(["nav-link active", "nav-link", "nav-link"]);
+        setActiveTab(["nav-link active", "nav-link"]);
         setBody(
             <AccountInfo 
                 owner={props.owner} 
@@ -51,23 +50,13 @@ export default function MyAccount(props) {
     }
 
     function clickSecondTab() {
-        setActiveTab(["nav-link", "nav-link active", "nav-link"]);
-        setBody(
-            <AddressesInfo 
-                owner={props.owner}
-                domain={props.domain}
-            />
-        );
-    }
-
-    function clickThirdTab() {
-        setActiveTab(["nav-link", "nav-link", "nav-link active"]);
+        setActiveTab(["nav-link", "nav-link active"]);
         setBody(
             <CommandsInfo
                 owner={props.owner}
                 domain={props.domain}
             />
-        )
+        );
     }
 
     return(
@@ -92,17 +81,6 @@ export default function MyAccount(props) {
                         data-bs-toggle="tab" 
                         onClick={() => clickSecondTab()} 
                         aria-selected="true" 
-                        role="tab">
-                            Vos adresses
-                        </button>
-                    </li>
-                    <li class="nav-item">
-                        <button 
-                        class={tabClass(activeTab[2])} 
-                        data-bs-toggle="tab" 
-                        onClick={() => clickThirdTab()} 
-                        aria-selected="false" 
-                        tabindex="-1" 
                         role="tab">
                             Historique de commandes
                         </button>

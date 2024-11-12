@@ -18,6 +18,7 @@ import CommandController from "./CommandController";
 import StatsController from "./StatsController";
 import Legal from "./Legal";
 import Terms from "./Terms";
+import Payment from "./Payment";
 
 import lightBg from "../img/light-bg.png";
 import darkBg from "../img/dark-bg.png";
@@ -61,6 +62,7 @@ export default function App() {
   const [averages, setAverages] = useState([]);
   const [fullCatalog, setFullCatalog] = useState([]);
   const [deactivatedDecorations, setDeactivatedDecorations] = useState([]);
+  const [deliveryAddress, setDeliveryAddress] = useState(['', '', '', '', '']);
 
   useEffect(() => fetchConnectedOwner(), []);
   useEffect(() => fetchPreviousBasket(), []);
@@ -606,14 +608,28 @@ export default function App() {
             isChristmas = {isChristmas}
             setChristmas = {setChristmas}
           />}></Route>
-          <Route exact path="/livraison-paiement" element={
+          <Route exact path="/livraison" element={
             <Delivery
             domain = {domain}
             owner = {owner}
             basket = {basket}
+            setBasket = {setBasket}
             isLightTheme = {isLightTheme}
             isChristmas = {isChristmas}
             setChristmas = {setChristmas}
+            deliveryAddress = {deliveryAddress}
+            setDeliveryAddress = {setDeliveryAddress}
+          />}></Route>
+          <Route exact path="/paiement" element={
+            <Payment
+            domain = {domain}
+            owner = {owner}
+            basket = {basket}
+            setBasket = {setBasket}
+            isLightTheme = {isLightTheme}
+            isChristmas = {isChristmas}
+            setChristmas = {setChristmas}
+            deliveryAddress = {deliveryAddress}
           />}></Route>
           <Route exact path="/commandes" element={
             <CommandController

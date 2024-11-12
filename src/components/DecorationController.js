@@ -14,6 +14,7 @@ export default function DecorationController(props) {
     const [tags, setTags] = useState([]);
     const [tagDisplay, setTagDisplay] = useState([]);
     const [pictures, setPictures] = useState([]);
+    const [models, setModels] = useState([]);
     const [average, setAverage] = useState(0);
     const [evalNumber, setEvalNumber] = useState(0);
     const [recommendations, setRecommendations] = useState([]);
@@ -78,6 +79,10 @@ export default function DecorationController(props) {
         fetch(backUrl + location.search.substring(4) + "/recommendations")
             .then(response => response.json())
             .then(json => setRecommendations(json));
+
+        fetch(backUrl + location.search.substring(4) + "/models")
+            .then(response => response.json())
+            .then(json => setModels(json));
             
     }
 
@@ -120,7 +125,8 @@ export default function DecorationController(props) {
         setTimeout(() => { navigate("/catalogue") }, 100)
     }
 
-    function modifyDecoration(id, name, picture1, picture2, picture3, description, price, preparationDelay, weight, dimensions, tag1, tag2, tag3) {
+    function modifyDecoration(id, name, picture1, picture2, picture3, picture4, picture5, picture6, description, price, preparationDelay, weight, dimensions, tag1, tag2, tag3,
+        model1, model2, model3, model4, model5, model6) {
         let tempTags = [tag1, tag2, tag3];
         let tempTags2 = [];
         for(let i=0;i<3;i++) {
@@ -129,11 +135,19 @@ export default function DecorationController(props) {
             }
         }
 
-        let tempPics = [picture1, picture2, picture3];
+        let tempPics = [picture1, picture2, picture3, picture4, picture5, picture6];
         let tempPics2 = [];
-        for(let i=0;i<3;i++) {
+        for(let i=0;i<6;i++) {
             if(tempPics[i]) {
                 tempPics2.push(tempPics[i]);
+            }
+        }
+
+        let tempModels = [model1, model2, model3, model4, model5, model6];
+        let tempModels2 = [];
+        for(let i=0;i<6;i++) {
+            if(tempModels[i]) {
+                tempModels2.push(tempModels[i]);
             }
         }
 
@@ -143,13 +157,14 @@ export default function DecorationController(props) {
             body: JSON.stringify({
                 id: id,
                 name: name,
-                pictures: tempPics2, 
+                pictures: tempPics2,
                 description: description, 
                 preparationDelay: preparationDelay,
                 weight: weight,
                 dimensions: dimensions,
                 price: price,
-                tags: tempTags2
+                tags: tempTags2,
+                models: tempModels2
             })
         };
         fetch(backUrl + "modify", requestOptions)
@@ -220,6 +235,7 @@ export default function DecorationController(props) {
                 setBasket={props.setBasket}
                 modifyDecoration={modifyDecoration}
                 pictures={pictures}
+                models={models}
                 favourites={props.favourites}
                 setFavourites={props.setFavourites}
                 removeFromFavourites = {removeFromFavourites}
@@ -236,6 +252,7 @@ export default function DecorationController(props) {
                 evals = {evals}
                 hasBought = {hasBought}
                 sendNewComment={sendNewComment}
+                domain={props.domain}
             />
         </>
     );

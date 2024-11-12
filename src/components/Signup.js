@@ -46,7 +46,7 @@ export default function Signup(props) {
                     <div class="text-danger align-self-center vertical-align-middle">
                         Merci de renseigner votre prénom&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
-            </div>
+                </div>
             );
         }
     }
@@ -109,10 +109,6 @@ export default function Signup(props) {
 
         firstName: Yup.string().required('Champ obligatoire'),
         lastName: Yup.string().required('Champ obligatoire'),
-        streetNumber: Yup.string().required('Champ obligatoire'),
-        street: Yup.string().required('Champ obligatoire'),
-        city: Yup.string().required('Champ obligatoire'),
-        zipCode: Yup.string().required('Champ obligatoire'),
         email: Yup.string().email('Adresse e-mail invalide').required('Champ obligatoire'),
         password: Yup.string().required('Champ obligatoire'),
      
@@ -129,10 +125,6 @@ export default function Signup(props) {
                     date: '',
                     month: '',
                     year: '',
-                    streetNumber: '',
-                    street: '',
-                    city: '',
-                    zipCode: '',
                     email: '',
                     password: ''
                 }}
@@ -207,33 +199,6 @@ export default function Signup(props) {
                                     {getYear()}
                                 </Field>
                                 <label for="floatingInput" class="always-grey">Année</label>
-                            </div>
-                            
-                        </div>
-
-                        <label>Adresse de livraison</label>
-                        <div class="d-flex flex-direction-row ">
-                            <div class="form-floating mb-3 me-3 w-25">
-                                <Field name="streetNumber" type="label" class="form-control" />
-                                <label for="floatingInput" class="always-grey">Numéro</label>
-                                {errors.streetNumber && touched.streetNumber ? (<div class="error">{errors.streetNumber}</div>) : null}
-                            </div>
-                            <div class="form-floating mb-3 w-75">
-                                <Field name="street" type="label" class="form-control" />
-                                <label for="floatingInput" class="always-grey">Rue</label>
-                                {errors.street && touched.street ? (<div class="error">{errors.street}</div>) : null}
-                            </div>
-                        </div>
-                        <div class="d-flex flex-direction-row">
-                            <div class="form-floating mb-3 me-3 w-50">
-                                <Field name="zipCode" type="label" class="form-control" />
-                                <label for="zipCode" class="always-grey">Code postal</label>
-                                {errors.zipCode && touched.zipCode ? (<div class="error">{errors.zipCode}</div>) : null}
-                            </div>
-                            <div class="form-floating mb-3 w-50">
-                                <Field name="city" type="label" class="form-control" />
-                                <label for="floatingInput" class="always-grey">Ville</label>
-                                {errors.city && touched.city ? (<div class="error">{errors.city}</div>) : null}
                             </div>
                         </div>
 

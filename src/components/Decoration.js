@@ -4,10 +4,16 @@ import { Formik, Form, Field } from "formik";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import * as Yup from 'yup';
+import { useNavigate } from "react-router-dom";
 
 export default function Decoration(props) {
 
     const [myNewRating, setNewRating] = useState("5");
+    const [wrongModel, setWrongModel] = useState(false);
+    const [added, setAdded] = useState(false);
+
+    const navigate = useNavigate();
 
     function fetchNewRating(event) {
         setNewRating(event.target.value)
@@ -21,6 +27,20 @@ export default function Decoration(props) {
         return options;
     }
 
+    function getModels() {
+        let options = [];
+        options.push(<option class="grey-text" value="Choisissez">Choisissez</option>)
+        if(props.models.length >= 1) {
+            options.push(<option value={props.models[0]}>{props.models[0]}</option>)
+            for(let i=1; i < props.models.length; i++) {
+                options.push(<option value={props.models[i]}>{props.models[i]}</option>)
+            }
+        } else {
+            options.push(<option value="Modèle unique">Modèle unique</option>)
+        }
+        return options;
+    }
+
     function getFormattedPrice(price) {
         if(price - Math.trunc(price) >= 0.01) {
             return Math.floor(price) + "," + ((price - Math.trunc(price))*100).toFixed(0) + " €";
@@ -29,20 +49,51 @@ export default function Decoration(props) {
         }
     }
 
-    function addInBasket(quantity) {
-        let newBasket = [...props.basket];
-        let alreadyInBasket = false;
-        for(let i = 0; i<newBasket.length; i++) {
-            if(newBasket[i][0].id == props.decoration.id) {
-                newBasket[i][1] += parseInt(quantity);
-                alreadyInBasket = true;
-            } 
+    function addInBasket(quantity, model) {
+        if(model && model != "Choisissez") {
+            let newBasket = [...props.basket];
+            let alreadyInBasket = false;
+            for(let i = 0; i<newBasket.length; i++) {
+                if(newBasket[i][0].id == props.decoration.id && newBasket[i][2] == model) {
+                    newBasket[i][1] += parseInt(quantity);
+                    alreadyInBasket = true;
+                } 
+            }
+            if (!alreadyInBasket) {
+                newBasket.push([props.decoration, parseInt(quantity), model]);
+            }
+            props.setBasket(newBasket);
+            window.localStorage.setItem("basket", JSON.stringify(newBasket));
+            setAdded(true)
+            setWrongModel(false)
+        } else {
+            setAdded(false)
+            setWrongModel(true)
         }
-        if (!alreadyInBasket) {
-            newBasket.push([props.decoration, parseInt(quantity)]);
+    }
+
+    function isWrongModel() {
+        if(wrongModel) {
+            return(
+                <div class="d-flex justify-content-start mt-2 mb-0 ">
+                    <div class="text-danger align-self-center vertical-align-middle">
+                        Merci de choisir un modèle
+                    </div>
+                </div>
+            );
         }
-        props.setBasket(newBasket);
-        window.localStorage.setItem("basket", JSON.stringify(newBasket));
+    }
+
+    function rightfullyAdded() {
+        if(added) {
+            return(
+                <div class="d-flex justify-content-center mt-2 mb-0 ">
+                    <div class="text-success align-self-center vertical-align-middle">
+                        L'article a été ajouté à votre panier
+                    </div>
+                </div>
+            );
+        }
     }
 
     function getTags(tags) {
@@ -139,7 +190,7 @@ export default function Decoration(props) {
 
     function stars(rating) {
         if(rating < 0.25) {
-            return("Non noté")
+            return("Cet article n'a pas encore reçu de commentaire.")
         } if(rating >= 0.25 && rating < 0.75) {
             return(<i class="fa-solid fa-star-half my-star"></i>)
         } if(rating >= 0.75 && rating < 1.25) {
@@ -527,7 +578,7 @@ export default function Decoration(props) {
             return(
                 <div class="d-flex flex-wrap justify-content-center align-content-center max-20">
                     <button onClick={() => addOne(deco)} type="button" class="btn btn-success">Ajouter 1 au panier</button>
-                    <Link to={moreDetails(deco)} type="button" class="btn btn-info">Plus d'infos</Link>
+                    <Link reloadDocument to={moreDetails(deco)} type="button" class="btn btn-info">Plus d'infos</Link>
                 </div>
             );
         }
@@ -638,6 +689,15 @@ export default function Decoration(props) {
                         picture1: props.pictures[0],
                         picture2: props.pictures[1],
                         picture3: props.pictures[2],
+                        picture4: props.pictures[3],
+                        picture5: props.pictures[4],
+                        picture6: props.pictures[5],
+                        model1: props.models[0],
+                        model2: props.models[1],
+                        model3: props.models[2],
+                        model4: props.models[3],
+                        model5: props.models[4],
+                        model6: props.models[5],
                         description: props.decoration.description,
                         price: props.currentPrice,
                         preparationDelay: props.decoration.preparationDelay,
@@ -659,17 +719,18 @@ export default function Decoration(props) {
                         <Field name="name" type="label" class="form-control" />
                     </h3>
                     <div class="card-body d-flex flex-column">
-                        <div class="form-floating mb-3">
-                                <Field name="picture1" type="label" class="form-control" />
-                                <label for="floatingInput" class="always-grey">URL de l'image n°1</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                                <Field name="picture2" type="label" class="form-control" />
-                                <label for="floatingInput" class="always-grey">URL de l'image n°2</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                                <Field name="picture3" type="label" class="form-control" />
-                                <label for="floatingInput" class="always-grey">URL de l'image n°3</label>
+                        <div class="mb-3">
+                            <label for="floatingInput" class="always-grey">URLs des images</label>  
+                            <div class="d-flex flex-row">
+                                <Field name="picture1" type="label" class="form-control"/>
+                                <Field name="picture2" type="label" class="form-control"/>
+                                <Field name="picture3" type="label" class="form-control"/>
+                            </div>       
+                            <div class="d-flex flex-row">
+                                <Field name="picture4" type="label" class="form-control"/>
+                                <Field name="picture5" type="label" class="form-control"/>
+                                <Field name="picture6" type="label" class="form-control"/>
+                            </div>                    
                         </div>
                         <div class="form-floating mb-3">
                                 <Field name="description" type="label" class="form-control my-textarea" component="textarea"/>
@@ -713,6 +774,19 @@ export default function Decoration(props) {
                                 <Field name="tag3" type="label" class="form-control"/>
                             </div>                      
                         </div>
+                        <div class="mb-3">
+                            <label for="floatingInput" class="always-grey">Modèles</label>  
+                            <div class="d-flex flex-row">
+                                <Field name="model1" type="label" class="form-control"/>
+                                <Field name="model2" type="label" class="form-control"/>
+                                <Field name="model3" type="label" class="form-control"/>
+                            </div>       
+                            <div class="d-flex flex-row">
+                                <Field name="model4" type="label" class="form-control"/>
+                                <Field name="model5" type="label" class="form-control"/>
+                                <Field name="model6" type="label" class="form-control"/>
+                            </div>                    
+                        </div>
                         <div class="m-2 d-flex justify-content-end">
                             <Link to="/catalogue" type="button" class="btn btn-warning">Annuler</Link>
                             <Link
@@ -723,6 +797,9 @@ export default function Decoration(props) {
                                     values.picture1, 
                                     values.picture2,
                                     values.picture3,
+                                    values.picture4, 
+                                    values.picture5,
+                                    values.picture6,
                                     values.description, 
                                     values.price, 
                                     values.preparationDelay,
@@ -730,7 +807,13 @@ export default function Decoration(props) {
                                     values.dimensions,
                                     values.tag1,
                                     values.tag2,
-                                    values.tag3
+                                    values.tag3,
+                                    values.model1, 
+                                    values.model2,
+                                    values.model3,
+                                    values.model4, 
+                                    values.model5,
+                                    values.model6
                                     )}
                             >
                                     Valider
@@ -742,6 +825,11 @@ export default function Decoration(props) {
                 </Formik>
             </div>); 
         } else {
+            const choiceSchema = Yup.object().shape({
+
+                model: Yup.string().required("Champ obligatoire").notOneOf([null, "Choisissez"], "Champ obligatoire")
+             
+              });
             return(
             <div class={cardClass()}>
                 <h3 class="card-header my-header">
@@ -770,16 +858,22 @@ export default function Decoration(props) {
                         <div> <br /> Dimensions : {props.decoration.dimensions} </div>
                         <div> <br /> Temps de préparation estimé : {props.decoration.preparationDelay} jours </div>
                     </span>
-                    <span class="d-flex flex-column justify-content-center align-self-center space-small-screen">
+                    <span class="d-flex flex-column justify-content-center align-self-center space-small-screen my-min25">
                         <Formik
-                            initialValues={{
-                                quantity: 1
-                            }}
+                            initialValues={{quantity: 1}}
+                            validationSchema={choiceSchema}
                         >
                         {({ errors, touched, values }) => (
                             <Form>
-                                <span class="d-flex flex-column justify-content-center">
+                                <div class="d-flex flex-column justify-content-center">
+                                    {isWrongModel()}    
                                     <div class="form-floating">
+                                        <Field name="model" as="select" class="form-select">
+                                            {getModels()}
+                                        </Field>
+                                        <label for="floatingInput" class="always-grey">Modèle</label>
+                                    </div>
+                                    <div class="form-floating my-choose">
                                         <Field name="quantity" as="select" class="form-select">
                                             {getQuantity()}
                                         </Field>
@@ -787,13 +881,13 @@ export default function Decoration(props) {
                                     </div>
                                         <Link 
                                             type="button" 
-                                            class="btn btn-success"
-                                            to="/catalogue"
-                                            onClick={() => addInBasket(values.quantity)}
+                                            class="btn btn-success my-choose"
+                                            onClick={() => addInBasket(values.quantity, values.model)}
                                         >
                                             Ajouter au panier
                                         </Link>
-                                </span>
+                                        {rightfullyAdded()}
+                                </div>
                             </Form>
                             )} 
                         </Formik>

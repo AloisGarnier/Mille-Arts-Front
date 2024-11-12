@@ -18,17 +18,31 @@ export default function Catalog(props) {
         }
     }
 
+    function findLesserIdModel(decoration) {
+        let modelName = "Modèle unique"
+        if(decoration.models.length >= 1) {
+            let modelId = decoration.models[0].id
+            for(let i=0; i<decoration.models.length; i++) {
+                if(decoration.models[i].id <= modelId) {
+                    modelId = decoration.models[i].id
+                    modelName = decoration.models[i].name
+                }
+            }
+        }
+        return modelName
+    }
+
     function addOne(decoration) {
         let newBasket = [...props.basket];
         let alreadyInBasket = false;
         for(let i = 0; i<newBasket.length; i++) {
-            if(newBasket[i][0].id == decoration.id) {
+            if(newBasket[i][0].id == decoration.id && newBasket[i][2] == findLesserIdModel(decoration)) {
                 newBasket[i][1] += 1;
                 alreadyInBasket = true;
             } 
         }
         if (!alreadyInBasket) {
-            newBasket.push([decoration, 1]);
+            newBasket.push([decoration, 1, findLesserIdModel(decoration)]);
         }
         props.setBasket(newBasket);
         window.localStorage.setItem("basket", JSON.stringify(newBasket));

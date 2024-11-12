@@ -98,13 +98,20 @@ export default function Commands(props) {
         return datesDisplay
     }
 
+    function displayModel(model) {
+        if(model && model != "Modèle unique") {
+            return "("+model+")"
+        }
+        return ""
+    }
+
     function returnDecos(command) {
         let decosDisplay = []
 
         for(let i=0; i<command.commandLines.length; i++) {
             decosDisplay.push(
                 <li>
-                    {command.commandLines[i].decoration.name} x{command.commandLines[i].quantity}
+                    {command.commandLines[i].decoration.name} {displayModel(command.commandLines[i].model)} x{command.commandLines[i].quantity}
                 </li>
             )
         }
@@ -210,7 +217,9 @@ export default function Commands(props) {
                                 {returnDates(activeStep, commands[i])}
                                 <div>
                                     Client : {commands[i].customer.firstName} {commands[i].customer.lastName} <br/>
-                                    Adresse : {commands[i].address}
+                                    Adresse : {commands[i].streetNumber} {commands[i].street} <br/>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {commands[i].complement} <br/>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {commands[i].zipCode} {commands[i].city}
                                 </div>
                                 <div>
                                     Décorations : <br/>
