@@ -56,7 +56,6 @@ export default function Payment(props) {
     }
 
     function createOrder() {
-        sendOrder()
         return fetch(paypalUrl + "init", {
             method: "POST",
             headers: {
@@ -71,6 +70,7 @@ export default function Payment(props) {
     }
 
     function onApprove(data) {
+        sendOrder();
         props.setBasket([]);
         window.localStorage.removeItem("basket");
           return fetch(paypalUrl + "capture", {
